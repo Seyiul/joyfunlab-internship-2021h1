@@ -14,7 +14,7 @@ chmod 600 ~/.ssh/id_rsa
 ```
 4. Repository 클론하기
 ```sh
-git clone git@github.com:joyfunlab/internship-2020h2.git
+git clone git@github.com:joyfunlab/internship-2021h1.git
 ```
 
 ## 디렉토리 구조
@@ -29,7 +29,8 @@ git clone git@github.com:joyfunlab/internship-2020h2.git
 
 ## 테스트 디바이스
 
-- 정문 쪽 White Device
+- TBD
 
-## 기획서 경로 
-- \internship-2020h2\docs\[JoyFitness] 전시회용 미니 게임_JoyRun
+## 기획서 경로
+
+- \internship-2021h1\docs\[JoyFitness] 전시회용 미니 게임_JoyRun
