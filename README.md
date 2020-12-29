@@ -3,12 +3,14 @@
 ## 개발 환경 설정
 
 1. [GitHub](https://github.com) 계정 만들기
-1. [GitForWindows](https://gitforwindows.org) 설치하기
-1. Repository 클론하기
+2. [GitForWindows](https://gitforwindows.org) 설치하기
+3. Repository 클론하기
+
 ```sh
 git clone https://github.com/joyfunlab/internship-2021h1.git
 ```
-1. [Unity 3D](https://store.unity.com/download) 설치하기
+
+4. [Unity 3D](https://store.unity.com/download) 설치하기
 
 ## 디렉토리 구조
 
