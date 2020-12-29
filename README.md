@@ -1,21 +1,14 @@
-# 2020 하반기 산학인턴 프로젝트
+# 2021 상반기 산학인턴 프로젝트
 
 ## 개발 환경 설정
 
-1. GitHub 계정 만들기
-2. 개발 PC에 [GitForWindows](https://gitforwindows.org/) 설치하기
-3. SSH 환경 설정하기
+1. [GitHub](https://github.com) 계정 만들기
+1. [GitForWindows](https://gitforwindows.org) 설치하기
+1. Repository 클론하기
 ```sh
-# bash ~/.ssh 디렉토리 아래 id_rsa, id_rsa.pub 파일 복사
-curl http://192.168.0.102/download/master@joyfun.kr-github_id_rsa -o ~/.ssh/id_rsa
-curl http://192.168.0.102/download/master@joyfun.kr-github_id_rsa.pub -o ~/.ssh/id_rsa.pub
-chmod 644 ~/.ssh/id_rsa.pub
-chmod 600 ~/.ssh/id_rsa
+git clone https://github.com/joyfunlab/internship-2021h1.git
 ```
-4. Repository 클론하기
-```sh
-git clone git@github.com:joyfunlab/internship-2021h1.git
-```
+1. [Unity 3D](https://store.unity.com/download) 설치하기
 
 ## 디렉토리 구조
 
