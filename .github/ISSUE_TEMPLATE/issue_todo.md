@@ -2,7 +2,7 @@
 name: Issue
 about: an issue for this project
 title: "[ISSUE] "
-labels: issue
+labels: todo
 assignees: ''
 
 ---
