@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -18,7 +18,7 @@ public class SC_GroundGenerator : MonoBehaviour
     public bool gameOver = false;
     static bool gameStarted = false;
     float score = 0;
-
+    float time = 10;
     public static SC_GroundGenerator instance;
 
     // Start is called before the first frame update
@@ -57,8 +57,10 @@ public class SC_GroundGenerator : MonoBehaviour
         {
             transform.Translate(-spawnedTiles[0].transform.forward * Time.deltaTime * (movingSpeed + (score / 500)), Space.World);
             score += Time.deltaTime * movingSpeed;
+            time = time-Time.deltaTime;
+            if(time <0 ) gameOver=true;
         }
-
+        
         if (mainCamera.WorldToViewportPoint(spawnedTiles[0].endPoint.position).z < 0)
         {
             //Move the tile to the front if it's behind the Camera
@@ -107,5 +109,7 @@ public class SC_GroundGenerator : MonoBehaviour
 
         GUI.color = Color.green;
         GUI.Label(new Rect(5, 5, 200, 25), "Score: " + ((int)score));
+        GUI.color = Color.black;
+        GUI.Label(new Rect(300,5, 200,25 ),"Time: "+(int)time);
     }
 }
