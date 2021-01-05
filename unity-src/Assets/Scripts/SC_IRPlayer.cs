@@ -8,6 +8,7 @@ public class SC_IRPlayer : MonoBehaviour
 {
     public float gravity = 20.0f;
     public float jumpHeight = 2.5f;
+    public int life = 3;
 
     public Rigidbody r;
     bool grounded = false;
@@ -34,9 +35,9 @@ public class SC_IRPlayer : MonoBehaviour
         }
 
         //float h = Input.GetAxisRaw("Horizontal") * 2.25f;
-        
-       //transform.Translate(Vector3.right * h * Time.deltaTime * 1.0f);
-       if (Input.GetKeyDown(KeyCode.A) && grounded)
+
+        //transform.Translate(Vector3.right * h * Time.deltaTime * 1.0f);
+        if (Input.GetKeyDown(KeyCode.A) && grounded)
         {
             if (transform.position.x != -2.25)
                 transform.Translate(new Vector3(-2.25f, r.velocity.y, r.velocity.z));
@@ -48,21 +49,6 @@ public class SC_IRPlayer : MonoBehaviour
                 transform.Translate(new Vector3(2.25f, r.velocity.y, r.velocity.z));
         }
 
-
-
-
-
-
-        ////Crouch
-        //crouch = Input.GetKey(KeyCode.S);
-        //if (crouch)
-        //{
-        //    transform.localScale = Vector3.Lerp(transform.localScale, new Vector3(defaultScale.x, defaultScale.y * 0.4f, defaultScale.z), Time.deltaTime * 7);
-        //}
-        //else
-        //{
-        //    transform.localScale = Vector3.Lerp(transform.localScale, defaultScale, Time.deltaTime * 7);
-        //}
     }
 
     // Update is called once per frame
@@ -91,7 +77,15 @@ public class SC_IRPlayer : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             //print("GameOver!");
-            SC_GroundGenerator.instance.gameOver = true;
+            if (life == 0)
+                SC_GroundGenerator.instance.gameOver = true;
+            else
+                life--;
         }
+    }
+
+    void OnGUI()
+    {
+        GUI.Label(new Rect(5, 25, 200, 25), "Life: " + ((int)life));
     }
 }
