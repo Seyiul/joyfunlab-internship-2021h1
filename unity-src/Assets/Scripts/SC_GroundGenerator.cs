@@ -8,9 +8,9 @@ public class SC_GroundGenerator : MonoBehaviour
     public Camera mainCamera;
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
-    public float movingSpeed = 12;
+    public float movingSpeed = 100;
     public int tilesToPreSpawn = 15; //How many tiles should be pre-spawned
-    public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
+    public int tilesWithoutObstacles = 1; //How many tiles at the beginning should not have obstacles, good for warm-up
 
     List<SC_PlatformTile> spawnedTiles = new List<SC_PlatformTile>();
     int nextTileToActivate = -1;
@@ -66,6 +66,7 @@ public class SC_GroundGenerator : MonoBehaviour
             spawnedTiles.RemoveAt(0);
             tileTmp.transform.position = spawnedTiles[spawnedTiles.Count - 1].endPoint.position - tileTmp.startPoint.localPosition;
             tileTmp.ActivateRandomObstacle();
+            System.Console.WriteLine(tileTmp.randnum);
             spawnedTiles.Add(tileTmp);
         }
 
