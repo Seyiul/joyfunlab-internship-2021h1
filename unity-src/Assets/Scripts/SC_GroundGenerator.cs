@@ -18,7 +18,7 @@ public class SC_GroundGenerator : MonoBehaviour
     public bool gameOver = false;
     static bool gameStarted = false;
     float score = 0;
-    float time = 10;
+    float time = 100000;
     public static SC_GroundGenerator instance;
 
     // Start is called before the first frame update

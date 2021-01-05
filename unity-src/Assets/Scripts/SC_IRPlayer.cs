@@ -82,6 +82,11 @@ public class SC_IRPlayer : MonoBehaviour
             else
                 life--;
         }
+        if(collision.gameObject.tag == "life")
+        {
+            Destroy(collision.gameObject);
+            life++;
+        }
     }
 
     void OnGUI()
