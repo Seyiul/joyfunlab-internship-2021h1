@@ -73,26 +73,7 @@ public class SC_GroundGenerator : MonoBehaviour
             if(time <0 ) gameOver=true;
             
         }
-        if (gameOver)
-        {
-            if (score < highScore)
-            {
-                if (score < secondScore)
-                {
-                    if (score < thirdScore)
-                        return;
-                    PlayerPrefs.SetInt("thirdscore", (int)score);
-                    return;
-                }
-                PlayerPrefs.SetInt("thirdscore", secondScore);
-                PlayerPrefs.SetInt("secondscore", (int)score);
-                return;
-            }
-            if (score == highScore) return;
-            PlayerPrefs.SetInt("thirdscore", secondScore);
-            PlayerPrefs.SetInt("secondscore", highScore);
-            PlayerPrefs.SetInt("highscore", (int)score);
-        }
+   
         if (mainCamera.WorldToViewportPoint(spawnedTiles[0].endPoint.position).z < 0)
         {
             //Move the tile to the front if it's behind the Camera
@@ -120,6 +101,23 @@ public class SC_GroundGenerator : MonoBehaviour
                     gameStarted = true;
                 }
             }
+            if (score < highScore)
+            {
+                if (score < secondScore)
+                {
+                    if (score < thirdScore)
+                        return;
+                    PlayerPrefs.SetInt("thirdscore", (int)score);
+                    return;
+                }
+                PlayerPrefs.SetInt("thirdscore", secondScore);
+                PlayerPrefs.SetInt("secondscore", (int)score);
+                return;
+            }
+            if (score == highScore) return;
+            PlayerPrefs.SetInt("thirdscore", secondScore);
+            PlayerPrefs.SetInt("secondscore", highScore);
+            PlayerPrefs.SetInt("highscore", (int)score);
         }
     }
    
