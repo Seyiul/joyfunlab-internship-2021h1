@@ -8,11 +8,11 @@ public class SC_PlatformTile : MonoBehaviour
     public Transform endPoint;
     public GameObject[] obstacles; //Objects that contains different obstacle types which will be randomly activated
     public GameObject[] life;
-    System.Random random = new System.Random();
     public void ActivateRandomObstacle()
     {
         DeactivateAllObstacles();
 
+        System.Random random = new System.Random();
         int randomNumber = random.Next(0, obstacles.Length);
         obstacles[randomNumber].SetActive(true);
     }
@@ -27,9 +27,9 @@ public class SC_PlatformTile : MonoBehaviour
     public void ActivateRandomLife()
     {
         DeactivateAllLife();
-
+        System.Random random = new System.Random();
         int randNum = random.Next(0, life.Length * 2);
-        if(randNum < 3)
+        if(randNum < 3&&life != null)
         {
             Debug.Log(randNum);
             life[randNum].SetActive(true);
@@ -39,7 +39,8 @@ public class SC_PlatformTile : MonoBehaviour
     {
         for (int i = 0; i < life.Length; i++)
         {
-            life[i].SetActive(false);
+            if(life != null)
+                life[i].SetActive(false);
         }
     }
 }
