@@ -44,6 +44,7 @@ public class SC_IRPlayer : MonoBehaviour
     void FixedUpdate()
     {
         // We apply gravity manually for more tuning control
+        gravity = 2 * SC_GroundGenerator.instance.movingSpeed - 10.0f;
         r.AddForce(new Vector3(0, -gravity * r.mass, 0));
         grounded = false;
     }

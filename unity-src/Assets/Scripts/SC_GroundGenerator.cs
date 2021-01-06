@@ -8,7 +8,7 @@ public class SC_GroundGenerator : MonoBehaviour
     public Camera mainCamera;
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
-    public float movingSpeed = 30;
+    public float movingSpeed = 10;
     public int tilesToPreSpawn = 6; //How many tiles should be pre-spawned
     public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
 
@@ -55,6 +55,7 @@ public class SC_GroundGenerator : MonoBehaviour
     {
         // Move the object upward in world space x unit/second.
         //Increase speed the higher score we get
+        movingSpeed += 0.05f;
         if (!gameOver && gameStarted)
         {
             transform.Translate(-spawnedTiles[0].transform.forward * Time.deltaTime * (movingSpeed + (score / 500)), Space.World);
