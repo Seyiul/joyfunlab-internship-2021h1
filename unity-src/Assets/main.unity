@@ -355,10 +355,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 17ca8cebc12c4df4e81cd9beb63d8f2b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 0}
-  startPoint: {fileID: 0}
-  tilePrefab: {fileID: 0}
-  movingSpeed: 30
+  mainCamera: {fileID: 1335764803}
+  startPoint: {fileID: 1175751199}
+  tilePrefab: {fileID: 3172474761156018835, guid: 2d202679ee0096846aa3e21986866d36,
+    type: 3}
+  movingSpeed: 10
   tilesToPreSpawn: 11
   tilesWithoutObstacles: 10
   gameOver: 0
@@ -383,6 +384,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 6577288495512990504, guid: 11c3c28396d5f2b4e90e95c48d319b47,
+        type: 3}
+      propertyPath: gravity
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 6577288495512990506, guid: 11c3c28396d5f2b4e90e95c48d319b47,
         type: 3}
       propertyPath: m_Name
