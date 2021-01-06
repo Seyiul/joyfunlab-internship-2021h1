@@ -86,6 +86,6 @@ public class SC_IRPlayer : MonoBehaviour
     }
     void OnGUI()
     {
-        GUI.Label(new Rect(5, 25, 200, 25), "Life: " + ((int)life));
+        GUI.Label(new Rect(5, 50, 200, 25), "Life: " + ((int)life));
     }
 }
