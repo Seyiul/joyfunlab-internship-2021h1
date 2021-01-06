@@ -84,7 +84,7 @@ public class SC_IRPlayer : MonoBehaviour
         }
         if(collision.gameObject.tag == "life")
         {
-            Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Renderer>().enabled = false;
             life++;
         }
     }

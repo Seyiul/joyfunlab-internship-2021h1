@@ -126,6 +126,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gravity: 20
   jumpHeight: 2.5
+  life: 3
   r: {fileID: 0}
 --- !u!65 &1071092869814576121
 BoxCollider:

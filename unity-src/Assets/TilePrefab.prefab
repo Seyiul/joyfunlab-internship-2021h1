@@ -911,7 +911,7 @@ GameObject:
   - component: {fileID: 2647202827812891471}
   m_Layer: 0
   m_Name: Obstacle1
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1416,7 +1416,7 @@ GameObject:
   - component: {fileID: 6802862553347800691}
   m_Layer: 0
   m_Name: Obstacle2
-  m_TagString: Untagged
+  m_TagString: Finish
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1536,10 +1536,20 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 234029779508541300}
     m_Modifications:
+    - target: {fileID: 449523385368558483, guid: 56da4534bf76f694bb31eff9125191c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3288121805209847390, guid: 56da4534bf76f694bb31eff9125191c0,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4962937190771969897, guid: 56da4534bf76f694bb31eff9125191c0,
+        type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8418203896160523159, guid: 56da4534bf76f694bb31eff9125191c0,
         type: 3}
