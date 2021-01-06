@@ -439,9 +439,9 @@ MonoBehaviour:
   startPoint: {fileID: 1175751199}
   tilePrefab: {fileID: 3172474761156018835, guid: 2d202679ee0096846aa3e21986866d36,
     type: 3}
-  movingSpeed: 12
-  tilesToPreSpawn: 15
-  tilesWithoutObstacles: 3
+  movingSpeed: 20
+  tilesToPreSpawn: 6
+  tilesWithoutObstacles: 5
   gameOver: 0
 --- !u!4 &2048029361
 Transform:

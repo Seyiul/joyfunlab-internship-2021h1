@@ -35,11 +35,13 @@ public class SC_GroundGenerator : MonoBehaviour
             if (tilesWithNoObstaclesTmp > 0)
             {
                 spawnedTile.DeactivateAllObstacles();
+                spawnedTile.DeactivateAllLife();
                 tilesWithNoObstaclesTmp--;
             }
             else
             {
                 spawnedTile.ActivateRandomObstacle();
+                spawnedTile.ActivateRandomLife();
             }
 
             spawnPosition = spawnedTile.endPoint.position;
@@ -68,6 +70,7 @@ public class SC_GroundGenerator : MonoBehaviour
             spawnedTiles.RemoveAt(0);
             tileTmp.transform.position = spawnedTiles[spawnedTiles.Count - 1].endPoint.position - tileTmp.startPoint.localPosition;
             tileTmp.ActivateRandomObstacle();
+            tileTmp.ActivateRandomLife();
             spawnedTiles.Add(tileTmp);
         }
 
