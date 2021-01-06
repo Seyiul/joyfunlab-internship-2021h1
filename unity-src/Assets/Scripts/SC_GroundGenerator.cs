@@ -19,6 +19,9 @@ public class SC_GroundGenerator : MonoBehaviour
     static bool gameStarted = false;
     float score = 0;
     int highScore = 0;
+    int secondScore = 0;
+    int thirdScore = 0;
+
     float time = 100000;
     public static SC_GroundGenerator instance;
 
@@ -28,6 +31,8 @@ public class SC_GroundGenerator : MonoBehaviour
         instance = this;
 
         highScore = PlayerPrefs.GetInt("highscore");
+        secondScore = PlayerPrefs.GetInt("secondscore");
+        thirdScore = PlayerPrefs.GetInt("thirdscore");
 
         Vector3 spawnPosition = startPoint.position;
         int tilesWithNoObstaclesTmp = tilesWithoutObstacles;
@@ -70,10 +75,23 @@ public class SC_GroundGenerator : MonoBehaviour
         }
         if (gameOver)
         {
-            if (score > highScore)
+            if (score < highScore)
             {
-                PlayerPrefs.SetInt("highscore", (int)score);
+                if (score < secondScore)
+                {
+                    if (score < thirdScore)
+                        return;
+                    PlayerPrefs.SetInt("thirdscore", (int)score);
+                    return;
+                }
+                PlayerPrefs.SetInt("thirdscore", secondScore);
+                PlayerPrefs.SetInt("secondscore", (int)score);
+                return;
             }
+            if (score == highScore) return;
+            PlayerPrefs.SetInt("thirdscore", secondScore);
+            PlayerPrefs.SetInt("secondscore", highScore);
+            PlayerPrefs.SetInt("highscore", (int)score);
         }
         if (mainCamera.WorldToViewportPoint(spawnedTiles[0].endPoint.position).z < 0)
         {
@@ -123,8 +141,13 @@ public class SC_GroundGenerator : MonoBehaviour
 
         GUI.color = Color.green;
         GUI.Label(new Rect(5, 5, 200, 25), "Score: " + ((int)score));
-        GUI.color = Color.green;
-        GUI.Label(new Rect(5, 25, 200, 25), "High Score: " + ((int)highScore));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 25, 200, 25), "1st: " + ((int)highScore));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 50, 200, 25), "2nd: " + ((int)secondScore));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 75, 200, 25), "3rd: " + ((int)thirdScore));
+
         GUI.color = Color.black;
         GUI.Label(new Rect(300,5, 200,25 ),"Time: "+(int)time);
     }
