@@ -9,8 +9,8 @@ public class SC_GroundGenerator : MonoBehaviour
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
     public float movingSpeed = 30;
-    public int tilesToPreSpawn = 11; //How many tiles should be pre-spawned
-    public int tilesWithoutObstacles = 10; //How many tiles at the beginning should not have obstacles, good for warm-up
+    public int tilesToPreSpawn = 6; //How many tiles should be pre-spawned
+    public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
 
     List<SC_PlatformTile> spawnedTiles = new List<SC_PlatformTile>();
     int nextTileToActivate = -1;

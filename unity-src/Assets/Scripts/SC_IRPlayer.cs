@@ -66,6 +66,7 @@ public class SC_IRPlayer : MonoBehaviour
             {
                 life--;
                 SC_GroundGenerator.instance.gameOver = true;
+
             }
             else if(life>1)
                 life--;
