@@ -77,8 +77,11 @@ public class SC_IRPlayer : MonoBehaviour
         if (collision.gameObject.tag == "Finish")
         {
             //print("GameOver!");
-            if (life == 0)
+            if (life == 1)
+            {
+                life--;
                 SC_GroundGenerator.instance.gameOver = true;
+            }
             else
                 life--;
         }
