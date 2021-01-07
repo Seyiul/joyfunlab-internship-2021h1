@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
@@ -8,7 +8,7 @@ public class SC_IRPlayer : MonoBehaviour
     public float jumpHeight = 2.5f;
     public int life = 3;
     public Rigidbody r;
-    bool grounded = false;
+    bool grounded = true;
     Vector3 defaultScale;
     bool crouch = false;
     // Start is called before the first frame update
@@ -44,13 +44,9 @@ public class SC_IRPlayer : MonoBehaviour
     void FixedUpdate()
     {
         // We apply gravity manually for more tuning control
-        gravity = Mathf.Round(2.5f * SC_GroundGenerator.instance.movingSpeed);
+        gravity = 2.5f * SC_GroundGenerator.instance.movingSpeed;
         r.AddForce(new Vector3(0, -gravity * r.mass, 0));
         grounded = false;
-    }
-    void OnCollisionStay()
-    {
-        grounded = true;
     }
     float CalculateJumpVerticalSpeed()
     {
@@ -58,34 +54,48 @@ public class SC_IRPlayer : MonoBehaviour
         // for the character to reach at the apex.
         return Mathf.Sqrt(2 * jumpHeight * gravity);
     }
-    void OnCollisionEnter(Collision collision)
+    void OnCollisionStay(Collision col)
     {
-        if (collision.gameObject.tag == "Finish")
+        if(col.gameObject.tag == "ground")
+            grounded = true;
+    }
+    void OnTriggerEnter(Collider col)
+    {
+        if (col.gameObject.tag == "Finish")
         {
-            //print("GameOver!");
             if (life == 1)
             {
                 life--;
                 SC_GroundGenerator.instance.gameOver = true;
-
             }
-            else if(life>1)
+            else if (life > 1)
                 life--;
         }
-    }
-    void OnTriggerEnter(Collider col)
-    {
+
         if (col.gameObject.tag == "life")
         {
             life++;
             col.gameObject.GetComponent<Renderer>().enabled = false;
         }
     }
+    void OnTriggerStay(Collider col)
+    {
+        grounded = false;
+        if (col.gameObject.tag == "Finish")
+        {
+//            SC_GroundGenerator.instance.movingSpeed = 0;
+            this.GetComponent<Renderer>().material.color = Color.white;
+        }
+    }
     void OnTriggerExit(Collider col)
     {
+        if (col.gameObject.tag == "Finish")
+        {
+            this.GetComponent<Renderer>().material.color = Color.red;
+        }
     }
     void OnGUI()
     {
-        GUI.Label(new Rect(300, 30, 200, 25), "Life: " + ((int)life));
+        GUI.Label(new Rect(5, 25, 200, 25), "Life: " + ((int)life));
     }
 }
