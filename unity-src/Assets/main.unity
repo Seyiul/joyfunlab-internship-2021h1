@@ -319,13 +319,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1335764802}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: 0.30070576, y: 0, z: 0, w: 0.953717}
+  m_LocalPosition: {x: 0, y: 6, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 35, y: 0, z: 0}
 --- !u!1 &2048029359
 GameObject:
   m_ObjectHideFlags: 0
@@ -359,9 +359,10 @@ MonoBehaviour:
   startPoint: {fileID: 1175751199}
   tilePrefab: {fileID: 3172474761156018835, guid: 2d202679ee0096846aa3e21986866d36,
     type: 3}
-  movingSpeed: 10
-  tilesToPreSpawn: 5
-  tilesWithoutObstacles: 3
+  movingSpeed: 30
+  maxSpeed: 30
+  tilesToPreSpawn: 11
+  tilesWithoutObstacles: 10
   gameOver: 0
 --- !u!4 &2048029361
 Transform:
@@ -384,11 +385,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 6577288495512990504, guid: 11c3c28396d5f2b4e90e95c48d319b47,
-        type: 3}
-      propertyPath: gravity
-      value: 20
-      objectReference: {fileID: 0}
     - target: {fileID: 6577288495512990506, guid: 11c3c28396d5f2b4e90e95c48d319b47,
         type: 3}
       propertyPath: m_Name
