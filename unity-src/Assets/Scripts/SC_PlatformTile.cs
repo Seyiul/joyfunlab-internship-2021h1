@@ -28,8 +28,8 @@ public class SC_PlatformTile : MonoBehaviour
     {
         DeactivateAllLife();
         System.Random random = new System.Random();
-        int randNum = random.Next(0, life.Length * 2);
-        if(randNum < 3&&life != null)
+        int randNum = random.Next(0, life.Length * 15);
+        if(randNum < life.Length&&life != null)
         {
             Debug.Log(randNum);
             life[randNum].SetActive(true);

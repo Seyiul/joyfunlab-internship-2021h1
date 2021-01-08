@@ -9,7 +9,6 @@ public class SC_GroundGenerator : MonoBehaviour
     public Transform startPoint; //Point from where ground tiles will start
     public SC_PlatformTile tilePrefab;
     public float movingSpeed = 10;
-    public float maxSpeed = 30;
     public int tilesToPreSpawn = 6; //How many tiles should be pre-spawned
     public int tilesWithoutObstacles = 3; //How many tiles at the beginning should not have obstacles, good for warm-up
 
@@ -19,6 +18,10 @@ public class SC_GroundGenerator : MonoBehaviour
     public bool gameOver = false;
     static bool gameStarted = false;
     float score = 0;
+    int highScore = 0;
+    int secondScore = 0;
+    int thirdScore = 0;
+
     float time = 100000;
     public static SC_GroundGenerator instance;
 
@@ -26,6 +29,10 @@ public class SC_GroundGenerator : MonoBehaviour
     void Start()
     {
         instance = this;
+
+        highScore = PlayerPrefs.GetInt("highscore");
+        secondScore = PlayerPrefs.GetInt("secondscore");
+        thirdScore = PlayerPrefs.GetInt("thirdscore");
 
         Vector3 spawnPosition = startPoint.position;
         int tilesWithNoObstaclesTmp = tilesWithoutObstacles;
@@ -56,17 +63,17 @@ public class SC_GroundGenerator : MonoBehaviour
     {
         // Move the object upward in world space x unit/second.
         //Increase speed the higher score we get
-        if(movingSpeed < maxSpeed) {
+        if(movingSpeed < 50)
             movingSpeed += 0.05f;
-        }
         if (!gameOver && gameStarted)
         {
             transform.Translate(-spawnedTiles[0].transform.forward * Time.deltaTime * (movingSpeed + (score / 500)), Space.World);
             score += Time.deltaTime * movingSpeed;
             time = time-Time.deltaTime;
             if(time <0 ) gameOver=true;
+            
         }
-        
+   
         if (mainCamera.WorldToViewportPoint(spawnedTiles[0].endPoint.position).z < 0)
         {
             //Move the tile to the front if it's behind the Camera
@@ -94,9 +101,26 @@ public class SC_GroundGenerator : MonoBehaviour
                     gameStarted = true;
                 }
             }
+            if (score < highScore)
+            {
+                if (score < secondScore)
+                {
+                    if (score < thirdScore)
+                        return;
+                    PlayerPrefs.SetInt("thirdscore", (int)score);
+                    return;
+                }
+                PlayerPrefs.SetInt("thirdscore", secondScore);
+                PlayerPrefs.SetInt("secondscore", (int)score);
+                return;
+            }
+            if (score == highScore) return;
+            PlayerPrefs.SetInt("thirdscore", secondScore);
+            PlayerPrefs.SetInt("secondscore", highScore);
+            PlayerPrefs.SetInt("highscore", (int)score);
         }
     }
-
+   
     void OnGUI()
     {
         if (gameOver)
@@ -113,9 +137,15 @@ public class SC_GroundGenerator : MonoBehaviour
             }
         }
 
-
         GUI.color = Color.green;
         GUI.Label(new Rect(5, 5, 200, 25), "Score: " + ((int)score));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 25, 200, 25), "1st: " + ((int)highScore));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 50, 200, 25), "2nd: " + ((int)secondScore));
+        GUI.color = Color.yellow;
+        GUI.Label(new Rect(5, 75, 200, 25), "3rd: " + ((int)thirdScore));
+
         GUI.color = Color.black;
         GUI.Label(new Rect(300,5, 200,25 ),"Time: "+(int)time);
     }
