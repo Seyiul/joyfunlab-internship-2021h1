@@ -85,6 +85,8 @@ public static class ConstInfo
     public const float stumblingTime = 0.7f;
     public const float punchingTime = 1f;
 
+    public const float kickingTime = 1f;
+
     // 배경 프리팹 길이 상수
     public const float runningTrackWidth = 42;
     public const float bgroundSizeZ = 335.1012f;

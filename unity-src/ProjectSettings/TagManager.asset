@@ -6,6 +6,14 @@ TagManager:
   tags:
   - life
   - ground
+  - Heart Tile
+  - Hurdle Tile
+  - Empty Tile
+  - Pass Tile
+  - Trap Tile
+  - Balloon Tile
+  - Battle Tile
+  - fade
   layers:
   - Default
   - TransparentFX

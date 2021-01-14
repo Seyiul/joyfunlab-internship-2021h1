@@ -12,7 +12,8 @@ public enum GameState: int
     Game = 4,
     Pause = 5,
     Result = 6,
-    MyRank = 7
+    MyRank = 7,
+    Battle=8
 }
 
 public class GameManager : MonoBehaviour

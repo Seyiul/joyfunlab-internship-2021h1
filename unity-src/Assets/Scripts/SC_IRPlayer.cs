@@ -1,9 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
+
 [RequireComponent(typeof(Rigidbody))]
 public class SC_IRPlayer : MonoBehaviour
 {
+    public int sceneIndex = 1;
+
+
     public float gravity = 20.0f;
     public float jumpHeight = 2.5f;
     public int life = 3;
@@ -60,7 +66,7 @@ public class SC_IRPlayer : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Finish")
+        if (collision.gameObject.tag == "Finish" || collision.gameObject.tag == "Trap Tile")
         {
             //print("GameOver!");
             if (life == 1)
@@ -72,6 +78,10 @@ public class SC_IRPlayer : MonoBehaviour
             else if(life>1)
                 life--;
         }
+        if (collision.gameObject.tag == "Battle Tile")
+        {
+            SceneManager.LoadScene(sceneIndex);
+        }
     }
     void OnTriggerEnter(Collider col)
     {
@@ -80,6 +90,7 @@ public class SC_IRPlayer : MonoBehaviour
             life++;
             col.gameObject.GetComponent<Renderer>().enabled = false;
         }
+        
     }
     void OnTriggerExit(Collider col)
     {

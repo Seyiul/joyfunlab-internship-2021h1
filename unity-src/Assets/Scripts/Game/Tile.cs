@@ -1,9 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class Tile : MonoBehaviour
 {
+    public int sceneIndex = 1;
+
+
     // 게임 오브젝트 변수 선언
     public GameObject heartTile;
     public GameObject hurdleTile;
@@ -13,6 +18,8 @@ public class Tile : MonoBehaviour
     public GameObject balloonTile;
     public GameObject trapTileEvent;
     public GameObject hurdleTileEvent;
+    public GameObject battleTile;
+
 
     // 리스트 변수 선언
     public static List<GameObject> randomTiles = new List<GameObject>();
@@ -41,7 +48,9 @@ public class Tile : MonoBehaviour
     public RuntimeAnimatorController hurdleEvent;
     public RuntimeAnimatorController hurdleDown;
     public RuntimeAnimatorController balloonEvent;
+    public RuntimeAnimatorController BattleEvent;
 
+  
     void Start()
     {
         InitialValues();
@@ -65,15 +74,18 @@ public class Tile : MonoBehaviour
         randomTiles.Add(hurdleTile);
         randomTiles.Add(emptyTile);
         randomTiles.Add(trapTile);
+        randomTiles.Add(battleTile);
 
         badTiles.Add(hurdleTile);
         badTiles.Add(trapTile);
+        badTiles.Add(battleTile);
     }
 
     void Update()
     {
         HandleTiles();
         CheckCollision();
+      
     }
 
     // 타일 설정 (생성, 속도, 이동, 삭제)
@@ -326,10 +338,42 @@ public class Tile : MonoBehaviour
                 case "Balloon Tile":
                     CheckCollisionBalloon(activatedTiles[i]);
                     break;
+                case "Battle Tile":
+                    CheckCollisionMonster(activatedTiles[i]);
+                    break;
+
             }
         }
     }
+    void CheckCollisionMonster(GameObject obj)
+    {
+        if (Mathf.Abs(obj.transform.position.z - ConstInfo.collisionPositionZ[0]) < ConstInfo.collisionRange
+            && GetChildTransform(obj, 0).localScale.x != 0
+            && obj.transform.position.x == Player.instance.highlight.transform.position.x
+            )
+        {
+            if (Player.instance.isJumping)
+            {
+                if (GetChildTransform(obj, 1).localScale.x != 0)
+                {
+                    Player.instance.EmptyCollision();
+                    GetChildTransform(obj, 1).localScale = Vector3.zero;
+                }
+            }
+            else
+            {
+                GetChildTransform(obj, 0).localScale = Vector3.zero;
+                Player.instance.ObstacleCollision();
+                GameFloorTile.InitialStepRecords();
+                userSpeed = 0;
+                //씬전환
+                SceneManager.LoadScene(sceneIndex);
+            
 
+            }
+
+        }
+    }
     // 하트 충돌 판정 알고리즘
     void CheckCollisionHeart(GameObject obj)
     {
@@ -390,6 +434,8 @@ public class Tile : MonoBehaviour
                 Player.instance.ObstacleCollision();
                 GameFloorTile.InitialStepRecords();
                 userSpeed = 0;
+        
+
             }
 
         }
@@ -436,3 +482,4 @@ public class Tile : MonoBehaviour
     Transform GetChildTransform(GameObject obj, int index) { return obj.transform.GetChild(index).transform; }
 
 }
+
