@@ -13,6 +13,6 @@ public class TestPlayerHP : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.003f);
+        PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.0005f);
     }
 }

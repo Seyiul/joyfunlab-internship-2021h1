@@ -18,6 +18,7 @@ public class playerBattle : MonoBehaviour
     public RuntimeAnimatorController animPunch;
 
     public RuntimeAnimatorController animKick;
+    public RuntimeAnimatorController animWin;
 
     // 행동 관련 번수 선언
     public bool isJumping;
@@ -29,7 +30,7 @@ public class playerBattle : MonoBehaviour
     public bool isPunching;
     public float punchTimer;
 
-
+    public float monsterHp;
     public float hp;
 
 
@@ -61,17 +62,23 @@ public class playerBattle : MonoBehaviour
     void Update()
     {
         hp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
-
+        monsterHp = (float)HealthBarHandler.GetHealthBarValue() * 100;
         if (GameManager.instance.GetGameState() == GameState.Game)
             HandleGame(GameUI.instance.timer);
         else if (GameManager.instance.GetGameState() == GameState.Pause)
             animator.runtimeAnimatorController = Setting.GetCurrentAnimationState() == AnimationState.Animation ? animIdle : null;
+
+       
     }
 
     // 시간, 체력에 따른 게임 동작 설정
     void HandleGame(float timer)
     {
-        if (hp == 0)
+        if (monsterHp == 0)
+        {
+            animator.runtimeAnimatorController = animWin;
+        }
+        else if (hp == 0)
         {
             animator.runtimeAnimatorController = animFinish;
 
