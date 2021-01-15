@@ -42,7 +42,7 @@ public class PlayerHealthbarHandler : MonoBehaviour
     private void Start()
     {
         HealthBarImage = GetComponent<Image>();
-        currentHp = GameObject.Find("Playercurrent").GetComponent<Text>();
+        currentHp = GameObject.Find("PlayerCurrent").GetComponent<Text>();
     }
     private void Update()
     {

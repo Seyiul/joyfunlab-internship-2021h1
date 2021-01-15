@@ -28,6 +28,8 @@ public class GameFloorTile : MonoBehaviour
     // 유저 상태 변수
     public static bool isJumping;
     public static bool isPunching;
+    //kick motion 추가
+    public static bool isKicking;
     public static bool stepSide;
     public static float stepRecordTime;
     public static float decreaseSpeedTimer;
@@ -403,6 +405,7 @@ public class GameFloorTile : MonoBehaviour
         HandleJump(); // 점프 판정 (버전 확인)
         HandleSteps();
         HandleAvatarPunch();
+        HandleKick();
     }
 
     // 결음 기록 조건 만족 시 함수 호출
@@ -454,7 +457,15 @@ public class GameFloorTile : MonoBehaviour
         else
             isPunching = false;
     }
-
+    //kick 판정 조건
+    void HandleKick()
+    {
+        if ((Avatar.userPositionLeftFoot.z > Avatar.userPosition.z)
+            || (Avatar.userPositionRightFoot.z > Avatar.userPosition.z))
+            isKicking = true;
+        else
+            isKicking = false;
+    }
 
 
     // 일시정지와 다시시작 조건
@@ -518,5 +529,12 @@ public class GameFloorTile : MonoBehaviour
             isPunching = true;
         else if (!GameManager.instance.GetKinectState())
             isPunching = false;
+
+
+        //Kick 키보드 설정
+        if (Input.GetKey(KeyCode.Return))
+            isKicking = true;
+        else if (!GameManager.instance.GetKinectState())
+            isKicking = false;
     }
 }
