@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class playerBattle : MonoBehaviour
 {
+    public static playerBattle instance;
     // 애니매이터 변수 선언
     Animator animator;
 
@@ -29,7 +30,7 @@ public class playerBattle : MonoBehaviour
 
 
 
-
+    void Awake() { instance = this; }
     void Start()
     {
         InitialValues();
@@ -198,6 +199,5 @@ public class playerBattle : MonoBehaviour
     {
         animator.runtimeAnimatorController = animIdle as RuntimeAnimatorController;
     }
-
 
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MonsterMovement : MonoBehaviour
 {
+    public static MonsterMovement instance;
+
     Animator animator;
 
     public RuntimeAnimatorController animDie;
@@ -17,8 +19,7 @@ public class MonsterMovement : MonoBehaviour
     public float playerHp;
     public int randomNumber;
 
-    float timer = 0;
-    float firstLanding = 1;
+    public float timer = 0;
 
     public bool isPunching;
     public float punchTimer;
@@ -27,7 +28,7 @@ public class MonsterMovement : MonoBehaviour
     public float kickTimer;
 
 
-
+    void Awake() { instance = this; }
     // Start is called before the first frame update
     void Start()
     {
@@ -63,24 +64,11 @@ public class MonsterMovement : MonoBehaviour
         }
         else
         {
-            if (firstLanding > 0)
-            {
-                if (timer > 3)
-                {
-                    HandleMonster();
-                }
-                firstLanding--;
-            }
-            else
-            {
-                if (timer > 2)
+            if (timer > 1.3f)
                 {
                     HandleMonster();
                     HandleMonsterAction();
                 }
-            }
-
-
         }
 
     }
@@ -172,4 +160,5 @@ public class MonsterMovement : MonoBehaviour
         isPunching = false;
         punchTimer = 0;
     }
+    
 }

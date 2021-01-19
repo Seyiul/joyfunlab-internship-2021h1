@@ -681,6 +681,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 558612724}
+  - component: {fileID: 558612725}
   m_Layer: 0
   m_Name: Character
   m_TagString: Untagged
@@ -704,6 +705,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &558612725
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 558612723}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc6087c91f713ad45b677b0e9c2fba38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &580897517 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4103648660059068930, guid: 1313ba361a0fe914c8c94cae1d999732,
@@ -723,7 +736,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 580897517}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6f0d8673a389db46a5a289e11f57d55, type: 3}
   m_Name: 
@@ -920,6 +933,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 558612724}
     m_Modifications:
+    - target: {fileID: -5716681864270162303, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_AnimatePhysics
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -990,6 +1008,11 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 9.216344
       objectReference: {fileID: 0}
+    - target: {fileID: -1389706179863368070, guid: 320b1c2af77554f99a1658df4a6d3d5c,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -927199367670048503, guid: 320b1c2af77554f99a1658df4a6d3d5c,
         type: 3}
       propertyPath: m_Name
@@ -1023,6 +1046,7 @@ MonoBehaviour:
   hp: 0
   playerHp: 0
   randomNumber: 0
+  timer: 0
   isPunching: 0
   punchTimer: 0
   isKicking: 0
