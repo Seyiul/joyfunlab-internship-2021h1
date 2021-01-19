@@ -53,7 +53,8 @@ public class MonsterAnim : MonoBehaviour
             }
             else
             {
-                MonsterActionInitialize();
+                if(timer>1)
+                    MonsterActionInitialize();
             }
         }
 
@@ -121,6 +122,7 @@ public class MonsterAnim : MonoBehaviour
     {
         animator.ResetTrigger("kick");
         animator.ResetTrigger("punch");
+        attack = false;
     }
 
     public static bool GetMonsterState()

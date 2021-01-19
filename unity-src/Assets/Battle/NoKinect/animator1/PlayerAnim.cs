@@ -49,23 +49,29 @@ public class PlayerAnim : MonoBehaviour
         HandlePlayerPosition();
         HandlePlayerAction();
 
+        if (timer > 1f)
+        {
+            attack = false;
+        }
+
 
     }
     void HandlePlayerPosition()
     {
-
-        attack = false;
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             transform.position = new Vector3(101, transform.position.y, transform.position.z);
+            attack = false;
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             transform.position = new Vector3(114, transform.position.y, transform.position.z);
+            attack = false;
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             transform.position = new Vector3(127, transform.position.y, transform.position.z);
+            attack = false;
         }
     }
     void HandlePlayerAction()
@@ -74,6 +80,7 @@ public class PlayerAnim : MonoBehaviour
         {
             animator.SetTrigger("kick");
             attack = true;
+            timer = 0;
         }
 
 
@@ -81,11 +88,13 @@ public class PlayerAnim : MonoBehaviour
         {
             animator.SetTrigger("punch");
             attack = true;
+            timer = 0;
         }
 
 
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
+            attack = false;
             animator.SetTrigger("jump");
         }
 

@@ -40,7 +40,7 @@ public class HandleDamage : MonoBehaviour
         if (MonsterAnim.GetMonsterState()==true)
         {
             Debug.Log("Monster Attack!");
-            PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.11f);
+            PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
             timer = 0;
         }
     }
@@ -49,7 +49,7 @@ public class HandleDamage : MonoBehaviour
         if (PlayerAnim.GetPlayerState() == true)
         {
             Debug.Log("Player Attack!");
-            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.11f);
+            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
             timer = 0;
         }
     }
