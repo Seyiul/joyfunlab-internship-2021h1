@@ -1,4 +1,5 @@
 using UnityEngine;
+
 //using Windows.Kinect;
 
 using System;
@@ -814,10 +815,11 @@ namespace com.rfilkov.components
             // get the position of user's spine base
             Vector3 trans = kinectManager.GetUserPosition(UserID);
 
+            /*
             //프레임 계산
             if(Avatar.HandleKinectPosition(trans)!=Avatar.userPosition)
                 InspectUI.instance.frameChangeCount++;
-
+            */
             //아바타 joint 값 입력
             Avatar.userPosition = Avatar.HandleKinectPosition(trans);
             Avatar.userPositionHead = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.Head));
@@ -832,7 +834,7 @@ namespace com.rfilkov.components
                 Vector3 rightElbow = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ElbowRight));
 
                 Avatar.distanceHandElbow =
-                    (Vector3.distance(Avatar.userPositionLeftHand, leftElbow) + Vector3.distance(Avatar.userPositionRightHand, rightElbow))/ 2;
+                    (Vector3.Distance(Avatar.userPositionLeftHand, leftElbow) + Vector3.Distance(Avatar.userPositionRightHand, rightElbow))/ 2;
             }
             if (flipLeftRight)
                 trans.x = -trans.x;
