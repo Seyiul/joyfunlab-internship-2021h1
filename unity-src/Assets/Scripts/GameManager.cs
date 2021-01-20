@@ -4,24 +4,31 @@ using UnityEngine;
 using UnityEngine.UI;
 using static UnityEngine.LowLevel.PlayerLoop;
 
+
 public enum GameState: int
 {
     Menu = 1,
     Setting = 2,
-    Ranking = 3,
+    Rank = 3,
     Game = 4,
     Pause = 5,
     Result = 6,
-    MyRank = 7,
-    Battle=8
+    Battle = 7
 }
 
 public class GameManager : MonoBehaviour
 {
     // 인스턴스, 게임상태, 키넥트 연결 상태 변수 선언
     public static GameManager instance;
-    private GameState currentGameState;
+    private GameState curGameState;
     private bool kinectState;
+
+    Player player;
+    MenuUI menu;
+    Tile tile;
+
+    public GameObject curTile;
+    public GameObject nextTile;
 
     void Awake()
     {
@@ -37,29 +44,33 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         DisplaySetting();
-        HandleFrameRate();
         kinectState = false;
-        Time.timeScale = 1;
+        curGameState = GameState.Menu;
+        player = GameObject.Find("Player").GetComponent<Player>();
+        menu = GameObject.Find("MenuUI").GetComponent<MenuUI>();
+        tile = GameObject.Find("Tile").GetComponent<Tile>();
+    }
+
+    void Update()
+    {
+        Debug.Log(curGameState);
+
+        if (curGameState == GameState.Menu || curGameState == GameState.Pause)
+            menu.MenuHandle();
+        //게임 중에 일시정지 상태로 변경하면(esc 누르면)
+        if (Input.GetKeyDown(KeyCode.Escape) && curGameState == GameState.Game)
+            curGameState = GameState.Pause;
+
     }
 
     // 화면 설정 (디스플레이가 하나일 경우 전면 UI만 출력, 두개 이상일 경우 바닥 UI 출력)
     public void DisplaySetting()
     {
-        Screen.SetResolution(ConstInfo.floorUICanvasWidth, ConstInfo.floorUICanvasHeight, true);
         if (Display.displays.Length > 1)
             Display.displays[1].Activate();
         if (Display.displays.Length > 2)
             Display.displays[2].Activate();
     }
-
-    // 프레임 설정
-    public void HandleFrameRate()
-    {
-        QualitySettings.vSyncCount = 0;
-        Application.targetFrameRate = ConstInfo.gameFrameRate;
-    }
-
-
 
     // 키넥트 연결 여부 변수 Getter & Setter
     public bool GetKinectState() { return kinectState; }
@@ -68,6 +79,7 @@ public class GameManager : MonoBehaviour
 
 
     // 게임상태 변수 Getter & Setter
-    public GameState GetGameState() { return currentGameState; }
-    public void SetGameState(GameState newGameState) { currentGameState = newGameState; }
+    public GameState GetGameState() { return curGameState; }
+    public void SetGameState(GameState newGameState) { curGameState = newGameState; }
+
 }
