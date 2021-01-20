@@ -65,12 +65,6 @@ public class PlayerAnim : MonoBehaviour
         HandlePlayerPosition();
         HandlePlayerAction();
 
-        if (timer > 1f)
-        {
-            attack = false;
-        }
-
-
     }
     void HandlePlayerPosition()
     {
@@ -78,21 +72,18 @@ public class PlayerAnim : MonoBehaviour
         {
             curLocation = BattlePlayerLocation.Left;
             transform.position = new Vector3(101, transform.position.y, transform.position.z);
-            attack = false;
 
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             curLocation = BattlePlayerLocation.Center;
             transform.position = new Vector3(114, transform.position.y, transform.position.z);
-            attack = false;
 
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             curLocation = BattlePlayerLocation.Right;
             transform.position = new Vector3(127, transform.position.y, transform.position.z);
-            attack = false;
 
         }
         highlightTiles.Highlight(curLocation);
@@ -103,7 +94,7 @@ public class PlayerAnim : MonoBehaviour
         {
             animator.SetTrigger("kick");
             attack = true;
-            timer = 0;
+            StartCoroutine(HandleAttackTimer());
         }
 
 
@@ -111,15 +102,20 @@ public class PlayerAnim : MonoBehaviour
         {
             animator.SetTrigger("punch");
             attack = true;
-            timer = 0;
+            StartCoroutine(HandleAttackTimer());
         }
 
 
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
-            attack = false;
             animator.SetTrigger("jump");
         }
+
+    }
+    private IEnumerator HandleAttackTimer()
+    {
+        yield return new WaitForSeconds(1f);
+        attack = false;
 
     }
     public static bool GetPlayerState()

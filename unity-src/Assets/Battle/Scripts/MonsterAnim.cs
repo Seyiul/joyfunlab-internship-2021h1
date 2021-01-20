@@ -34,8 +34,8 @@ public class MonsterAnim : MonoBehaviour
 
         playerHp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         hp = (float)HealthBarHandler.GetHealthBarValue() * 100;
-        //isPunching = animator.GetBool("punch");
-        //isKicking = animator.GetBool("kick");
+ 
+        //Landing time = 3f
         if (timer > 3)
         {
             HandleGame(playerHp, hp);
