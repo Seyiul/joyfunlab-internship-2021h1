@@ -50,10 +50,18 @@ public class HandleDamage : MonoBehaviour
     }
     void PlayerAttackDetection()
     {
+        
         if (PlayerAnim.GetPlayerState() == true)
         {
             Debug.Log("Player Attack!");
-            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+            if (PlayerAnim.KillMonster() == true)
+            {
+                HealthBarHandler.SetHealthBarValue(0);
+            }
+            else
+            {
+                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+            }
             timer = 0;
         }
     }
