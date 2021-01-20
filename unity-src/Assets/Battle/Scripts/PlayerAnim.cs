@@ -20,6 +20,7 @@ public class PlayerAnim : MonoBehaviour
     public float timer = 0;
 
     public static bool attack;
+    public static bool jump;
 
     public BattlePlayerLocation curLocation;
     BattleHighlight highlightTiles;
@@ -32,6 +33,8 @@ public class PlayerAnim : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         attack = false;
+        jump = false;
+
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
 
@@ -109,6 +112,9 @@ public class PlayerAnim : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftAlt))
         {
             animator.SetTrigger("jump");
+            jump = true;
+            StartCoroutine(HandleJumpTimer());
+
         }
 
     }
@@ -117,6 +123,11 @@ public class PlayerAnim : MonoBehaviour
         yield return new WaitForSeconds(1f);
         attack = false;
 
+    }
+    private IEnumerator HandleJumpTimer()
+    {
+        yield return new WaitForSeconds(2f);
+        jump = false;
     }
     public static bool GetPlayerState()
     {
@@ -127,6 +138,15 @@ public class PlayerAnim : MonoBehaviour
         else
             return false;
 
+    }
+    public static bool GetPlayerJumpState()
+    {
+        if (jump == true)
+        {
+            return true;
+        }
+        else
+            return false;
     }
 
 

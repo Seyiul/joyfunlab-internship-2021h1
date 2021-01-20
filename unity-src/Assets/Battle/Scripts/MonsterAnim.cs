@@ -35,8 +35,8 @@ public class MonsterAnim : MonoBehaviour
         playerHp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         hp = (float)HealthBarHandler.GetHealthBarValue() * 100;
  
-        //Landing time = 3f
-        if (timer > 3)
+        //Landing time = 3.5f
+        if (timer > 3.5)
         {
             HandleGame(playerHp, hp);
         }

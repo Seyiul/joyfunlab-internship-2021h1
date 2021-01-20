@@ -49,7 +49,8 @@ public class HealthBarHandler : MonoBehaviour
     }
     private void Update()
     {
-        var hp = (int)(HealthBarImage.fillAmount * 100);
+        var hp = (float)(HealthBarImage.fillAmount * 100);
+        hp = Mathf.Round(hp * 10) * 0.1f;
         currentHp.text = hp.ToString();
     }
 }
