@@ -25,7 +25,6 @@ public class GameManager : MonoBehaviour
 
     Player player;
     MenuUI menu;
-    Tile tile;
 
     public GameObject curTile;
     public GameObject nextTile;

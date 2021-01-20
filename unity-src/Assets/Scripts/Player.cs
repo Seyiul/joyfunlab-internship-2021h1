@@ -38,8 +38,10 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
+    
     public PlayerLocation curLocation;
 
+    BoxCollider collider;
     HighlightTiles highlightTiles;
     // 인스턴스 설정
     private void Awake() { instance = this; }
@@ -64,6 +66,7 @@ public class Player : MonoBehaviour
         curLocation = PlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
+        collider = gameObject.GetComponent<BoxCollider>();
     }
 
 
@@ -98,9 +101,9 @@ public class Player : MonoBehaviour
             HandlePlayerLocation(PlayerLocation.Left);
         else if (Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right)
             HandlePlayerLocation(PlayerLocation.Right);
-        else if (Input.GetKeyDown(KeyCode.Space))
+        else if (Input.GetKeyDown(KeyCode.Space) && !IsPlayerActing())
             isJumping = true;
-        else if (Input.GetKeyDown(KeyCode.LeftControl))
+        else if (Input.GetKeyDown(KeyCode.LeftControl) && !IsPlayerActing())
             isPunching = true;
     }
 
@@ -109,7 +112,12 @@ public class Player : MonoBehaviour
         animator.SetFloat("speed", speed);
     }
 
-
+    bool IsPlayerActing()
+    {
+        if (isStumbling || isJumping || isPunching)
+            return true;
+        return false;
+    }
     // 플레이어 동작 업데이트
     void HandlePlayerAction()
     {
@@ -133,11 +141,13 @@ public class Player : MonoBehaviour
     void HandlePlayerJumping()
     {
         animator.SetBool("isJumping", true);
+        collider.center = (new Vector3(ConstInfo.originalColliderX, ConstInfo.jumpingColliderY, ConstInfo.originalColliderZ));
     }
 
     // 플레이어 발걸림 애니메이션 (발걸림 도중 다른 동작 불가)
     public void HandlePlayerStumbling() {
         animator.SetBool("isStumbling", true);
+        speed = 5;
     }
 
     // 플레이어 펀치 애니메이션 (펀치 도중 점프 가능)
@@ -161,6 +171,7 @@ public class Player : MonoBehaviour
         isJumping = false;
         isPunching = false;
         jumpTimer = 0;
+        collider.center = (new Vector3(ConstInfo.originalColliderX, ConstInfo.originalColliderY, ConstInfo.originalColliderZ));
         animator.SetBool("isJumping", false);
     }
 
@@ -199,5 +210,22 @@ public class Player : MonoBehaviour
             if (punchTimer >= ConstInfo.actionTimer)
                 InitialPunchState();
         }
+    }
+
+    void OnCollisionEnter(Collision col)
+    {
+        if (col.gameObject.tag == "Heart Tile")
+        {
+            hp++;
+        }
+        else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
+        {
+            isStumbling = true;
+            HandlePlayerStumbling();
+        }
+    }
+    void OnCollisionExit(Collision col)
+    {
+        Destroy(col.gameObject);
     }
 }

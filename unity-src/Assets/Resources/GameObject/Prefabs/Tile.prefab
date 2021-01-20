@@ -64,7 +64,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   heartSrc: {fileID: 6100844469793322947, guid: 9b196ce6c5e08da48bd0789ed040b51a,
     type: 3}
-  huddleSrc: {fileID: 5471411465510363513, guid: 9599680d38889e44da536c68feb8e0da,
+  hurdleSrc: {fileID: 5471411465510363513, guid: 9599680d38889e44da536c68feb8e0da,
     type: 3}
   trapSrc: {fileID: 8781427926711624264, guid: 0ffb92607e9b1f241b24f851005f045c, type: 3}
   balloonSrc: {fileID: 5471411465510363513, guid: c9f56fea98de6c245835ff60cf85b72c,

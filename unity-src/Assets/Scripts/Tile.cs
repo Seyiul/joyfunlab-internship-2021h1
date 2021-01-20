@@ -13,7 +13,7 @@ public enum Obstacle: int
 {
     Empty = 0,
     Heart = 1,
-    Huddle = 2,
+    Hurdle = 2,
     Trap = 3,
     Balloon = 4,
     Monster = 5
@@ -23,16 +23,17 @@ public class Tile : MonoBehaviour
 { 
     private float mapSpeed;
     public GameObject heartSrc;
-    public GameObject huddleSrc;
+    public GameObject hurdleSrc;
     public GameObject trapSrc;
     public GameObject balloonSrc;
     public GameObject monsterSrc;
     int point;
     GameObject heart;
-    GameObject huddle;
+    GameObject hurdle;
     GameObject trap;
     GameObject balloon;
     GameObject monster;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -93,18 +94,18 @@ public class Tile : MonoBehaviour
     }
     void MakeObstacle(int obstacleTile)
     {
-        int obstacle = Random.Range((int)Obstacle.Huddle, (int)Obstacle.Monster);
-        if(obstacle == (int)Obstacle.Huddle)
-            MakeHuddle(obstacleTile);
+        int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster);
+        if(obstacle == (int)Obstacle.Hurdle)
+            MakeHurdle(obstacleTile);
         else if (obstacle == (int)Obstacle.Trap)
             MakeTrap(obstacleTile);
         else if (obstacle == (int)Obstacle.Balloon)
             MakeBalloon(obstacleTile);
     }
-    void MakeHuddle(int obstacleTile)
+    void MakeHurdle(int obstacleTile)
     {
-        huddle = Instantiate(huddleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
-        huddle.transform.parent = GameManager.instance.nextTile.transform;
+        hurdle = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        hurdle.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeTrap(int obstacleTile)
     {
@@ -113,7 +114,7 @@ public class Tile : MonoBehaviour
     }
     void MakeBalloon(int obstacleTile)
     {
-        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, point * ConstInfo.tileTerm), Quaternion.identity);
         balloon.transform.parent = GameManager.instance.nextTile.transform;
     }
 
