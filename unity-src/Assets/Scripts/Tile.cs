@@ -27,21 +27,21 @@ public class Tile : MonoBehaviour
     public GameObject trapSrc;
     public GameObject balloonSrc;
     public GameObject monsterSrc;
-
+    int point;
     GameObject heart;
     GameObject huddle;
     GameObject trap;
     GameObject balloon;
     GameObject monster;
-
-    int counter = 5;
     // Start is called before the first frame update
     void Start()
     {
         if(GameManager.instance.nextTile != null)
         {
-            for (int i = 1; i <= 5; i++)
-                MakePath(i);
+            for (point = 1; point <= 5; point++)
+            {
+                MakePath();
+            }
         }
     }
 
@@ -54,56 +54,67 @@ public class Tile : MonoBehaviour
             MoveTile();
         }
     }
-    public void MoveTile()
+    void MoveTile()
     {
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
             transform.Translate(0,0, -mapSpeed * Time.deltaTime);
         }
     }
-    public void MakePath(int point)
+    void MakePath()
     {
         int emptyTile = Random.Range((int)Line.Left, (int)Line.Right + 1);
-        MakeEmpty(emptyTile,point);
+        MakeEmpty(emptyTile);
         if (emptyTile == (int)Line.Left)
         {
-            MakeObstacle((int)Line.Center, point);
-            MakeObstacle((int)Line.Right, point);
+            MakeObstacle((int)Line.Center);
+            MakeObstacle((int)Line.Right);
         }
         else if (emptyTile == (int)Line.Center)
         {
-            MakeObstacle((int)Line.Left, point);
-            MakeObstacle((int)Line.Right, point);
+            MakeObstacle((int)Line.Left);
+            MakeObstacle((int)Line.Right);
         }
         else
         { 
-            MakeObstacle((int)Line.Center, point);
-            MakeObstacle((int)Line.Left, point);
+            MakeObstacle((int)Line.Center);
+            MakeObstacle((int)Line.Left);
         }
     }
-    public void MakeEmpty(int emptyTile,int point)
+    void MakeEmpty(int emptyTile)
+    {
+        if (Random.Range((int)Obstacle.Empty, (int)Obstacle.Heart + 3) == (int)Obstacle.Heart)
+            MakeHeart(emptyTile);
+    }
+    void MakeHeart(int emptyTile)
     {
         heart = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
         heart.transform.parent = GameManager.instance.nextTile.transform;
     }
-    public void MakeObstacle(int obstacleTile,int point)
+    void MakeObstacle(int obstacleTile)
     {
         int obstacle = Random.Range((int)Obstacle.Huddle, (int)Obstacle.Monster);
         if(obstacle == (int)Obstacle.Huddle)
-        {
-            huddle = Instantiate(huddleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
-            huddle.transform.parent = GameManager.instance.nextTile.transform;
-        }
+            MakeHuddle(obstacleTile);
         else if (obstacle == (int)Obstacle.Trap)
-        {
-            trap = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
-            trap.transform.parent = GameManager.instance.nextTile.transform;
-        }
+            MakeTrap(obstacleTile);
         else if (obstacle == (int)Obstacle.Balloon)
-        {
-            balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
-            balloon.transform.parent = GameManager.instance.nextTile.transform;
-        }
+            MakeBalloon(obstacleTile);
+    }
+    void MakeHuddle(int obstacleTile)
+    {
+        huddle = Instantiate(huddleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        huddle.transform.parent = GameManager.instance.nextTile.transform;
+    }
+    void MakeTrap(int obstacleTile)
+    {
+        trap = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        trap.transform.parent = GameManager.instance.nextTile.transform;
+    }
+    void MakeBalloon(int obstacleTile)
+    {
+        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        balloon.transform.parent = GameManager.instance.nextTile.transform;
     }
 
 }

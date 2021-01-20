@@ -48,7 +48,6 @@ public class GameManager : MonoBehaviour
         curGameState = GameState.Menu;
         player = GameObject.Find("Player").GetComponent<Player>();
         menu = GameObject.Find("MenuUI").GetComponent<MenuUI>();
-        tile = GameObject.Find("Tile").GetComponent<Tile>();
     }
 
     void Update()
