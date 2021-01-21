@@ -38,7 +38,8 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-
+    private static float avatarposition;
+    avatarposition = Avatar.userPosition.x* ((ConstInfo.lineWidth* 3) /(float)1920);
     public PlayerLocation curLocation;
 
     BoxCollider collider;
@@ -97,9 +98,9 @@ public class Player : MonoBehaviour
             speed += 5;
         else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
             speed -= 5;
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left)
+        else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left)|| avatarposition < 107)
             HandlePlayerLocation(PlayerLocation.Left);
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right)
+        else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right)||avatarposition > 121)
             HandlePlayerLocation(PlayerLocation.Right);
         else if (Input.GetKeyDown(KeyCode.Space) && !IsPlayerActing())
             isJumping = true;
@@ -215,14 +216,14 @@ public class Player : MonoBehaviour
                 InitialPunchState();
         }
     }
-
+    /*
     // 아바타 위치로 플레이어 위치 고정
     public void HandlePlayerPosition()
     {
-        transform.position = new Vector3(Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / /*ConstInfo.floorUICanvasWidth*/ (float)1920) + ConstInfo.tileX,
+        transform.position = new Vector3(Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / /*ConstInfo.floorUICanvasWidth (float)1920) + ConstInfo.tileX,
             ConstInfo.tileY, ConstInfo.tileZ);
     }
-
+*/
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Heart Tile")
