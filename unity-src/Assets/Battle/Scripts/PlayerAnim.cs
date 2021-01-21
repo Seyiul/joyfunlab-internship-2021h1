@@ -21,6 +21,7 @@ public class PlayerAnim : MonoBehaviour
 
     public static bool attack;
     public static bool jump;
+    public static bool kick;
 
     public BattlePlayerLocation curLocation;
     BattleHighlight highlightTiles;
@@ -34,6 +35,8 @@ public class PlayerAnim : MonoBehaviour
         animator = GetComponent<Animator>();
         attack = false;
         jump = false;
+        kick = false;
+
 
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
@@ -97,6 +100,7 @@ public class PlayerAnim : MonoBehaviour
         {
             animator.SetTrigger("kick");
             attack = true;
+            kick = true;
             StartCoroutine(HandleAttackTimer());
         }
 
@@ -122,6 +126,7 @@ public class PlayerAnim : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         attack = false;
+        kick = false;
 
     }
     private IEnumerator HandleJumpTimer()
@@ -148,6 +153,23 @@ public class PlayerAnim : MonoBehaviour
         else
             return false;
     }
-
+    //kick 발동시, 1/10 확률로 즉사
+    public static bool KillMonster()
+    {
+        if (kick == true)
+        {
+            int random = Random.Range(1, 11);
+            if (random == 1)
+            {
+                Debug.Log("KIIILLLLLl");
+                return true;
+            }
+            else
+                return false;
+        }
+        else
+            return false;
+       
+    }
 
 }
