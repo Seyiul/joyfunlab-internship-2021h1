@@ -38,8 +38,10 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-    public float avatarposition;
+    public float AvatarPosition;
     public PlayerLocation curLocation;
+
+    public bool kinectState;
 
     BoxCollider collider;
     HighlightTiles highlightTiles;
@@ -67,19 +69,26 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
-        avatarposition = 0;
+        AvatarPosition = 0;
     }
 
 
     void Update()
     {
-        //avatar 의 값을 transform에 맞게 변ㅎ
-        avatarposition = (Avatar.userPosition.x*((ConstInfo.lineWidth*3)/1920)+ConstInfo.tileX); 
-
+        
         HandlePlayer();
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
-            HandleInput();
+            if (kinectState)
+            {
+                //avatar 의 값을 transform에 맞게 변환
+                AvatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+                HandlePlayer();
+            }
+            
+            else
+                HandleInput();
+
             //게임의 상태가 변화하면 속도를 업데이트
             SpeedUpdate(speed);
             HandlePlayerAction();
@@ -98,11 +107,11 @@ public class Player : MonoBehaviour
     }
     void HandlePlayer()
     {
-        if (avatarposition < 107)
+        if (AvatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
         }
-        else if (avatarposition > 121)
+        else if (AvatarPosition > 121)
         {
             HandlePlayerLocation(PlayerLocation.Right);
 
@@ -117,8 +126,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
-            speed -= 5;
+        else if (Input.GetKeyDown(KeyCode.DownArrow))
+            HandlePlayerLocation(PlayerLocation.Center);
         else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left))
             HandlePlayerLocation(PlayerLocation.Left);
         else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right))
