@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7540281305365325025}
   - component: {fileID: 6113303408479863876}
   - component: {fileID: 4170575869530833369}
-  - component: {fileID: 6679262449842973274}
+  - component: {fileID: 8466127422131918536}
+  - component: {fileID: 3064669565281942509}
   m_Layer: 0
   m_Name: JoyRunBalloon
   m_TagString: Balloon Tile
@@ -95,23 +96,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.4, y: 5, z: 0.2}
   m_Center: {x: 0, y: 12, z: -0.42}
---- !u!111 &6679262449842973274
-Animation:
+--- !u!114 &8466127422131918536
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5471411465510363513}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5dce6681eef3e0046bb9c501149c8bba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &3064669565281942509
+Animator:
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471411465510363513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: e53e3f3413c42d243bd67525d76be3bf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &9125470145153325002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -123,7 +138,7 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Controller
       value: 
-      objectReference: {fileID: 9100000, guid: a46eaa3d57ede3e45add351e1d3adc64, type: 2}
+      objectReference: {fileID: 0}
     - target: {fileID: -4216859302048453862, guid: 00fa7b08c53120f42955875fa2291b71,
         type: 3}
       propertyPath: m_LocalPosition.x

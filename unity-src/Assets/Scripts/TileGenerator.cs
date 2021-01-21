@@ -20,7 +20,7 @@ public class TileGenerator : MonoBehaviour
     {
         if (GameManager.instance.nextTile != null)
         {
-            if (GameManager.instance.nextTile.transform.position.z <= 0)
+            if (GameManager.instance.nextTile.transform.position.z < 0)
             {
                 Transform[] childs = GameManager.instance.curTile.GetComponentsInChildren<Transform>(true);
                 if(childs != null)
@@ -34,6 +34,7 @@ public class TileGenerator : MonoBehaviour
                 GameManager.instance.nextTile = Instantiate(tile, new Vector3(ConstInfo.tileX, ConstInfo.tileY, ConstInfo.tileLength), Quaternion.identity);
             }
         }
+        //게임매니저의 nextTile이 null이면(초기 타일이 없는 상태)
         else
         {
             GameManager.instance.nextTile = Instantiate(tile, new Vector3(ConstInfo.tileX, ConstInfo.tileY, ConstInfo.tileLength), Quaternion.identity);

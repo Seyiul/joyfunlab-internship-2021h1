@@ -221,11 +221,16 @@ public class Player : MonoBehaviour
         else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
         {
             isStumbling = true;
+            combo = 0;
+            hp -= 10;
             HandlePlayerStumbling();
         }
-    }
-    void OnCollisionExit(Collision col)
-    {
-        Destroy(col.gameObject);
+        else if(col.gameObject.tag == "Balloon Tile")
+        {
+            if (isPunching)
+            {
+                col.gameObject.GetComponent<Balloon>().GoAway();
+            }
+        }
     }
 }

@@ -89,7 +89,7 @@ public class Tile : MonoBehaviour
     }
     void MakeHeart(int emptyTile)
     {
-        heart = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        heart = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength * 2 - point * ConstInfo.tileTerm), Quaternion.identity);
         heart.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeObstacle(int obstacleTile)
@@ -104,18 +104,21 @@ public class Tile : MonoBehaviour
     }
     void MakeHurdle(int obstacleTile)
     {
-        hurdle = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        hurdle = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength * 2 - point * ConstInfo.tileTerm), Quaternion.identity);
+     
+        if(GameManager.instance.nextTile)
         hurdle.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeTrap(int obstacleTile)
     {
-        trap = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, point * ConstInfo.tileTerm), Quaternion.identity);
+        trap = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength * 2 - point * ConstInfo.tileTerm), Quaternion.identity);
         trap.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeBalloon(int obstacleTile)
     {
-        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, point * ConstInfo.tileTerm), Quaternion.identity);
+        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, ConstInfo.tileLength * 2 - point * ConstInfo.tileTerm), Quaternion.identity);
         balloon.transform.parent = GameManager.instance.nextTile.transform;
+        Debug.Log(GameManager.instance.nextTile);
     }
 
 }
