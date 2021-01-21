@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public enum PlayerLocation: int
+public enum PlayerLocation : int
 {
     Left = -1,
     Center = 0,
@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-    
+
     public PlayerLocation curLocation;
 
     BoxCollider collider;
@@ -125,7 +125,8 @@ public class Player : MonoBehaviour
         {
             if (isStumbling)
                 HandlePlayerStumbling();
-            else {
+            else
+            {
                 if (isJumping)
                     HandlePlayerJumping();
                 else if (isPunching)
@@ -145,7 +146,8 @@ public class Player : MonoBehaviour
     }
 
     // 플레이어 발걸림 애니메이션 (발걸림 도중 다른 동작 불가)
-    public void HandlePlayerStumbling() {
+    public void HandlePlayerStumbling()
+    {
         animator.SetBool("isStumbling", true);
         speed = 5;
     }
@@ -176,14 +178,16 @@ public class Player : MonoBehaviour
     }
 
     // 발걸림 상태 초기화
-    public void InitialStumbleState() {
+    public void InitialStumbleState()
+    {
         isStumbling = false;
         stumbleTimer = 0;
         animator.SetBool("isStumbling", false);
     }
 
     // 펀치 상태 초기화
-    public void InitialPunchState() {
+    public void InitialPunchState()
+    {
         isPunching = false;
         punchTimer = 0;
         animator.SetBool("isPunching", false);
@@ -210,6 +214,13 @@ public class Player : MonoBehaviour
             if (punchTimer >= ConstInfo.actionTimer)
                 InitialPunchState();
         }
+    }
+
+    // 아바타 위치로 플레이어 위치 고정
+    public void HandlePlayerPosition()
+    {
+        transform.position = new Vector3(Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / /*ConstInfo.floorUICanvasWidth*/ (float)1920) + ConstInfo.tileX,
+            ConstInfo.tileY, ConstInfo.tileZ);
     }
 
     void OnCollisionEnter(Collision col)
