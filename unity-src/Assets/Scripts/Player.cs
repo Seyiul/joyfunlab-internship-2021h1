@@ -73,7 +73,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        avatarposition = Avatar.userPosition.x;
+        avatarposition = (Avatar.userPosition.x*((ConstInfo.lineWidth*3)/1920)+ConstInfo.tileX);
 
         HandlePlayer();
         if (GameManager.instance.GetGameState() == GameState.Game)
@@ -99,11 +99,11 @@ public class Player : MonoBehaviour
     {
         Debug.Log(avatarposition);
 
-        if (avatarposition < -100)
+        if (avatarposition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
         }
-        else if (avatarposition > 100)
+        else if (avatarposition > 114)
         {
             HandlePlayerLocation(PlayerLocation.Right);
 
