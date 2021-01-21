@@ -38,8 +38,7 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-    private static float avatarposition;
-    avatarposition = Avatar.userPosition.x* ((ConstInfo.lineWidth* 3) /(float)1920);
+    public float avatarposition;
     public PlayerLocation curLocation;
 
     BoxCollider collider;
@@ -68,11 +67,15 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
+        avatarposition = 0;
     }
 
 
     void Update()
     {
+        avatarposition = Avatar.userPosition.x;
+
+        HandlePlayer();
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
             HandleInput();
@@ -92,15 +95,34 @@ public class Player : MonoBehaviour
             SpeedUpdate(speed);
         }
     }
+    void HandlePlayer()
+    {
+        Debug.Log(avatarposition);
+
+        if (avatarposition < -100)
+        {
+            HandlePlayerLocation(PlayerLocation.Left);
+        }
+        else if (avatarposition > 100)
+        {
+            HandlePlayerLocation(PlayerLocation.Right);
+
+        }
+        else
+        {
+            HandlePlayerLocation(PlayerLocation.Center);
+
+        }
+    }
     void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
         else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
             speed -= 5;
-        else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left)|| avatarposition < 107)
+        else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left))
             HandlePlayerLocation(PlayerLocation.Left);
-        else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right)||avatarposition > 121)
+        else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right))
             HandlePlayerLocation(PlayerLocation.Right);
         else if (Input.GetKeyDown(KeyCode.Space) && !IsPlayerActing())
             isJumping = true;
@@ -162,10 +184,20 @@ public class Player : MonoBehaviour
     public void HandlePlayerLocation(PlayerLocation MovedLocation)
     {
         if (MovedLocation == PlayerLocation.Left)
-            curLocation--;
+        {
+            curLocation = PlayerLocation.Left;
+            transform.position = new Vector3(100, transform.position.y, transform.position.z);
+        }
+        else if (MovedLocation == PlayerLocation.Center)
+        {
+            curLocation = PlayerLocation.Center;
+            transform.position = new Vector3(114, transform.position.y, transform.position.z);
+        }
         else
-            curLocation++;
-        transform.Translate(new Vector3(ConstInfo.lineWidth * (float)MovedLocation, 0, 0));
+        {
+            curLocation = PlayerLocation.Right;
+            transform.position = new Vector3(128, transform.position.y, transform.position.z);
+        }
         highlightTiles.Highlight(curLocation);
     }
     // 점프 상태 초기화 (초기화 시 펀치 상태도 초기화)
@@ -216,14 +248,7 @@ public class Player : MonoBehaviour
                 InitialPunchState();
         }
     }
-    /*
-    // 아바타 위치로 플레이어 위치 고정
-    public void HandlePlayerPosition()
-    {
-        transform.position = new Vector3(Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / /*ConstInfo.floorUICanvasWidth (float)1920) + ConstInfo.tileX,
-            ConstInfo.tileY, ConstInfo.tileZ);
-    }
-*/
+    
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Heart Tile")

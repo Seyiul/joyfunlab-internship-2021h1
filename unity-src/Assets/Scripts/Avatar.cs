@@ -10,11 +10,10 @@ public class Avatar : MonoBehaviour
     public static Vector3 userPositionLeftHand;
     public static Vector3 userPositionRightFoot;
     public static Vector3 userPositionLeftFoot;
-
     public static float distanceHandElbow;
 
     private static bool userValid;
-
+    
     // Start is called before the first frame update
     static void Start() { InitAvatar(); }
     
