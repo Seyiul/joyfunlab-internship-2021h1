@@ -7,7 +7,7 @@ public class ConstInfo : MonoBehaviour
     public const float actionTimer = 0.65f;
 
 
-    public const float tileLength = 334;
+    public const float tileLength = 333.5f;
     public const float tileX = 114;
     public const float tileY = 0;
     public const float tileZ = 0;
