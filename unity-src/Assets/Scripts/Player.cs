@@ -73,7 +73,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        avatarposition = (Avatar.userPosition.x*((ConstInfo.lineWidth*3)/1920)+ConstInfo.tileX);
+        //avatar 의 값을 transform에 맞게 변ㅎ
+        avatarposition = (Avatar.userPosition.x*((ConstInfo.lineWidth*3)/1920)+ConstInfo.tileX); 
 
         HandlePlayer();
         if (GameManager.instance.GetGameState() == GameState.Game)
@@ -97,13 +98,11 @@ public class Player : MonoBehaviour
     }
     void HandlePlayer()
     {
-        Debug.Log(avatarposition);
-
         if (avatarposition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
         }
-        else if (avatarposition > 114)
+        else if (avatarposition > 121)
         {
             HandlePlayerLocation(PlayerLocation.Right);
 
