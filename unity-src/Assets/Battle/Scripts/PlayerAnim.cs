@@ -51,7 +51,7 @@ public class PlayerAnim : MonoBehaviour
         kinectState = false;
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
-        
+
     }
 
     // Update is called once per frame
@@ -64,7 +64,7 @@ public class PlayerAnim : MonoBehaviour
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
 
         HandleGame(hp, monsterHp);
-        
+
 
     }
     void HandleFloorTileHighlight()
@@ -171,15 +171,16 @@ public class PlayerAnim : MonoBehaviour
             attack = true;
             StartCoroutine(HandleAttackTimer());
         }
-        if(Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
+        if (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
         {
             animator.SetTrigger("rightPunch");
             attack = true;
             StartCoroutine(HandleAttackTimer());
 
         }
+
         //Right kick
-        if (null)
+        if (Avatar.userPositionRightFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)
         {
             animator.SetTrigger("kickRight");
             attack = true;
@@ -188,7 +189,7 @@ public class PlayerAnim : MonoBehaviour
 
         }
         //left kick
-        if (null)
+        if (Avatar.userPositionLeftFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)
         {
             animator.SetTrigger("kickLeft");
             attack = true;
@@ -213,7 +214,7 @@ public class PlayerAnim : MonoBehaviour
             HandlePlayerLocation(BattlePlayerLocation.Right);
             HandleFloorTileHighlight();
         }
-        
+
     }
     public void HandlePlayerLocation(BattlePlayerLocation MovedLocation)
     {
@@ -233,7 +234,7 @@ public class PlayerAnim : MonoBehaviour
             transform.position = new Vector3(128, transform.position.y, transform.position.z);
         }
         highlightTiles.Highlight(curLocation);
-        
+
     }
     void HandlePlayerAction()
     {
@@ -263,7 +264,7 @@ public class PlayerAnim : MonoBehaviour
         }
 
     }
- 
+
     private IEnumerator HandleAttackTimer()
     {
         yield return new WaitForSeconds(.5f);
