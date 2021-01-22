@@ -103,6 +103,12 @@ public class Player : MonoBehaviour
     void HandleKinectPlayer()
     {
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+        //ispunching
+        if((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3) ||
+             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
+        {    isPunching = true; }
+         else {     isPunching = false; }
+       
         if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
