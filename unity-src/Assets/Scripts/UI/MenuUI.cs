@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum btn
+public enum menuBtn
 {
     start = 0,
     setting = 1,
@@ -16,13 +16,13 @@ public class MenuUI : MonoBehaviour
     public GameObject settingBtn;
     public GameObject rankingBtn;
     public GameObject quitBtn;
-    public btn curBtn;
+    public menuBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
     // Start is called before the first frame update
     void Start()
     {
-        curBtn = btn.start;
+        curBtn = menuBtn.start;
         Selected();
     }
 
@@ -35,16 +35,16 @@ public class MenuUI : MonoBehaviour
         Unselected();
         switch (curBtn)
         {
-            case btn.start:
+            case menuBtn.start:
                 startBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
-            case btn.setting:
+            case menuBtn.setting:
                 settingBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
-            case btn.ranking:
+            case menuBtn.ranking:
                 rankingBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
-            case btn.quit:
+            case menuBtn.quit:
                 quitBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
         }
@@ -61,29 +61,29 @@ public class MenuUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow))
         {
-            if (curBtn > btn.start)
+            if (curBtn > menuBtn.start)
                 curBtn--;
-            else if (curBtn == btn.start)
-                curBtn = btn.quit;
+            else if (curBtn == menuBtn.start)
+                curBtn = menuBtn.quit;
             Selected();
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            if (curBtn < btn.quit)
+            if (curBtn < menuBtn.quit)
                 curBtn++;
-            else if (curBtn == btn.quit)
-                curBtn = btn.start;
+            else if (curBtn == menuBtn.quit)
+                curBtn = menuBtn.start;
             Selected();
         }
         else if (Input.GetKeyDown(KeyCode.Return))
         {
-            if (curBtn == btn.start)
+            if (curBtn == menuBtn.start)
                 GameManager.instance.SetGameState(GameState.Game);
-            else if (curBtn == btn.setting)
+            else if (curBtn == menuBtn.setting)
                 GameManager.instance.SetGameState(GameState.Setting);
-            else if (curBtn == btn.ranking)
+            else if (curBtn == menuBtn.ranking)
                 GameManager.instance.SetGameState(GameState.Rank);
-            else if (curBtn == btn.quit)
+            else if (curBtn == menuBtn.quit)
                 GameManager.instance.SetGameState(GameState.Result);
         }
     }

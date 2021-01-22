@@ -71,26 +71,19 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-<<<<<<< Updated upstream
-        if (GameManager.instance.GetGameState() == GameState.Game)
-=======
         if (GameManager.instance.GetKinectState())
         {
-            AvatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
-            HandlePlayer();
+            avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+            HandleKinectPlayer();
         }
         else
->>>>>>> Stashed changes
         {
-            HandleInput();
-            //kinectstate 가 true 면 HandleKinectPlayer를 사ㅇ
-            if (GameManager.instance.GetKinectState())
+            if (GameManager.instance.GetGameState() == GameState.Game)
             {
-                HandleKinectPlayer();
-            }
-            //게임의 상태가 변화하면 속도를 업데이트
-            SpeedUpdate(speed);
-            HandlePlayerAction();   
+                HandleInput();
+                //게임의 상태가 변화하면 속도를 업데이트
+                SpeedUpdate(speed);
+                HandlePlayerAction();
             }
             else if (GameManager.instance.GetGameState() == GameState.Pause)
             {
@@ -105,6 +98,7 @@ public class Player : MonoBehaviour
                 InitialValues();
                 SpeedUpdate(speed);
             }
+        }
     }
     void HandleKinectPlayer()
     {
@@ -196,17 +190,17 @@ public class Player : MonoBehaviour
         if (MovedLocation == PlayerLocation.Left)
         {
             curLocation = PlayerLocation.Left;
-            transform.position = new Vector3(100, ConstInfo.tileY, ConstInfo.tileZ);
+            transform.position = new Vector3(100, ConstInfo.playerY, ConstInfo.playerZ);
         }
         else if (MovedLocation == PlayerLocation.Center)
         {
             curLocation = PlayerLocation.Center;
-            transform.position = new Vector3(114, ConstInfo.tileY, ConstInfo.tileZ);
+            transform.position = new Vector3(114, ConstInfo.playerY, ConstInfo.playerZ);
         }
         else
         {
             curLocation = PlayerLocation.Right;
-            transform.position = new Vector3(128, ConstInfo.tileY, ConstInfo.tileZ);
+            transform.position = new Vector3(128, ConstInfo.playerY, ConstInfo.playerZ);
         }
         highlightTiles.Highlight(curLocation);
     }

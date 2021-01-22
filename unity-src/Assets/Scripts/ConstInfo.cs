@@ -12,6 +12,10 @@ public class ConstInfo : MonoBehaviour
     public const float tileY = 0;
     public const float tileZ = 0;
 
+    public const float playerX = 114;
+    public const float playerY = 0;
+    public const float playerZ = -40.6f;
+
     public const float lineWidth = 14;
 
     public const float tileTerm = 66;

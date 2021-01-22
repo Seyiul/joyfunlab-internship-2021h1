@@ -4,6 +4,11 @@ using UnityEngine;
 
 public class SettingUI : MonoBehaviour
 {
+    public GameObject setMonsterHP;
+    public GameObject setHPLimit;
+    public GameObject setStartHP;
+    public GameObject setTimeLimit;
+    public GameObject backBtn;
     // Start is called before the first frame update
     void Start()
     {
