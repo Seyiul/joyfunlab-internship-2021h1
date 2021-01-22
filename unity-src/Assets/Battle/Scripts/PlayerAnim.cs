@@ -165,10 +165,15 @@ public class PlayerAnim : MonoBehaviour
             HandleFloorTileHighlight();
 
         }
-        if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
-            (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
+        if (Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
         {
-            animator.SetTrigger("punch");
+            animator.SetTrigger("leftPunch");
+            attack = true;
+            StartCoroutine(HandleAttackTimer());
+        }
+        if(Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
+        {
+            animator.SetTrigger("rightPunch");
             attack = true;
             StartCoroutine(HandleAttackTimer());
 
@@ -246,7 +251,8 @@ public class PlayerAnim : MonoBehaviour
     {
         yield return new WaitForSeconds(.5f);
         animator.ResetTrigger("punch");
-
+        animator.ResetTrigger("leftPunch");
+        animator.ResetTrigger("rightPunch");
         attack = false;
         kick = false;
 
