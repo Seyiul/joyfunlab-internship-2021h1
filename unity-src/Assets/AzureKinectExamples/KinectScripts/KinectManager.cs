@@ -2997,6 +2997,7 @@ namespace com.rfilkov.kinect
 
         void Update()
         {
+            GameManager.instance.SetKinectState(sensorDatas.Count > 0);
             if (!kinectInitialized)
                 return;
 
