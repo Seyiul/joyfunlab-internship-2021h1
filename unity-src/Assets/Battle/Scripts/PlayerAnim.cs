@@ -241,9 +241,12 @@ public class PlayerAnim : MonoBehaviour
         }
 
     }
+ 
     private IEnumerator HandleAttackTimer()
     {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(.5f);
+        animator.ResetTrigger("punch");
+
         attack = false;
         kick = false;
 

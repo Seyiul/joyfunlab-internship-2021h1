@@ -25,6 +25,7 @@ public class Avatar : MonoBehaviour
         userPositionLeftHand = Vector3.zero;
         userPositionRightFoot = Vector3.zero;
         userPositionLeftFoot = Vector3.zero;
+
         distanceHandElbow = 0;
     }
     
