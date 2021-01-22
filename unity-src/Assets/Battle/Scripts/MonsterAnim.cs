@@ -75,7 +75,6 @@ public class MonsterAnim : MonoBehaviour
         }
         else
         {
-            HandleMonster();
             HandleMonsterAction();
 
         }
@@ -95,30 +94,7 @@ public class MonsterAnim : MonoBehaviour
                 animator.SetTrigger("punch");
                 break;
         }
-    }
-    void HandleMonster()
-    {
-        HandleMonsterPosition();
-    }
-    void HandleMonsterPosition()
-    {
-
-        randomNumber = Random.Range(1, 4);
-        switch (randomNumber)
-        {
-            case 1:
-                transform.position = new Vector3(101, transform.position.y, transform.position.z);
-                break;
-            case 2:
-                transform.position = new Vector3(114, transform.position.y, transform.position.z);
-                break;
-            default:
-                transform.position = new Vector3(127, transform.position.y, transform.position.z);
-                break;
-        }
         timer = 0;
-
-
     }
     void MonsterActionInitialize()
     {

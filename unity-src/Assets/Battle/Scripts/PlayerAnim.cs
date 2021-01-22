@@ -26,6 +26,9 @@ public class PlayerAnim : MonoBehaviour
     public BattlePlayerLocation curLocation;
     BattleHighlight highlightTiles;
 
+    //Kinect
+    public bool kinectState;
+    public float AvatarPosition;
 
 
     void Awake() { instance = this; }
@@ -37,10 +40,11 @@ public class PlayerAnim : MonoBehaviour
         jump = false;
         kick = false;
 
+        AvatarPosition = 0;
 
+        kinectState = GameManager.instance.GetKinectState();
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
-
 
     }
 
@@ -49,7 +53,11 @@ public class PlayerAnim : MonoBehaviour
     {
         hp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         monsterHp = (float)HealthBarHandler.GetHealthBarValue() * 100;
+
+        AvatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+
         HandleGame(hp, monsterHp);
+
 
     }
     void HandleGame(float hp, float monsterHp)
@@ -68,29 +76,66 @@ public class PlayerAnim : MonoBehaviour
     }
     void HandlePlayer()
     {
-        HandlePlayerPosition();
-        HandlePlayerAction();
+        if (kinectState)
+        {
+            HandlePlayerKinect();
+        }
+        else
+        {
+            HandlePlayerPosition();
+            HandlePlayerAction();
+        }
 
+    }
+    void HandlePlayerKinect()
+    {
+        if (AvatarPosition < -100)
+        {
+            HandlePlayerLocation(BattlePlayerLocation.Left);
+        }
+        else if (AvatarPosition > 121)
+        {
+            HandlePlayerLocation(BattlePlayerLocation.Right);
+
+        }
+        else
+        {
+            HandlePlayerLocation(BattlePlayerLocation.Center);
+
+        }
     }
     void HandlePlayerPosition()
     {
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
-            curLocation = BattlePlayerLocation.Left;
-            transform.position = new Vector3(101, transform.position.y, transform.position.z);
-
+            HandlePlayerLocation(BattlePlayerLocation.Left);
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
-            curLocation = BattlePlayerLocation.Center;
-            transform.position = new Vector3(114, transform.position.y, transform.position.z);
-
+            HandlePlayerLocation(BattlePlayerLocation.Center);
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
+            HandlePlayerLocation(BattlePlayerLocation.Right);
+        }
+        highlightTiles.Highlight(curLocation);
+    }
+    public void HandlePlayerLocation(BattlePlayerLocation MovedLocation)
+    {
+        if (MovedLocation == BattlePlayerLocation.Left)
+        {
+            curLocation = BattlePlayerLocation.Left;
+            transform.position = new Vector3(100, transform.position.y, transform.position.z);
+        }
+        else if (MovedLocation == BattlePlayerLocation.Center)
+        {
+            curLocation = BattlePlayerLocation.Center;
+            transform.position = new Vector3(114, transform.position.y, transform.position.z);
+        }
+        else
+        {
             curLocation = BattlePlayerLocation.Right;
-            transform.position = new Vector3(127, transform.position.y, transform.position.z);
-
+            transform.position = new Vector3(128, transform.position.y, transform.position.z);
         }
         highlightTiles.Highlight(curLocation);
     }
@@ -169,7 +214,7 @@ public class PlayerAnim : MonoBehaviour
         }
         else
             return false;
-       
+
     }
 
 }
