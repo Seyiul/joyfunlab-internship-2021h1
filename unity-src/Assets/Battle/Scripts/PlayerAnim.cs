@@ -48,8 +48,7 @@ public class PlayerAnim : MonoBehaviour
         kick = false;
 
         avatarPosition = 0;
-
-        kinectState = GameManager.instance.GetKinectState();
+        kinectState = false;
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
         
@@ -61,6 +60,7 @@ public class PlayerAnim : MonoBehaviour
         hp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         monsterHp = (float)HealthBarHandler.GetHealthBarValue() * 100;
 
+        kinectState = GameManager.instance.GetKinectState();
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
 
         HandleGame(hp, monsterHp);
@@ -132,6 +132,7 @@ public class PlayerAnim : MonoBehaviour
     {
         if (kinectState)
         {
+            Debug.Log(avatarPosition);
             HandlePlayerKinect();
         }
         else
@@ -145,17 +146,21 @@ public class PlayerAnim : MonoBehaviour
     {
         if (avatarPosition < 107)
         {
+            Debug.Log("Left");
+
             HandlePlayerLocation(BattlePlayerLocation.Left);
             HandleFloorTileHighlight();
         }
         else if (avatarPosition > 121)
         {
+            Debug.Log("Right");
             HandlePlayerLocation(BattlePlayerLocation.Right);
             HandleFloorTileHighlight();
 
         }
         else
         {
+            Debug.Log("Center");
             HandlePlayerLocation(BattlePlayerLocation.Center);
             HandleFloorTileHighlight();
 
