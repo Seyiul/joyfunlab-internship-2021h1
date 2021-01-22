@@ -26,8 +26,14 @@ public class BackToGame : MonoBehaviour
     {
         yield return new WaitForSeconds(5f);
         animator.SetBool("animateOut", true);
+        StartCoroutine(SceneChage());
+    }
+    private IEnumerator SceneChage()
+    {
+        yield return new WaitForSeconds(1f);
         GameManager.instance.SetGameState(GameState.Game);
-        //SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(sceneIndex);
+
     }
   
 }
