@@ -831,8 +831,8 @@ namespace com.rfilkov.components
 
             if (Avatar.distanceFootKnee == 0)
             {
-                Vector3 leftKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JoinType.KneeLeft));
-                Vector3 rightKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JoinType.KneeRight));
+                Vector3 leftKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeLeft));
+                Vector3 rightKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.KneeRight));
 
                 Avatar.distanceFootKnee =
                     (Vector3.Distance(Avatar.userPositionLeftFoot, leftKnee) + Vector3.Distance(Avatar.userPositionRightFoot, rightKnee)) / 2;
