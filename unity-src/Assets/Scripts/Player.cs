@@ -38,10 +38,8 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-    public float AvatarPosition;
+    public float avatarPosition;
     public PlayerLocation curLocation;
-
-    public bool kinectState;
 
     BoxCollider collider;
     HighlightTiles highlightTiles;
@@ -69,26 +67,21 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
-        AvatarPosition = 0;
+        avatarPosition = 0;
     }
-
-
     void Update()
     {
-        if (GameManager.instance.GetKinectState())
+        if (GameManager.instance.GetGameState() == GameState.Game)
         {
-            avatarposition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
-            HandlePlayer();
-        }
-        else
-        {
-            if (GameManager.instance.GetGameState() == GameState.Game)
+            HandleInput();
+            //kinectstate 가 true 면 HandleKinectPlayer를 사ㅇ
+            if (GameManager.instance.GetKinectState())
             {
-                HandleInput();
-                //게임의 상태가 변화하면 속도를 업데이트
-                SpeedUpdate(speed);
-                HandlePlayerAction();
-
+                HandleKinectPlayer();
+            }
+            //게임의 상태가 변화하면 속도를 업데이트
+            SpeedUpdate(speed);
+            HandlePlayerAction();   
             }
             else if (GameManager.instance.GetGameState() == GameState.Pause)
             {
@@ -103,18 +96,17 @@ public class Player : MonoBehaviour
                 InitialValues();
                 SpeedUpdate(speed);
             }
-        }
     }
-    void HandlePlayer()
+    void HandleKinectPlayer()
     {
-        if (AvatarPosition < 107)
+        avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+        if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
         }
-        else if (AvatarPosition > 121)
+        else if (avatarPosition > 121)
         {
             HandlePlayerLocation(PlayerLocation.Right);
-
         }
         else
         {
@@ -125,8 +117,8 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
-            HandlePlayerLocation(PlayerLocation.Center);
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
+            speed -= 5;
         else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left))
             HandlePlayerLocation(PlayerLocation.Left);
         else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right))
@@ -195,17 +187,17 @@ public class Player : MonoBehaviour
         if (MovedLocation == PlayerLocation.Left)
         {
             curLocation = PlayerLocation.Left;
-            transform.position = new Vector3(100, transform.position.y, transform.position.z);
+            transform.position = new Vector3(100, ConstInfo.tileY, ConstInfo.tileZ);
         }
         else if (MovedLocation == PlayerLocation.Center)
         {
             curLocation = PlayerLocation.Center;
-            transform.position = new Vector3(114, transform.position.y, transform.position.z);
+            transform.position = new Vector3(114, ConstInfo.tileY, ConstInfo.tileZ);
         }
         else
         {
             curLocation = PlayerLocation.Right;
-            transform.position = new Vector3(128, transform.position.y, transform.position.z);
+            transform.position = new Vector3(128, ConstInfo.tileY, ConstInfo.tileZ);
         }
         highlightTiles.Highlight(curLocation);
     }
