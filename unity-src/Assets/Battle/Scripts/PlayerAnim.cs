@@ -168,6 +168,7 @@ public class PlayerAnim : MonoBehaviour
         if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
         {
+            animator.SetTrigger("punch");
             attack = true;
             StartCoroutine(HandleAttackTimer());
 
