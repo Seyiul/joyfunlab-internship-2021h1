@@ -23,12 +23,19 @@ public class PlayerAnim : MonoBehaviour
     public static bool jump;
     public static bool kick;
 
+    // 바닥 UI 타일
+    public GameObject leftFloorTile;
+    public GameObject centerFloorTile;
+    public GameObject rightFloorTile;
+
+
+
     public BattlePlayerLocation curLocation;
     BattleHighlight highlightTiles;
 
     //Kinect
     public bool kinectState;
-    public float AvatarPosition;
+    public float avatarPosition;
 
 
     void Awake() { instance = this; }
@@ -40,12 +47,12 @@ public class PlayerAnim : MonoBehaviour
         jump = false;
         kick = false;
 
-        AvatarPosition = 0;
+        avatarPosition = 0;
 
         kinectState = GameManager.instance.GetKinectState();
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
-
+        
     }
 
     // Update is called once per frame
@@ -54,11 +61,58 @@ public class PlayerAnim : MonoBehaviour
         hp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         monsterHp = (float)HealthBarHandler.GetHealthBarValue() * 100;
 
-        AvatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+        avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
 
         HandleGame(hp, monsterHp);
+        
 
+    }
+    void HandleFloorTileHighlight()
+    {
+        UnselectFloorTile();
+        SelectFloorTile();
+    }
+    void UnselectFloorTile()
+    {
+        FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileUnSelected);
+        FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileUnSelected);
+        FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileUnSelected);
+    }
 
+    void SelectFloorTile()
+    {
+        if (kinectState)
+        {
+            if (avatarPosition < 107)
+            {
+                FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileSelected);
+            }
+            else if (avatarPosition > 121)
+            {
+                FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileSelected);
+
+            }
+            else
+            {
+                FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileSelected);
+
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileSelected);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileSelected);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileSelected);
+            }
+        }
     }
     void HandleGame(float hp, float monsterHp)
     {
@@ -89,18 +143,21 @@ public class PlayerAnim : MonoBehaviour
     }
     void HandlePlayerKinect()
     {
-        if (AvatarPosition < 107)
+        if (avatarPosition < 107)
         {
             HandlePlayerLocation(BattlePlayerLocation.Left);
+            HandleFloorTileHighlight();
         }
-        else if (AvatarPosition > 121)
+        else if (avatarPosition > 121)
         {
             HandlePlayerLocation(BattlePlayerLocation.Right);
+            HandleFloorTileHighlight();
 
         }
         else
         {
             HandlePlayerLocation(BattlePlayerLocation.Center);
+            HandleFloorTileHighlight();
 
         }
     }
@@ -109,16 +166,19 @@ public class PlayerAnim : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftArrow))
         {
             HandlePlayerLocation(BattlePlayerLocation.Left);
+            HandleFloorTileHighlight();
         }
         if (Input.GetKeyDown(KeyCode.DownArrow))
         {
             HandlePlayerLocation(BattlePlayerLocation.Center);
+            HandleFloorTileHighlight();
         }
         if (Input.GetKeyDown(KeyCode.RightArrow))
         {
             HandlePlayerLocation(BattlePlayerLocation.Right);
+            HandleFloorTileHighlight();
         }
-        highlightTiles.Highlight(curLocation);
+        
     }
     public void HandlePlayerLocation(BattlePlayerLocation MovedLocation)
     {
@@ -138,6 +198,7 @@ public class PlayerAnim : MonoBehaviour
             transform.position = new Vector3(128, transform.position.y, transform.position.z);
         }
         highlightTiles.Highlight(curLocation);
+        
     }
     void HandlePlayerAction()
     {
