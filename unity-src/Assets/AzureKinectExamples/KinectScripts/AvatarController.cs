@@ -828,6 +828,15 @@ namespace com.rfilkov.components
             Avatar.userPositionLeftHand = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandLeft));
             Avatar.userPositionRightHand = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.HandRight));
 
+
+            if (Avatar.distanceFootKnee == 0)
+            {
+                Vector3 leftKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JoinType.KneeLeft));
+                Vector3 rightKnee = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JoinType.KneeRight));
+
+                Avatar.distanceFootKnee =
+                    (Vector3.Distance(Avatar.userPositionLeftFoot, leftKnee) + Vector3.Distance(Avatar.userPositionRightFoot, rightKnee)) / 2;
+            }
             if(Avatar.distanceHandElbow == 0)
             {
                 Vector3 leftElbow = Avatar.HandleKinectPosition(kinectManager.GetJointPosition(UserID, (int)KinectInterop.JointType.ElbowLeft));

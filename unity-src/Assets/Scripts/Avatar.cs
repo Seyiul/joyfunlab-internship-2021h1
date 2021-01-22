@@ -11,7 +11,7 @@ public class Avatar : MonoBehaviour
     public static Vector3 userPositionRightFoot;
     public static Vector3 userPositionLeftFoot;
     public static float distanceHandElbow;
-
+    public static float distanceFootKnee;
     private static bool userValid;
     
     // Start is called before the first frame update
@@ -26,6 +26,7 @@ public class Avatar : MonoBehaviour
         userPositionRightFoot = Vector3.zero;
         userPositionLeftFoot = Vector3.zero;
 
+        distanceFootKnee = 0;
         distanceHandElbow = 0;
     }
     

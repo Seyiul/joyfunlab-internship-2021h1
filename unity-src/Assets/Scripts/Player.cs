@@ -108,7 +108,14 @@ public class Player : MonoBehaviour
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
         {    isPunching = true; }
          else {     isPunching = false; }
-       
+        /*
+        //isKicking
+        
+        if((Avatar.userPositionLeftFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee*5/3) ||
+             (Avatar.userPositionRightFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)) 
+        { isKicking = true; }
+         else { isKicking = false; }
+        */
         if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
