@@ -178,6 +178,23 @@ public class PlayerAnim : MonoBehaviour
             StartCoroutine(HandleAttackTimer());
 
         }
+        //Right kick
+        if (null)
+        {
+            animator.SetTrigger("kickRight");
+            attack = true;
+            kick = true;
+            StartCoroutine(HandleAttackTimer());
+
+        }
+        //left kick
+        if (null)
+        {
+            animator.SetTrigger("kickLeft");
+            attack = true;
+            kick = true;
+            StartCoroutine(HandleAttackTimer());
+        }
     }
     void HandlePlayerPosition()
     {
@@ -253,6 +270,8 @@ public class PlayerAnim : MonoBehaviour
         animator.ResetTrigger("punch");
         animator.ResetTrigger("leftPunch");
         animator.ResetTrigger("rightPunch");
+        animator.ResetTrigger("kickRight");
+        animator.ResetTrigger("kickLeft");
         attack = false;
         kick = false;
 
