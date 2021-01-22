@@ -165,6 +165,13 @@ public class PlayerAnim : MonoBehaviour
             HandleFloorTileHighlight();
 
         }
+        if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
+            (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
+        {
+            attack = true;
+            StartCoroutine(HandleAttackTimer());
+
+        }
     }
     void HandlePlayerPosition()
     {
