@@ -10,6 +10,8 @@ public class HandleDamage : MonoBehaviour
     public bool monsterAttack;
     public bool playerAttack;
 
+    Animator animator;
+
 
     public float timer = 0;
 
@@ -21,6 +23,8 @@ public class HandleDamage : MonoBehaviour
 
         monsterAttack = false;
         playerAttack = false;
+
+        animator = player.GetComponent<Animator>();
 
     }
 
@@ -50,6 +54,7 @@ public class HandleDamage : MonoBehaviour
             if (ComparePosition())
             {
                 Debug.Log("Monster Attack!");
+                animator.SetTrigger("hit");
                 PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
             }
 
