@@ -71,7 +71,16 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+<<<<<<< Updated upstream
         if (GameManager.instance.GetGameState() == GameState.Game)
+=======
+        if (GameManager.instance.GetKinectState())
+        {
+            AvatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+            HandlePlayer();
+        }
+        else
+>>>>>>> Stashed changes
         {
             HandleInput();
             //kinectstate 가 true 면 HandleKinectPlayer를 사ㅇ
