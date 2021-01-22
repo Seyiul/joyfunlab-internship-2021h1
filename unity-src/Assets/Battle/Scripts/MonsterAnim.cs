@@ -53,11 +53,7 @@ public class MonsterAnim : MonoBehaviour
                 animator.SetBool("victory", true);
                 attack = false;
             }
-            else
-            {
-                if(timer>1)
-                    MonsterActionInitialize();
-            }
+           
         }
 
 
@@ -94,10 +90,12 @@ public class MonsterAnim : MonoBehaviour
                 animator.SetTrigger("punch");
                 break;
         }
+        StartCoroutine(MonsterActionInitialize());
         timer = 0;
     }
-    void MonsterActionInitialize()
+    IEnumerator MonsterActionInitialize()
     {
+        yield return new WaitForSeconds(1f);
         animator.ResetTrigger("kick");
         animator.ResetTrigger("punch");
         attack = false;

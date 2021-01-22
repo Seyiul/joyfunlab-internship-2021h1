@@ -21,7 +21,7 @@ public class HandleDamage : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 2)
+        if (timer > 1)
         {
             ComparePosition();
         }

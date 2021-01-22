@@ -89,7 +89,7 @@ public class PlayerAnim : MonoBehaviour
     }
     void HandlePlayerKinect()
     {
-        if (AvatarPosition < -100)
+        if (AvatarPosition < 107)
         {
             HandlePlayerLocation(BattlePlayerLocation.Left);
         }
