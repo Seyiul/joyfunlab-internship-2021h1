@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
 
-
+    public float avatarposition;
     public PlayerLocation curLocation;
 
     BoxCollider collider;
@@ -67,28 +67,58 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
+        avatarposition = 0;
     }
 
 
     void Update()
     {
-        if (GameManager.instance.GetGameState() == GameState.Game)
+        if (GameManager.instance.GetKinectState())
         {
-            HandleInput();
-            //게임의 상태가 변화하면 속도를 업데이트
-            SpeedUpdate(speed);
-            HandlePlayerAction();
-
-        }
-        else if (GameManager.instance.GetGameState() == GameState.Pause)
-        {
-            //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
-            SpeedUpdate(0);
+            avatarposition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+            HandlePlayer();
         }
         else
         {
-            InitialValues();
-            SpeedUpdate(speed);
+            if (GameManager.instance.GetGameState() == GameState.Game)
+            {
+                HandleInput();
+                //게임의 상태가 변화하면 속도를 업데이트
+                SpeedUpdate(speed);
+                HandlePlayerAction();
+
+            }
+            else if (GameManager.instance.GetGameState() == GameState.Pause)
+            {
+                //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+                SpeedUpdate(0);
+                InitialJumpState();
+                InitialPunchState();
+                InitialStumbleState();
+            }
+            else
+            {
+                InitialValues();
+                SpeedUpdate(speed);
+            }
+        }
+    }
+    void HandlePlayer()
+    {
+        Debug.Log(avatarposition);
+
+        if (avatarposition < 107)
+        {
+            HandlePlayerLocation(PlayerLocation.Left);
+        }
+        else if (avatarposition > 114)
+        {
+            HandlePlayerLocation(PlayerLocation.Right);
+
+        }
+        else
+        {
+            HandlePlayerLocation(PlayerLocation.Center);
         }
     }
     void HandleInput()
@@ -97,9 +127,9 @@ public class Player : MonoBehaviour
             speed += 5;
         else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
             speed -= 5;
-        else if (Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left)
+        else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left))
             HandlePlayerLocation(PlayerLocation.Left);
-        else if (Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right)
+        else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right))
             HandlePlayerLocation(PlayerLocation.Right);
         else if (Input.GetKeyDown(KeyCode.F) && curLocation != PlayerLocation.Center)
             HandlePlayerLocation(PlayerLocation.Center);
@@ -177,7 +207,6 @@ public class Player : MonoBehaviour
             curLocation = PlayerLocation.Right;
             transform.position = new Vector3(128, transform.position.y, transform.position.z);
         }
-//        transform.Translate(new Vector3(ConstInfo.lineWidth * (float)MovedLocation, 0, 0));
         highlightTiles.Highlight(curLocation);
     }
     // 점프 상태 초기화 (초기화 시 펀치 상태도 초기화)
@@ -228,14 +257,7 @@ public class Player : MonoBehaviour
                 InitialPunchState();
         }
     }
-
-    // 아바타 위치로 플레이어 위치 고정
-    public void HandlePlayerPosition()
-    {
-        transform.position = new Vector3(Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / /*ConstInfo.floorUICanvasWidth*/ (float)1920) + ConstInfo.tileX,
-            ConstInfo.tileY, ConstInfo.tileZ);
-    }
-
+    
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Heart Tile")

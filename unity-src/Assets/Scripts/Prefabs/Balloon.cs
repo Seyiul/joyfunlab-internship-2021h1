@@ -19,7 +19,5 @@ public class Balloon : MonoBehaviour
     public void GoAway()
     {
         animator.SetBool("isPunched",true);
-        Debug.Log("!!!!!!!!!!!!");
-
     }
 }
