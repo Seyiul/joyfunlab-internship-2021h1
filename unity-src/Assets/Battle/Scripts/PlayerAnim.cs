@@ -196,6 +196,15 @@ public class PlayerAnim : MonoBehaviour
             kick = true;
             StartCoroutine(HandleAttackTimer());
         }
+
+        //jump
+        if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
+            (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
+        {
+            animator.SetTrigger("jump");
+            jump = true;
+            StartCoroutine(HandleJumpTimer());
+        }
     }
     void HandlePlayerPosition()
     {
