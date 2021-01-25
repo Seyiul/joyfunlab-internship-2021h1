@@ -83,13 +83,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.GetKinectState())
-        {
-            avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
-            HandleKinectPlayer();
-        }
-        else
-        {
+       
             if (GameManager.instance.GetGameState() == GameState.Game)
             {
                 time -= Time.deltaTime;
