@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     public int combo;
     public int point;
     public int hp;
+    public int maxHp;
+    public int time;
 
     public float avatarPosition;
     public PlayerLocation curLocation;
@@ -67,6 +69,7 @@ public class Player : MonoBehaviour
         combo = 0;
         maxCombo = 0;
         hp = 50;
+        maxHp = 100;
         curLocation = PlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
@@ -75,27 +78,33 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.GetGameState() == GameState.Game)
+        if (GameManager.instance.GetKinectState())
         {
-            HandleInput();    
-            //게임의 상태가 변화하면 속도를 업데이트
-            SpeedUpdate(speed);
-            HandlePlayerAction();
-        }
-        else if (GameManager.instance.GetGameState() == GameState.Pause)
-        {
-        //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
-            SpeedUpdate(0);
-            InitialJumpState();
-            InitialPunchState();
-            InitialStumbleState();
+            avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
+            HandleKinectPlayer();
         }
         else
         {
-            InitialValues();
-            SpeedUpdate(speed);
+            if (GameManager.instance.GetGameState() == GameState.Game)
+            {
+                HandleInput();
+                //게임의 상태가 변화하면 속도를 업데이트
+                SpeedUpdate(speed);
+                HandlePlayerAction();
+            }
+            else if (GameManager.instance.GetGameState() == GameState.Pause)
+            {
+                //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+                SpeedUpdate(0);
+                InitialJumpState();
+                InitialPunchState();
+                InitialStumbleState();
+            }
+            else
+            {
+                SpeedUpdate(speed);
+            }
         }
-    
     }
     void HandleKinectPlayer()
     {
@@ -288,6 +297,7 @@ public class Player : MonoBehaviour
         {
             if (isPunching)
             {
+                combo++;
                 col.gameObject.GetComponent<Balloon>().GoAway();
             }
         }

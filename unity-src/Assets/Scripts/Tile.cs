@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Line: int
+enum Line: int
 {
     Left = -1,
     Center = 0,
     Right = 1
 }
 
-public enum Obstacle: int
+enum Obstacle: int
 {
     Empty = 0,
     Heart = 1,
@@ -37,7 +37,7 @@ public class Tile : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(GameManager.instance.nextTile != null)
+        if(GameManager.instance.nextTile != null && gameObject != GameManager.instance.curTile)
         {
             for (point = 0; point <= 4; point++)
             {
@@ -105,8 +105,6 @@ public class Tile : MonoBehaviour
     void MakeHurdle(int obstacleTile)
     {
         hurdle = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-     
-        if(GameManager.instance.nextTile)
         hurdle.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeTrap(int obstacleTile)

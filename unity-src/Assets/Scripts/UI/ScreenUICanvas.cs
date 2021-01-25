@@ -9,8 +9,7 @@ public class ScreenUICanvas : MonoBehaviour
     public GameObject rank;
     public GameObject result;
     public GameObject setting;
-    public Text continueText;
-    public Text restartText;
+    public GameObject pmenu;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,44 +18,57 @@ public class ScreenUICanvas : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    }
+    public void MenuHandle()
+    {
         if (GameManager.instance.GetGameState() == GameState.Menu)
         {
-            ActivateUI(menu);
-            continueText.text = "게임 시작";
-           // restartText.text = "환경 설정";
+            if(GameManager.instance.GetStateChanged())
+                ActivateUI(menu);
+            menu.GetComponent<MenuUI>().MenuHandle();
         }
         else if (GameManager.instance.GetGameState() == GameState.Rank)
         {
-            ActivateUI(rank);
+            if(GameManager.instance.GetStateChanged())
+                ActivateUI(rank);
+            rank.GetComponent<MyRankUI>();
         }
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {
-            ActivateUI(result);
+            if(GameManager.instance.GetStateChanged())
+                ActivateUI(result);
+            result.GetComponent<ResultUI>();
         }
         else if (GameManager.instance.GetGameState() == GameState.Setting)
         {
-            ActivateUI(setting);
+            if(GameManager.instance.GetStateChanged())
+                ActivateUI(setting);
+            setting.GetComponent<SettingUI>().MenuHandle();
         }
         else if (GameManager.instance.GetGameState() == GameState.Pause)
         {
-            ActivateUI(menu);
-            continueText.text = "게임 재개";
-            //restartText.text = "다시 시작";
+            if(GameManager.instance.GetStateChanged())
+                ActivateUI(pmenu);
+            pmenu.GetComponent<PauseUI>().MenuHandle();
         }
         else
-            DeactivateAllUI();
+        {
+            if(GameManager.instance.GetStateChanged())
+                DeactivateAllUI();
+        }
     }
-    public void ActivateUI(GameObject obj)
+    void ActivateUI(GameObject obj)
     {
         DeactivateAllUI();
         obj.SetActive(true);
     }
 
-    public void DeactivateAllUI()
+    void DeactivateAllUI()
     {
         menu.SetActive(false);
         rank.SetActive(false);
         result.SetActive(false);
         setting.SetActive(false);
+        pmenu.SetActive(false);
     }
 }

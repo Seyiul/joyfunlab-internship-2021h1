@@ -8,16 +8,18 @@ public class TileGenerator : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameManager.instance.curTile = Instantiate(tile, new Vector3(ConstInfo.tileX, ConstInfo.tileY, ConstInfo.tileZ), Quaternion.identity);
     }
 
     // Update is called once per frame
     void Update()
     {
+
         MakeTile();
     }
     public void MakeTile()
     {
+        if (GameManager.instance.curTile == null)
+            GameManager.instance.curTile = Instantiate(tile, new Vector3(ConstInfo.tileX, ConstInfo.tileY, ConstInfo.tileZ), Quaternion.identity);
         if (GameManager.instance.nextTile != null)
         {
             if (GameManager.instance.nextTile.transform.position.z < 0)

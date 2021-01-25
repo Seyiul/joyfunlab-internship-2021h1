@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum menuBtn
+enum menuBtn
 {
     start = 0,
     setting = 1,
@@ -16,7 +16,7 @@ public class MenuUI : MonoBehaviour
     public GameObject settingBtn;
     public GameObject rankingBtn;
     public GameObject quitBtn;
-    public menuBtn curBtn;
+    menuBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
     // Start is called before the first frame update
@@ -25,12 +25,11 @@ public class MenuUI : MonoBehaviour
         curBtn = menuBtn.start;
         Selected();
     }
-
     // Update is called once per frame
     void Update()
     {
     }
-    public void Selected()
+    void Selected()
     {
         Unselected();
         switch (curBtn)
@@ -78,13 +77,17 @@ public class MenuUI : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Return))
         {
             if (curBtn == menuBtn.start)
+            {
                 GameManager.instance.SetGameState(GameState.Game);
+                Player.instance.InitialValues();
+            }
             else if (curBtn == menuBtn.setting)
                 GameManager.instance.SetGameState(GameState.Setting);
             else if (curBtn == menuBtn.ranking)
                 GameManager.instance.SetGameState(GameState.Rank);
             else if (curBtn == menuBtn.quit)
                 GameManager.instance.SetGameState(GameState.Result);
+            GameManager.instance.SetStateChanged(true);
         }
     }
 
