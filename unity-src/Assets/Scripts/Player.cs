@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
+    private int steptime;
+    private int steptimer;
     public bool isJumping;
     public float jumpTimer;
 
@@ -53,6 +55,8 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
+        steptimer = 0;
+        steptime = 0;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -109,7 +113,9 @@ public class Player : MonoBehaviour
         if((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3) ||
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
         {    isPunching = true; }
-         else {     isPunching = false; }
+        else if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
+            (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
+        {    isJumping = true; }
         /*
         //isKicking
         
@@ -130,9 +136,15 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
+        
+
     }
     void HandleInput()
     {
+        if (GameManager.instance.GetKinectState()== true)
+        {
+            HandleKinectPlayer();
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
         else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)

@@ -11,6 +11,7 @@ public class HandleDamage : MonoBehaviour
     public bool playerAttack;
 
     Animator animator;
+    Animator anim;
 
 
     public float timer = 0;
@@ -19,12 +20,13 @@ public class HandleDamage : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("player");
-        monster = GameObject.Find("Robot Kyle");
+        monster = GameObject.Find("ScareCrow01");
 
         monsterAttack = false;
         playerAttack = false;
 
         animator = player.GetComponent<Animator>();
+        anim = monster.GetComponent<Animator>();
 
     }
 
@@ -56,11 +58,12 @@ public class HandleDamage : MonoBehaviour
                 Debug.Log("Monster Attack!");
                 animator.SetTrigger("hit");
                 PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
+                StartCoroutine(HandleHitAnim());
             }
 
             timer = 0;
         }
-        else if (playerAttack)
+        if (playerAttack)
         {
             if (ComparePosition())
             {
@@ -71,42 +74,19 @@ public class HandleDamage : MonoBehaviour
                 }
                 else
                 {
+                    anim.SetTrigger("damaged");
                     HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                 }
             }
             timer = 0;
         }
     }
+    private IEnumerator HandleHitAnim()
+    {
+        yield return new WaitForSeconds(1f);
+        animator.ResetTrigger("hit");
+        anim.ResetTrigger("damaged");
+    }
 
-    //void MonsterAttackDetection()
-    //{
-    //    if (MonsterAnim.GetMonsterState()==true)
-    //    {
-    //        if(PlayerAnim.GetPlayerJumpState() == false)
-    //        {
-    //            Debug.Log("Monster Attack!");
-    //            PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
-    //            //timer = 0;
-    //        }
-    //        timer = 0;
-    //    }
-    //}
-    //void PlayerAttackDetection()
-    //{
-        
-    //    if (PlayerAnim.GetPlayerState() == true)
-    //    {
-    //        Debug.Log("Player Attack!");
-    //        if (PlayerAnim.KillMonster() == true)
-    //        {
-    //            HealthBarHandler.SetHealthBarValue(0);
-    //        }
-    //        else
-    //        {
-    //            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-    //        }
-    //        timer = 0;
-    //    }
-    //}
 
 }
