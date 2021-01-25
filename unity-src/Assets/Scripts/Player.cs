@@ -132,7 +132,7 @@ public class Player : MonoBehaviour
     }
     void HandleInput()
     {
-        if (GameManager.GetKinectState() == true)
+        if (GameManager.instance.GetKinectState()== true)
         {
             HandleKinectPlayer();
         }
