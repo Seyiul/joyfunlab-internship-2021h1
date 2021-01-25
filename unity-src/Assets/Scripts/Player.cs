@@ -37,6 +37,8 @@ public class Player : MonoBehaviour
     public int combo;
     public int point;
     public int hp;
+    public int maxHp;
+    public int time;
 
     public float avatarPosition;
     public PlayerLocation curLocation;
@@ -63,6 +65,7 @@ public class Player : MonoBehaviour
         combo = 0;
         maxCombo = 0;
         hp = 50;
+        maxHp = 100;
         curLocation = PlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
@@ -95,7 +98,6 @@ public class Player : MonoBehaviour
             }
             else
             {
-                InitialValues();
                 SpeedUpdate(speed);
             }
         }
@@ -283,6 +285,7 @@ public class Player : MonoBehaviour
         {
             if (isPunching)
             {
+                combo++;
                 col.gameObject.GetComponent<Balloon>().GoAway();
             }
         }

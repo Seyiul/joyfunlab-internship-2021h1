@@ -24,11 +24,10 @@ public class GameManager : MonoBehaviour
     private bool kinectState;
 
     Player player;
-    MenuUI menu;
-
+    ScreenUICanvas ui;
+    bool stateChanged;
     public GameObject curTile;
     public GameObject nextTile;
-
     void Awake()
     {
         if (!instance)
@@ -45,20 +44,19 @@ public class GameManager : MonoBehaviour
         DisplaySetting();
         kinectState = false;
         curGameState = GameState.Menu;
+        stateChanged = true;
         player = GameObject.Find("Player").GetComponent<Player>();
-        menu = GameObject.Find("MenuUI").GetComponent<MenuUI>();
+        ui = GameObject.Find("ScreenUICanvas").GetComponent<ScreenUICanvas>();
     }
 
     void Update()
     {
-        Debug.Log(curGameState);
-
-        if (curGameState == GameState.Menu || curGameState == GameState.Pause)
-            menu.MenuHandle();
         //게임 중에 일시정지 상태로 변경하면(esc 누르면)
         if (Input.GetKeyDown(KeyCode.Escape) && curGameState == GameState.Game)
+        {
             curGameState = GameState.Pause;
-
+        }
+        ui.MenuHandle();
     }
 
     // 화면 설정 (디스플레이가 하나일 경우 전면 UI만 출력, 두개 이상일 경우 바닥 UI 출력)
@@ -80,4 +78,6 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState() { return curGameState; }
     public void SetGameState(GameState newGameState) { curGameState = newGameState; }
 
+    public bool GetStateChanged() { return stateChanged; }
+    public void SetStateChanged(bool changed) { stateChanged = changed; }
 }
