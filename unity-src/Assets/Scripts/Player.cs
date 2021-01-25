@@ -40,17 +40,24 @@ public class Player : MonoBehaviour
     public int point;
     public int hp;
     public int maxHp;
-    public int time;
+    public float time;
 
     public float avatarPosition;
     public PlayerLocation curLocation;
 
     BoxCollider collider;
     HighlightTiles highlightTiles;
+    public GameCanvas gameCanvas;
     // 인스턴스 설정
     private void Awake() { instance = this; }
 
-    void Start() { InitialValues(); }
+    void Start() { 
+        InitialValues();
+        highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
+        animator = GetComponent<Animator>();
+        collider = gameObject.GetComponent<BoxCollider>();
+    //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+    }
 
     // 변수 초기화
     public void InitialValues()
@@ -70,11 +77,9 @@ public class Player : MonoBehaviour
         maxCombo = 0;
         hp = 50;
         maxHp = 100;
-        curLocation = PlayerLocation.Center;
-        highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
-        animator = GetComponent<Animator>();
-        collider = gameObject.GetComponent<BoxCollider>();
+        time = 60;
         avatarPosition = 0;
+        curLocation = PlayerLocation.Center;
     }
     void Update()
     {
@@ -87,22 +92,25 @@ public class Player : MonoBehaviour
         {
             if (GameManager.instance.GetGameState() == GameState.Game)
             {
+                time -= Time.deltaTime;
                 HandleInput();
                 //게임의 상태가 변화하면 속도를 업데이트
                 SpeedUpdate(speed);
                 HandlePlayerAction();
+                gameCanvas.DisplayTime();
+                gameCanvas.DisplayHp();
+                if (time < 0 || hp <= 0)
+                {
+                    GameManager.instance.SetGameState(GameState.Result);
+                }
             }
-            else if (GameManager.instance.GetGameState() == GameState.Pause)
+            else 
             {
                 //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
                 SpeedUpdate(0);
                 InitialJumpState();
                 InitialPunchState();
                 InitialStumbleState();
-            }
-            else
-            {
-                SpeedUpdate(speed);
             }
         }
     }
@@ -298,7 +306,9 @@ public class Player : MonoBehaviour
             if (isPunching)
             {
                 combo++;
+                time += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
+                gameCanvas.DisplayTimeIncrease();
             }
         }
     }

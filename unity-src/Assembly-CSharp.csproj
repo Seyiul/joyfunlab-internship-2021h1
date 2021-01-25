@@ -161,6 +161,7 @@
      <Compile Include="Assets\Battle\Scripts\MonsterAnim.cs" />
      <Compile Include="Assets\Battle\Scripts\PlayerAnim.cs" />
      <Compile Include="Assets\Battle\Scripts\PlayerHealthbarHandler.cs" />
+     <Compile Include="Assets\Battle\Scripts\ShakeBehavior.cs" />
      <Compile Include="Assets\Battle\Scripts\TestHP.cs" />
      <Compile Include="Assets\Battle\Scripts\TestPlayerHP.cs" />
      <Compile Include="Assets\Graphics\Scripts\DynamicBone.cs" />
@@ -219,7 +220,7 @@
      <Compile Include="Assets\Scripts\Prefabs\Balloon.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\TileGenerator.cs" />
-     <Compile Include="Assets\Scripts\UI\GameUICanvas.cs" />
+     <Compile Include="Assets\Scripts\UI\GameCanvas.cs" />
      <Compile Include="Assets\Scripts\UI\MenuUI.cs" />
      <Compile Include="Assets\Scripts\UI\MyRankUI.cs" />
      <Compile Include="Assets\Scripts\UI\PauseUI.cs" />
@@ -359,6 +360,7 @@
      <None Include="Assets\Resources\3DResources\Character\TaichiCharacterPack\Shaders\AdditiveMask.shader" />
      <None Include="Assets\Resources\3DResources\Character\TaichiCharacterPack\Shaders\Standard\APOLLO_Standard.shader" />
      <None Include="Assets\Resources\3DResources\PostProcessing\Resources\Shaders\TAA.shader" />
+     <None Include="Assets\Battle\Temp\Blood decal pack\readme.txt" />
      <None Include="Assets\AzureKinectExamples\Resources\UserMeshVShader.shader" />
      <None Include="Assets\Resources\3DResources\Character\TaichiCharacterPack\Shaders\Mobile - VR\APOLLOM_Standard Simple.shader" />
      <None Include="Assets\AzureKinectExamples\Resources\PointCloudBodyVertexShaderAll.compute" />

@@ -31,7 +31,7 @@ public class ScreenUICanvas : MonoBehaviour
         {
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(rank);
-            rank.GetComponent<MyRankUI>();
+            rank.GetComponent<MyRankUI>().MenuHandle();
         }
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {

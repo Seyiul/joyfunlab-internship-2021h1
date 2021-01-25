@@ -6,6 +6,7 @@ public class ConstInfo : MonoBehaviour
 {
     public const float actionTimer = 0.65f;
 
+    public const float displayTimer = 0.7f;
 
     public const float tileLength = 333.5f;
     public const float tileX = 114;
