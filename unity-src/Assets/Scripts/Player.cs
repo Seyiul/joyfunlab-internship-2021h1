@@ -20,6 +20,8 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
+    private int steptime;
+    private int steptimer;
     public bool isJumping;
     public float jumpTimer;
 
@@ -51,6 +53,8 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
+        steptimer = 0;
+        steptime = 0;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -71,34 +75,27 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.GetKinectState())
+        if (GameManager.instance.GetGameState() == GameState.Game)
         {
-            avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
-            HandleKinectPlayer();
+            HandleInput();    
+            //게임의 상태가 변화하면 속도를 업데이트
+            SpeedUpdate(speed);
+            HandlePlayerAction();
+        }
+        else if (GameManager.instance.GetGameState() == GameState.Pause)
+        {
+        //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+            SpeedUpdate(0);
+            InitialJumpState();
+            InitialPunchState();
+            InitialStumbleState();
         }
         else
         {
-            if (GameManager.instance.GetGameState() == GameState.Game)
-            {
-                HandleInput();
-                //게임의 상태가 변화하면 속도를 업데이트
-                SpeedUpdate(speed);
-                HandlePlayerAction();
-            }
-            else if (GameManager.instance.GetGameState() == GameState.Pause)
-            {
-                //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
-                SpeedUpdate(0);
-                InitialJumpState();
-                InitialPunchState();
-                InitialStumbleState();
-            }
-            else
-            {
-                InitialValues();
-                SpeedUpdate(speed);
-            }
+            InitialValues();
+            SpeedUpdate(speed);
         }
+    
     }
     void HandleKinectPlayer()
     {
@@ -107,7 +104,9 @@ public class Player : MonoBehaviour
         if((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3) ||
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
         {    isPunching = true; }
-         else {     isPunching = false; }
+        else if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
+            (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
+        {    isJumping = true; }
         /*
         //isKicking
         
@@ -128,9 +127,15 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
+        
+
     }
     void HandleInput()
     {
+        if (GameManager.GetKinectState() == true)
+        {
+            HandleKinectPlayer();
+        }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
         else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
