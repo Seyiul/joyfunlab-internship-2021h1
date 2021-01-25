@@ -29,7 +29,7 @@ public class ConstInfo : MonoBehaviour
     // 플레이어 동작 조건 관련 상수
     public const float stepHeight = 130;
     public const float punchDistance = 216;
-    public const float jumpHeight = 300;
+    public const float jumpHeight = 200;
     public const float jumpFootHeightDifferenceLimit = 21.6f;
     public const float jumpFootPositionVariationLimit = 360;
 
