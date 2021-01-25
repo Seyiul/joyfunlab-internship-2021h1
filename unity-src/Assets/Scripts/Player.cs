@@ -78,13 +78,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.instance.GetKinectState())
-        {
-            avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
-            HandleKinectPlayer();
-        }
-        else
-        {
+       
             if (GameManager.instance.GetGameState() == GameState.Game)
             {
                 HandleInput();
@@ -104,7 +98,7 @@ public class Player : MonoBehaviour
             {
                 SpeedUpdate(speed);
             }
-        }
+        
     }
     void HandleKinectPlayer()
     {
