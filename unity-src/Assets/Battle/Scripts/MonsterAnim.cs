@@ -53,7 +53,7 @@ public class MonsterAnim : MonoBehaviour
                 animator.SetBool("victory", true);
                 attack = false;
             }
-           
+
         }
 
 
