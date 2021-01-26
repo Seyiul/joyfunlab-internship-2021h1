@@ -32,7 +32,7 @@ public class BackToGame : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         GameManager.instance.SetGameState(GameState.Game);
-        SceneManager.LoadScene(sceneIndex);
+        SceneManager.LoadScene(sceneIndex,LoadSceneMode.Single);
 
     }
   
