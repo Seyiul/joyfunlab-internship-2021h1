@@ -146,9 +146,10 @@ public class Player : MonoBehaviour
             HandlePlayerLocation(PlayerLocation.Center);
         }
     }
-    void HandleKinectWalk(float speed)
+    void HandleKinectWalk()
     {
         steptime += Time.deltaTime;
+        
         if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
              (Avatar.userPositionRightFoot.y < ConstInfo.stepHeight))
         { leftup = true; }
@@ -164,11 +165,7 @@ public class Player : MonoBehaviour
         }
         if (steptime > 1)
         {
-            if (step == 0)
-            {
-                speed = 5;
-            }
-            else if (3 < step)
+            if (3 < step)
             {
                 if (speed < 60)
                 {
@@ -197,6 +194,15 @@ public class Player : MonoBehaviour
                     speed += 5;
                 }
             }
+            else
+            {
+                if (speed > 5)
+                {
+                    speed -= 5;
+                }
+                else
+                    speed = 5;
+            }
             step = 0;
             steptime = 0;
         }
@@ -206,7 +212,7 @@ public class Player : MonoBehaviour
         if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
-            HandleKinectWalk(speed);
+            HandleKinectWalk();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
