@@ -20,8 +20,9 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
-    private int steptime;
-    private int steptimer;
+    private float steptime;
+    private int step;
+    private bool rightup, leftup;
     public bool isJumping;
     public float jumpTimer;
 
@@ -66,8 +67,10 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
-        steptimer = 0;
+        step = 0;
         steptime = 0;
+        leftup = false;
+        rightup = false;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -142,14 +145,68 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
+    }
+    void HandleKinectWalk(float speed)
+    {
+        steptime += Time.deltaTime;
+        if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
+             (Avatar.userPositionRightFoot.y < ConstInfo.stepHeight))
+        { leftup = true; }
+        else if ((Avatar.userPositionRightFoot.y > ConstInfo.stepHeight) &&
+             (Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
+        { rightup = true; }
 
-
+        if (leftup && rightup)
+        {
+            step++;
+            leftup = false;
+            rightup = false;
+        }
+        if (steptime > 1)
+        {
+            if (step == 0)
+            {
+                speed = 5;
+            }
+            else if (3 < step)
+            {
+                if (speed < 60)
+                {
+                    speed += 5;
+                }
+            }
+            else if (2 < step)
+            {
+                if (speed > 40)
+                {
+                    speed -= 5;
+                }
+                else
+                {
+                    speed += 5;
+                }
+            }
+            else if (1 < step)
+            {
+                if (speed > 20)
+                {
+                    speed -= 5;
+                }
+                else
+                {
+                    speed += 5;
+                }
+            }
+            step = 0;
+            steptime = 0;
+        }
     }
     void HandleInput()
     {
         if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
+            HandleKinectWalk(speed);
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
