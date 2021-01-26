@@ -20,9 +20,6 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
-    private float steptime;
-    private int step;
-    private bool rightup, leftup;
     public bool isJumping;
     public float jumpTimer;
 
@@ -63,22 +60,14 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
-<<<<<<< HEAD
         time = 60;
         hp = 50;
         maxHp = 100;
-=======
->>>>>>> 2650a2485e0b6497b0c7e7d9d1c06d0f33b4bb79
-        //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
-    }
+        }
 
     // 변수 초기화
     public void InitialValues()
     {
-        step = 0;
-        steptime = 0;
-        leftup = false;
-        rightup = false;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -95,10 +84,7 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-<<<<<<< HEAD
-=======
 
->>>>>>> 2650a2485e0b6497b0c7e7d9d1c06d0f33b4bb79
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
             time -= Time.deltaTime;
@@ -108,12 +94,9 @@ public class Player : MonoBehaviour
             HandlePlayerAction();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
-<<<<<<< HEAD
             Debug.Log(onDisplayTime);
             UnDisplay(ref onDisplayHp, "UnDisplayHpIncrease");
             UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
-=======
->>>>>>> 2650a2485e0b6497b0c7e7d9d1c06d0f33b4bb79
             if (time < 0 || hp <= 0)
             {
                 GameManager.instance.SetGameState(GameState.Result);
@@ -148,7 +131,6 @@ public class Player : MonoBehaviour
             InitialStumbleState();
         }
     }
-<<<<<<< HEAD
     void UnDisplayHpIncrease()
     {
         gameCanvas.UnDisplayHpIncrease();
@@ -157,9 +139,6 @@ public class Player : MonoBehaviour
     {
         gameCanvas.UnDisplayTimeIncrease();
     }
-=======
-
->>>>>>> 2650a2485e0b6497b0c7e7d9d1c06d0f33b4bb79
     void HandleKinectPlayer()
     {
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
@@ -191,73 +170,11 @@ public class Player : MonoBehaviour
             HandlePlayerLocation(PlayerLocation.Center);
         }
     }
-    void HandleKinectWalk()
-    {
-        steptime += Time.deltaTime;
-        
-        if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
-             (Avatar.userPositionRightFoot.y < ConstInfo.stepHeight))
-        { leftup = true; }
-        else if ((Avatar.userPositionRightFoot.y > ConstInfo.stepHeight) &&
-             (Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
-        { rightup = true; }
-
-        if (leftup && rightup)
-        {
-            step++;
-            leftup = false;
-            rightup = false;
-        }
-        if (steptime > 1)
-        {
-            if (3 < step)
-            {
-                if (speed < 60)
-                {
-                    speed += 5;
-                }
-            }
-            else if (2 < step)
-            {
-                if (speed > 40)
-                {
-                    speed -= 5;
-                }
-                else
-                {
-                    speed += 5;
-                }
-            }
-            else if (1 < step)
-            {
-                if (speed > 20)
-                {
-                    speed -= 5;
-                }
-                else
-                {
-                    speed += 5;
-                }
-            }
-            else
-            {
-                if (speed > 5)
-                {
-                    speed -= 5;
-                }
-                else
-                    speed = 5;
-            }
-            step = 0;
-            steptime = 0;
-        }
-    }
     void HandleInput()
     {
         if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
-            HandleKinectWalk();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
@@ -422,13 +339,11 @@ public class Player : MonoBehaviour
                 onDisplayTime = true;
             }
         }
-<<<<<<< HEAD
         else if(col.gameObject.tag == "Pass Tile")
         {
             combo++;
             gameCanvas.DisplayCombo();
         }
-=======
         else if (col.gameObject.tag == "Monster Tile")
         {
             transition.GetComponent<Animator>().SetBool("animateIn", true);
@@ -440,6 +355,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3f);
         GameManager.instance.SetGameState(GameState.Battle);
         SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);
->>>>>>> 2650a2485e0b6497b0c7e7d9d1c06d0f33b4bb79
     }
 }
