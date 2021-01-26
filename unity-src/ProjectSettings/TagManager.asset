@@ -14,7 +14,6 @@ TagManager:
   - Balloon Tile
   - Battle Tile
   - fade
-  - Monster Tile
   layers:
   - Default
   - TransparentFX

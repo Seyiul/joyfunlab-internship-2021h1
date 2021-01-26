@@ -129,9 +129,5 @@ public class Tile : MonoBehaviour
         balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
         balloon.transform.parent = GameManager.instance.nextTile.transform;
     }
-    void MakeMonster(int obstacleTile)
-    {
-        monster = Instantiate(monsterSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        monster.transform.parent = GameManager.instance.nextTile.transform;
-    }
+
 }
