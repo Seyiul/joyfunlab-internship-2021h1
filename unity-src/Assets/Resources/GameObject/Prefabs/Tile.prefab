@@ -69,7 +69,8 @@ MonoBehaviour:
   trapSrc: {fileID: 8781427926711624264, guid: 0ffb92607e9b1f241b24f851005f045c, type: 3}
   balloonSrc: {fileID: 5471411465510363513, guid: c9f56fea98de6c245835ff60cf85b72c,
     type: 3}
-  monsterSrc: {fileID: 0}
+  monsterSrc: {fileID: 1986640898831521343, guid: 9d216577d4e97cf4c986ba788fd20443,
+    type: 3}
 --- !u!65 &81258616441871095
 BoxCollider:
   m_ObjectHideFlags: 0
