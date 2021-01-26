@@ -11,11 +11,10 @@ public class GameCanvas : MonoBehaviour
     public Text TimerText;
     public Text HpText;
     public GameObject TimeIncreaseText;
-    float displayTimer;
+    public GameObject HpIncreaseText;
     // Start is called before the first frame update
     void Start()
     {
-        displayTimer = 0;
     }
 
     // Update is called once per frame
@@ -29,17 +28,26 @@ public class GameCanvas : MonoBehaviour
     }
     public void DisplayTimeIncrease()
     {
-        displayTimer += Time.deltaTime;
-        if(displayTimer >= ConstInfo.displayTimer)
-            TimeIncreaseText.SetActive(true);
-        else
-        {
-            TimeIncreaseText.SetActive(false);
-            displayTimer = 0;
-        }
+        TimeIncreaseText.GetComponent<Outline>().useGraphicAlpha = false;
+    }
+    public void UnDisplayTimeIncrease()
+    {
+        TimeIncreaseText.GetComponent<Outline>().useGraphicAlpha = true;
     }
     public void DisplayHp()
     {
         HpText.text = Player.instance.hp.ToString() + "/" + Player.instance.maxHp.ToString();
+    }
+    public void DisplayHpIncrease()
+    {
+        HpIncreaseText.GetComponent<Outline>().useGraphicAlpha = false;
+    }
+    public void UnDisplayHpIncrease()
+    {
+        HpIncreaseText.GetComponent<Outline>().useGraphicAlpha = true;
+    }
+    public void DisplayCombo()
+    {
+        Combo.text = Player.instance.combo.ToString() + " Combo";
     }
 }

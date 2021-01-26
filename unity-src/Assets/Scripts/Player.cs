@@ -45,6 +45,8 @@ public class Player : MonoBehaviour
     public float avatarPosition;
     public PlayerLocation curLocation;
 
+    bool onDisplayHp = false;
+    bool onDisplayTime = false;
     BoxCollider collider;
     HighlightTiles highlightTiles;
     public GameCanvas gameCanvas;
@@ -56,7 +58,10 @@ public class Player : MonoBehaviour
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
-    //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+        time = 60;
+        hp = 50;
+        maxHp = 100;
+        //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
     }
 
     // 변수 초기화
@@ -75,38 +80,56 @@ public class Player : MonoBehaviour
         point = 0;
         combo = 0;
         maxCombo = 0;
-        hp = 50;
-        maxHp = 100;
-        time = 60;
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
     }
     void Update()
     {
-       
-            if (GameManager.instance.GetGameState() == GameState.Game)
+        if (GameManager.instance.GetGameState() == GameState.Game)
+        {
+            time -= Time.deltaTime;
+            HandleInput();
+            //게임의 상태가 변화하면 속도를 업데이트
+            SpeedUpdate(speed);
+            HandlePlayerAction();
+            gameCanvas.DisplayTime();
+            gameCanvas.DisplayHp();
+            Debug.Log(onDisplayTime);
+            UnDisplay(ref onDisplayHp, "UnDisplayHpIncrease");
+            UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
+            if (time < 0 || hp <= 0)
             {
-                time -= Time.deltaTime;
-                HandleInput();
-                //게임의 상태가 변화하면 속도를 업데이트
-                SpeedUpdate(speed);
-                HandlePlayerAction();
-                gameCanvas.DisplayTime();
-                gameCanvas.DisplayHp();
-                if (time < 0 || hp <= 0)
-                {
-                    GameManager.instance.SetGameState(GameState.Result);
-                }
+                GameManager.instance.SetGameState(GameState.Result);
             }
-            else 
-            {
-                //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
-                SpeedUpdate(0);
-                InitialJumpState();
-                InitialPunchState();
-                InitialStumbleState();
-            }
+            if (combo > maxCombo)
+                maxCombo = combo;
+
         }
+        else 
+        {
+            //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+            SpeedUpdate(0);
+            InitialJumpState();
+            InitialPunchState();
+            InitialStumbleState();
+        }
+        
+    }
+    void UnDisplay(ref bool onDisplay,string functionName)
+    {
+        if(onDisplay)
+        {
+            onDisplay = false;
+            Invoke(functionName, ConstInfo.displayTimer);
+        }
+    }
+    void UnDisplayHpIncrease()
+    {
+        gameCanvas.UnDisplayHpIncrease();
+    }
+    void UnDisplayTimeIncrease()
+    {
+        gameCanvas.UnDisplayTimeIncrease();
     }
     void HandleKinectPlayer()
     {
@@ -287,12 +310,15 @@ public class Player : MonoBehaviour
         if (col.gameObject.tag == "Heart Tile")
         {
             hp++;
+            gameCanvas.DisplayHpIncrease();
+            onDisplayHp = true;
         }
         else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
         {
             isStumbling = true;
             combo = 0;
             hp -= 10;
+            gameCanvas.DisplayCombo();
             HandlePlayerStumbling();
         }
         else if(col.gameObject.tag == "Balloon Tile")
@@ -303,7 +329,14 @@ public class Player : MonoBehaviour
                 time += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
                 gameCanvas.DisplayTimeIncrease();
+                gameCanvas.DisplayCombo();
+                onDisplayTime = true;
             }
+        }
+        else if(col.gameObject.tag == "Pass Tile")
+        {
+            combo++;
+            gameCanvas.DisplayCombo();
         }
     }
 }

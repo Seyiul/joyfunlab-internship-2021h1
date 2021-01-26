@@ -12558,7 +12558,9 @@ MonoBehaviour:
   CountDownTimer: {fileID: 403954878}
   SpeedText: {fileID: 853369668}
   TimerText: {fileID: 128858339}
+  HpText: {fileID: 522602951}
   TimeIncreaseText: {fileID: 1933730578}
+  HpIncreaseText: {fileID: 1797022171}
 --- !u!114 &1799101086
 MonoBehaviour:
   m_ObjectHideFlags: 0

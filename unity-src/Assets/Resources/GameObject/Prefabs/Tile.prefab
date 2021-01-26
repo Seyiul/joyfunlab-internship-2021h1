@@ -70,6 +70,7 @@ MonoBehaviour:
   balloonSrc: {fileID: 5471411465510363513, guid: c9f56fea98de6c245835ff60cf85b72c,
     type: 3}
   monsterSrc: {fileID: 0}
+  passSrc: {fileID: 7945418650733671163, guid: eec717c045246734186cb567c2bbf932, type: 3}
 --- !u!65 &81258616441871095
 BoxCollider:
   m_ObjectHideFlags: 0

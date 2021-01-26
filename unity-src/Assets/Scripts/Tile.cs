@@ -27,13 +27,14 @@ public class Tile : MonoBehaviour
     public GameObject trapSrc;
     public GameObject balloonSrc;
     public GameObject monsterSrc;
+    public GameObject passSrc;
     int point;
     GameObject heart;
     GameObject hurdle;
     GameObject trap;
     GameObject balloon;
     GameObject monster;
-
+    GameObject pass;
     // Start is called before the first frame update
     void Start()
     {
@@ -84,23 +85,34 @@ public class Tile : MonoBehaviour
     }
     void MakeEmpty(int emptyTile)
     {
-        if (Random.Range((int)Obstacle.Empty, (int)Obstacle.Heart + 3) == (int)Obstacle.Heart)
+        // 1/4확률로 하트
+        if (Random.Range(0, 4) == 0)
             MakeHeart(emptyTile);
+        MakePassZone(emptyTile, 3);
     }
     void MakeHeart(int emptyTile)
     {
         heart = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
         heart.transform.parent = GameManager.instance.nextTile.transform;
     }
+    void MakePassZone(int tile,int y)
+    {
+        pass = Instantiate(passSrc, new Vector3(ConstInfo.tileX + tile * ConstInfo.lineWidth, ConstInfo.tileY + y, ConstInfo.tileLength + point * ConstInfo.tileTerm),Quaternion.identity);
+        pass.transform.parent = GameManager.instance.nextTile.transform;
+    }
     void MakeObstacle(int obstacleTile)
     {
         int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster);
-        if(obstacle == (int)Obstacle.Hurdle)
-            MakeHurdle(obstacleTile);
-        else if (obstacle == (int)Obstacle.Trap)
-            MakeTrap(obstacleTile);
-        else if (obstacle == (int)Obstacle.Balloon)
+        if (obstacle == (int)Obstacle.Balloon)
             MakeBalloon(obstacleTile);
+        else
+        {
+            if (obstacle == (int)Obstacle.Hurdle)
+                MakeHurdle(obstacleTile);
+            else if (obstacle == (int)Obstacle.Trap)
+                MakeTrap(obstacleTile);
+            MakePassZone(obstacleTile, 23);
+        }
     }
     void MakeHurdle(int obstacleTile)
     {
