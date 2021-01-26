@@ -95,12 +95,14 @@ public class Tile : MonoBehaviour
     void MakeObstacle(int obstacleTile)
     {
         int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster);
-        if(obstacle == (int)Obstacle.Hurdle)
+        if (obstacle == (int)Obstacle.Hurdle)
             MakeHurdle(obstacleTile);
         else if (obstacle == (int)Obstacle.Trap)
             MakeTrap(obstacleTile);
         else if (obstacle == (int)Obstacle.Balloon)
             MakeBalloon(obstacleTile);
+        //else if (obstacle == (int)Obstacle.Monster)
+        //    MakeMonster(obstacleTile);
     }
     void MakeHurdle(int obstacleTile)
     {
@@ -117,5 +119,9 @@ public class Tile : MonoBehaviour
         balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
         balloon.transform.parent = GameManager.instance.nextTile.transform;
     }
-
+    void MakeMonster(int obstacleTile)
+    {
+        monster = Instantiate(monsterSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        monster.transform.parent = GameManager.instance.nextTile.transform;
+    }
 }

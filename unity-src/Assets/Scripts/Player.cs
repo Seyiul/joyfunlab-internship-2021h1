@@ -48,15 +48,19 @@ public class Player : MonoBehaviour
     BoxCollider collider;
     HighlightTiles highlightTiles;
     public GameCanvas gameCanvas;
+    //화면 전환 효과
+    public GameObject transition;
+
     // 인스턴스 설정
     private void Awake() { instance = this; }
 
-    void Start() { 
+    void Start()
+    {
         InitialValues();
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
         collider = gameObject.GetComponent<BoxCollider>();
-    //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+        //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
     }
 
     // 변수 초기화
@@ -83,44 +87,44 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
-       
-            if (GameManager.instance.GetGameState() == GameState.Game)
+
+        if (GameManager.instance.GetGameState() == GameState.Game)
+        {
+            time -= Time.deltaTime;
+            HandleInput();
+            //게임의 상태가 변화하면 속도를 업데이트
+            SpeedUpdate(speed);
+            HandlePlayerAction();
+            gameCanvas.DisplayTime();
+            gameCanvas.DisplayHp();
+            if (time < 0 || hp <= 0)
             {
-                time -= Time.deltaTime;
-                HandleInput();
-                //게임의 상태가 변화하면 속도를 업데이트
-                SpeedUpdate(speed);
-                HandlePlayerAction();
-                gameCanvas.DisplayTime();
-                gameCanvas.DisplayHp();
-                if (time < 0 || hp <= 0)
-                {
-                    GameManager.instance.SetGameState(GameState.Result);
-                }
-            }
-            else 
-            {
-                //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
-                SpeedUpdate(0);
-                InitialJumpState();
-                InitialPunchState();
-                InitialStumbleState();
+                GameManager.instance.SetGameState(GameState.Result);
             }
         }
+        else
+        {
+            //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+            SpeedUpdate(0);
+            InitialJumpState();
+            InitialPunchState();
+            InitialStumbleState();
+        }
     }
+
     void HandleKinectPlayer()
     {
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
         //ispunching
-        if((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3) ||
-             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
-        {    isPunching = true; }
+        if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
+             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
+        { isPunching = true; }
         else if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
             (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
-        {    isJumping = true; }
+        { isJumping = true; }
         /*
         //isKicking
-        
+
         if((Avatar.userPositionLeftFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee*5/3) ||
              (Avatar.userPositionRightFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)) 
         { isKicking = true; }
@@ -138,12 +142,12 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
-        
+
 
     }
     void HandleInput()
     {
-        if (GameManager.instance.GetKinectState()== true)
+        if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
         }
@@ -190,8 +194,8 @@ public class Player : MonoBehaviour
             }
             HandlePlayerActionTimer();
         }
-    }
 
+    }
 
 
     // 플레이어 점프 애니메이션 (점프 중 펀치 가능)
@@ -281,7 +285,7 @@ public class Player : MonoBehaviour
                 InitialPunchState();
         }
     }
-    
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Heart Tile")
@@ -295,7 +299,7 @@ public class Player : MonoBehaviour
             hp -= 10;
             HandlePlayerStumbling();
         }
-        else if(col.gameObject.tag == "Balloon Tile")
+        else if (col.gameObject.tag == "Balloon Tile")
         {
             if (isPunching)
             {
@@ -305,5 +309,16 @@ public class Player : MonoBehaviour
                 gameCanvas.DisplayTimeIncrease();
             }
         }
+        else if (col.gameObject.tag == "Monster Tile")
+        {
+            transition.GetComponent<Animator>().SetBool("animateIn", true);
+            StartCoroutine(SceneChange());
+        }
+    }
+    IEnumerator SceneChange()
+    {
+        yield return new WaitForSeconds(3f);
+        GameManager.instance.SetGameState(GameState.Battle);
+        SceneManager.LoadScene("BattleScene", LoadSceneMode.Single);
     }
 }
