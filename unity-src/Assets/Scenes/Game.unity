@@ -6445,7 +6445,7 @@ GameObject:
   - component: {fileID: 882654142}
   m_Layer: 5
   m_Name: blackCircle
-  m_TagString: Untagged
+  m_TagString: Battle Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9487,7 +9487,7 @@ MonoBehaviour:
   playtime: 0
   avatarPosition: 0
   curLocation: 0
-  transition: {fileID: 0}
+  transition: {fileID: 882654139}
   gameCanvas: {fileID: 1799101085}
 --- !u!54 &1339462818
 Rigidbody:
