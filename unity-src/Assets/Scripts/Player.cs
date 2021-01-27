@@ -218,13 +218,13 @@ public class Player : MonoBehaviour
             || (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
             && stepRecordTime != 0)
             HandleStep();
-        speed = steps.Average()/500;
+        speed = steps.Average();
     }
 
     // 걸음시간 기록 및 초기화, 결음 방향 변경
     void HandleStep()
     {
-        steps.Add(10 / stepRecordTime);
+        steps.Add(30*stepRecordTime/steps.Count());
         steps.RemoveAt(0);
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
