@@ -90,38 +90,42 @@ public class HandleDamage : MonoBehaviour
                 {
                     HealthBarHandler.SetHealthBarValue(0);
                 }
-                if(PlayerAnim.GetPunchState() == true)
+                if (PlayerAnim.GetPunchState() == true)
                 {
-                    anim.SetTrigger("damaged");
 
                     if (punchTime <= 0.05)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-
+                        anim.SetTrigger("damaged");
                     }
-                    else if(0.05<punchTime && punchTime <= 0.1)
+                    else if (0.05 < punchTime && punchTime <= 0.1)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        anim.SetTrigger("damaged");
                     }
                 }
                 if (PlayerAnim.GetKickState() == true)
                 {
-                    anim.SetTrigger("damaged");
 
                     if (kickTime <= 0.05)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        anim.SetTrigger("damaged");
+
 
                     }
                     else if (0.05 < kickTime && kickTime <= 0.1)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        anim.SetTrigger("damaged");
                     }
 
                 }
             }
+            StartCoroutine(HandleHitAnim());
+
             timer = 0;
         }
     }
