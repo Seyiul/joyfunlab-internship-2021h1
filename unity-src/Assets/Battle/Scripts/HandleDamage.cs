@@ -85,13 +85,13 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(punchNode.transform.position.y) <= 10)
+                    if (Mathf.Abs(punchNode.transform.position.y) <= 22)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
 
                     }
-                    else if(10<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 150)
+                    else if(22<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 100)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
@@ -100,13 +100,13 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(kickNode.transform.position.y) <= 10)
+                    if (Mathf.Abs(kickNode.transform.position.y) <= 22)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
 
                     }
-                    else if (10 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 150)
+                    else if (22 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 100)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
