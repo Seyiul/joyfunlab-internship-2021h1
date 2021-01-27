@@ -1321,6 +1321,8 @@ MonoBehaviour:
   blood: {fileID: 545318340}
   timer: 0
   camera: {fileID: 1294204975}
+  punchNode: {fileID: 0}
+  kickNode: {fileID: 0}
 --- !u!224 &580897518 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4103648660059068931, guid: 1313ba361a0fe914c8c94cae1d999732,
@@ -4926,7 +4928,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 8616d72515329aa45a1e14b94c0d11f1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
