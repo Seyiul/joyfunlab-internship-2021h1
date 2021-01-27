@@ -15,6 +15,8 @@ public enum PlayerLocation : int
 
 public class Player : MonoBehaviour
 {
+    public GameObject menu;
+
     // 인스턴스 변수 선언
     public static Player instance;
 
@@ -64,6 +66,9 @@ public class Player : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("hp"))
         {
+
+            GameManager.instance.SetGameState(GameState.Game);
+
             highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
             animator = GetComponent<Animator>();
             collider = gameObject.GetComponent<BoxCollider>();
@@ -71,8 +76,10 @@ public class Player : MonoBehaviour
             hp = PlayerPrefs.GetInt("hp");
             point = PlayerPrefs.GetInt("point");
             maxHp = 100;
+            speed = PlayerPrefs.GetFloat("speed");
             playtime = time;
             PlayerPrefs.DeleteAll();
+
         }
         else
         {
@@ -140,6 +147,8 @@ public class Player : MonoBehaviour
                 hp = 0;
                 time = 0;
                 GameManager.instance.SetGameState(GameState.Result);
+                PlayerPrefs.DeleteAll();
+
             }
             if (combo > maxCombo)
                 maxCombo = combo;
@@ -412,10 +421,14 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Battle Tile")
         {
+
             PlayerPrefs.SetInt("point", point);
             PlayerPrefs.SetFloat("time", time);
             PlayerPrefs.SetInt("hp", hp);
+            PlayerPrefs.SetFloat("speed", speed);
+            
             GameManager.instance.SetGameState(GameState.Pause);
+            menu.SetActive(false);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
         }
