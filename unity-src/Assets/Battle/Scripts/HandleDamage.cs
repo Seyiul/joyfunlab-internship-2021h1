@@ -85,10 +85,13 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(punchNode.transform.position.y) <= 50)
+                    if (Mathf.Abs(punchNode.transform.position.y) <= 10)
                     {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.2f);
-                    }else if(50<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 200)
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
+                    }
+                    else if(10<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 150)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
@@ -97,17 +100,20 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(kickNode.transform.position.y) <= 50)
+                    if (Mathf.Abs(kickNode.transform.position.y) <= 10)
                     {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.2f);
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
                     }
-                    else if (50 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 200)
+                    else if (10 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 150)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
 
                 }
             }
+            Debug.Log(Mathf.Abs(kickNode.transform.position.y));
             timer = 0;
         }
     }
