@@ -344,11 +344,14 @@ public class Player : MonoBehaviour
             combo++;
             gameCanvas.DisplayCombo();
         }
-        else if (col.gameObject.tag == "Monster Tile")
+    }
+    void OnCollisionExit(Collision col)
+    {
+        if (col.gameObject.tag == "Battle Tile")
         {
+            GameManager.instance.SetGameState(GameState.Pause);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
-
         }
     }
     IEnumerator SceneLoad()
