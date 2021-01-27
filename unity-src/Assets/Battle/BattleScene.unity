@@ -1468,6 +1468,9 @@ MonoBehaviour:
   camera: {fileID: 1294204975}
   punchNode: {fileID: 1022486531}
   kickNode: {fileID: 1773759301}
+  canvas: {fileID: 585532530}
+  punchTime: 0
+  kickTime: 0
 --- !u!224 &580897518 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4103648660059068931, guid: 1313ba361a0fe914c8c94cae1d999732,

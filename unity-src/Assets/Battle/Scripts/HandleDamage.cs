@@ -20,6 +20,10 @@ public class HandleDamage : MonoBehaviour
 
     public GameObject punchNode;
     public GameObject kickNode;
+    public GameObject canvas;
+
+    public float punchTime;
+    public float kickTime;
 
 
     // Start is called before the first frame update
@@ -44,6 +48,11 @@ public class HandleDamage : MonoBehaviour
         monsterAttack = MonsterAnim.GetMonsterState();
         playerAttack = PlayerAnim.GetPlayerState();
         timer += Time.deltaTime;
+
+
+        punchTime = Mathf.Abs(punchNode.transform.position.y - canvas.transform.position.y);
+        kickTime = Mathf.Abs(kickNode.transform.position.y - canvas.transform.position.y);
+
 
         if (timer > 1)
         {
@@ -85,13 +94,13 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(punchNode.transform.position.y) <= 22)
+                    if (punchTime <= 0.05)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
 
                     }
-                    else if(22<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 100)
+                    else if(0.05<punchTime && punchTime <= 0.1)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
@@ -100,20 +109,19 @@ public class HandleDamage : MonoBehaviour
                 {
                     anim.SetTrigger("damaged");
 
-                    if (Mathf.Abs(kickNode.transform.position.y) <= 22)
+                    if (kickTime <= 0.05)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
 
                     }
-                    else if (22 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 100)
+                    else if (0.05 < kickTime && kickTime <= 0.1)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                     }
 
                 }
             }
-            Debug.Log(Mathf.Abs(kickNode.transform.position.y));
             timer = 0;
         }
     }
