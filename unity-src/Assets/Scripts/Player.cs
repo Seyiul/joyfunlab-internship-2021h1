@@ -20,8 +20,6 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
-    private int steptime;
-    private int steptimer;
     public bool isJumping;
     public float jumpTimer;
 
@@ -67,8 +65,6 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
-        steptimer = 0;
-        steptime = 0;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
