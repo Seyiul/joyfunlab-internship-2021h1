@@ -113,7 +113,6 @@ public class HandleDamage : MonoBehaviour
 
                 }
             }
-            Debug.Log(Mathf.Abs(kickNode.transform.position.y));
             timer = 0;
         }
     }
