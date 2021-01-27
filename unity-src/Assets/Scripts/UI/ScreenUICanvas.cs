@@ -37,7 +37,7 @@ public class ScreenUICanvas : MonoBehaviour
         {
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(result);
-            result.GetComponent<ResultUI>();
+            result.GetComponent<ResultUI>().ShowResult();
         }
         else if (GameManager.instance.GetGameState() == GameState.Setting)
         {

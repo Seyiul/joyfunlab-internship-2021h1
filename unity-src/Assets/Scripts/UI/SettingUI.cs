@@ -112,6 +112,7 @@ public class SettingUI : MonoBehaviour
                 if (Player.instance.time > 10)
                 {
                     Player.instance.time -= 10;
+                    Player.instance.playtime -= 10;
                     timeText.text = Player.instance.time.ToString();
                 }
             }
@@ -143,6 +144,7 @@ public class SettingUI : MonoBehaviour
                 if (Player.instance.time < 120)
                 {
                     Player.instance.time += 10;
+                    Player.instance.playtime += 10;
                     timeText.text = Player.instance.time.ToString();
                 }
             }

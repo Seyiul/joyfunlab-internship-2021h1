@@ -41,7 +41,7 @@ public class Player : MonoBehaviour
     public int hp;
     public int maxHp;
     public float time;
-
+    public float playtime;
     public float avatarPosition;
     public PlayerLocation curLocation;
 
@@ -61,6 +61,7 @@ public class Player : MonoBehaviour
         time = 60;
         hp = 50;
         maxHp = 100;
+        playtime = time;
         //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
     }
 
@@ -99,6 +100,8 @@ public class Player : MonoBehaviour
             UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
             if (time < 0 || hp <= 0)
             {
+                hp = 0;
+                time = 0;
                 GameManager.instance.SetGameState(GameState.Result);
             }
             if (combo > maxCombo)
@@ -317,7 +320,10 @@ public class Player : MonoBehaviour
         {
             isStumbling = true;
             combo = 0;
-            hp -= 10;
+            if (hp / 2 > 10)
+                hp -= (int)hp / 2;
+            else
+                hp -= 10;
             gameCanvas.DisplayCombo();
             HandlePlayerStumbling();
         }
@@ -327,6 +333,7 @@ public class Player : MonoBehaviour
             {
                 combo++;
                 time += 3;
+                playtime += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
                 gameCanvas.DisplayTimeIncrease();
                 gameCanvas.DisplayCombo();
