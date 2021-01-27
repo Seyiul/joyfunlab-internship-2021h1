@@ -51,19 +51,35 @@ public class Player : MonoBehaviour
     HighlightTiles highlightTiles;
     public GameCanvas gameCanvas;
     // 인스턴스 설정
-    private void Awake() { instance = this; }
+    private void Awake() { instance = this;
+    }
 
     void Start()
     {
-        InitialValues();
-        highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
-        animator = GetComponent<Animator>();
-        collider = gameObject.GetComponent<BoxCollider>();
-        time = 60;
-        hp = 50;
-        maxHp = 100;
-        playtime = time;
-        //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+        if (PlayerPrefs.HasKey("hp"))
+        {
+            highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
+            animator = GetComponent<Animator>();
+            collider = gameObject.GetComponent<BoxCollider>();
+            time = PlayerPrefs.GetFloat("time");
+            hp = PlayerPrefs.GetInt("hp");
+            point = PlayerPrefs.GetInt("point");
+            maxHp = 100;
+            playtime = time;
+            PlayerPrefs.DeleteAll();
+        }
+        else
+        {
+            InitialValues();
+            highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
+            animator = GetComponent<Animator>();
+            collider = gameObject.GetComponent<BoxCollider>();
+            time = 60;
+            hp = 50;
+            maxHp = 100;
+            playtime = time;
+            //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+        }
     }
 
     // 변수 초기화
@@ -115,6 +131,8 @@ public class Player : MonoBehaviour
             InitialPunchState();
             InitialStumbleState();
         }
+        
+
 
     }
     void UnDisplay(ref bool onDisplay, string functionName)
@@ -349,6 +367,9 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Battle Tile")
         {
+            PlayerPrefs.SetInt("point", point);
+            PlayerPrefs.SetFloat("time", time);
+            PlayerPrefs.SetInt("hp", hp);
             GameManager.instance.SetGameState(GameState.Pause);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
@@ -357,6 +378,7 @@ public class Player : MonoBehaviour
     IEnumerator SceneLoad()
     {
         yield return new WaitForSeconds(3f);
+        
         SceneManager.LoadScene("BattleScene");
     }
 }
