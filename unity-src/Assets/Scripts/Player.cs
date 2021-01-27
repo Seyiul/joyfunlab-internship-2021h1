@@ -20,8 +20,6 @@ public class Player : MonoBehaviour
     Animator animator;
 
     // 행동 관련 번수 선언
-    private int steptime;
-    private int steptimer;
     public bool isJumping;
     public float jumpTimer;
 
@@ -45,6 +43,8 @@ public class Player : MonoBehaviour
     public float avatarPosition;
     public PlayerLocation curLocation;
 
+    public GameObject transition;
+
     bool onDisplayHp = false;
     bool onDisplayTime = false;
     BoxCollider collider;
@@ -53,7 +53,8 @@ public class Player : MonoBehaviour
     // 인스턴스 설정
     private void Awake() { instance = this; }
 
-    void Start() { 
+    void Start()
+    {
         InitialValues();
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
         animator = GetComponent<Animator>();
@@ -68,8 +69,6 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
-        steptimer = 0;
-        steptime = 0;
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -108,7 +107,7 @@ public class Player : MonoBehaviour
                 maxCombo = combo;
 
         }
-        else 
+        else
         {
             //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
             SpeedUpdate(0);
@@ -116,11 +115,11 @@ public class Player : MonoBehaviour
             InitialPunchState();
             InitialStumbleState();
         }
-        
+
     }
-    void UnDisplay(ref bool onDisplay,string functionName)
+    void UnDisplay(ref bool onDisplay, string functionName)
     {
-        if(onDisplay)
+        if (onDisplay)
         {
             onDisplay = false;
             Invoke(functionName, ConstInfo.displayTimer);
@@ -138,12 +137,12 @@ public class Player : MonoBehaviour
     {
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
         //ispunching
-        if((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3) ||
-             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow*5/3)) 
-        {    isPunching = true; }
+        if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
+             (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
+        { isPunching = true; }
         else if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
             (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
-        {    isJumping = true; }
+        { isJumping = true; }
         /*
         //isKicking
         
@@ -164,12 +163,12 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
-        
+
 
     }
     void HandleInput()
     {
-        if (GameManager.instance.GetKinectState()== true)
+        if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
         }
@@ -307,7 +306,7 @@ public class Player : MonoBehaviour
                 InitialPunchState();
         }
     }
-    
+
     void OnCollisionEnter(Collision col)
     {
         if (col.gameObject.tag == "Heart Tile")
@@ -327,7 +326,7 @@ public class Player : MonoBehaviour
             gameCanvas.DisplayCombo();
             HandlePlayerStumbling();
         }
-        else if(col.gameObject.tag == "Balloon Tile")
+        else if (col.gameObject.tag == "Balloon Tile")
         {
             if (isPunching)
             {
@@ -340,10 +339,21 @@ public class Player : MonoBehaviour
                 onDisplayTime = true;
             }
         }
-        else if(col.gameObject.tag == "Pass Tile")
+        else if (col.gameObject.tag == "Pass Tile")
         {
             combo++;
             gameCanvas.DisplayCombo();
         }
+        else if (col.gameObject.tag == "Monster Tile")
+        {
+            transition.GetComponent<Animator>().SetBool("animateIn", true);
+            StartCoroutine(SceneLoad());
+
+        }
+    }
+    IEnumerator SceneLoad()
+    {
+        yield return new WaitForSeconds(3f);
+        SceneManager.LoadScene("BattleScene");
     }
 }

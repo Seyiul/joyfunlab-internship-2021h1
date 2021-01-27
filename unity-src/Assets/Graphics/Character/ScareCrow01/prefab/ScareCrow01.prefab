@@ -228,6 +228,7 @@ GameObject:
   - component: {fileID: 5060369394254747391}
   - component: {fileID: 1680016996636905552}
   - component: {fileID: 1680016996636905553}
+  - component: {fileID: 2344771207926956737}
   m_Layer: 0
   m_Name: ScareCrow01
   m_TagString: Untagged
@@ -388,6 +389,19 @@ MonoBehaviour:
   m_DistantDisable: 0
   m_ReferenceObject: {fileID: 0}
   m_DistanceToObject: 20
+--- !u!65 &2344771207926956737
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986640898831521343}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.5, z: 1.5}
+  m_Center: {x: 0, y: 0.7, z: 0}
 --- !u!1 &2424173196789226586
 GameObject:
   m_ObjectHideFlags: 0

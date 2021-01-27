@@ -10,6 +10,8 @@ public class BattleHighlight : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        GameManager.instance.SetGameState(GameState.Battle);
         leftTile = GameObject.Find("leftTile").GetComponent<Renderer>();
         centerTile = GameObject.Find("centerTile").GetComponent<Renderer>();
         rightTile = GameObject.Find("rightTile").GetComponent<Renderer>();

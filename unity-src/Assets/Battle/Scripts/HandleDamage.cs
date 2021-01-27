@@ -18,6 +18,9 @@ public class HandleDamage : MonoBehaviour
 
     public GameObject camera;
 
+    public GameObject punchNode;
+    public GameObject kickNode;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,12 +81,39 @@ public class HandleDamage : MonoBehaviour
                 {
                     HealthBarHandler.SetHealthBarValue(0);
                 }
-                else
+                if(PlayerAnim.GetPunchState() == true)
                 {
                     anim.SetTrigger("damaged");
-                    HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
+                    if (Mathf.Abs(punchNode.transform.position.y) <= 22)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
+                    }
+                    else if(22<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 100)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                    }
+                }
+                if (PlayerAnim.GetKickState() == true)
+                {
+                    anim.SetTrigger("damaged");
+
+                    if (Mathf.Abs(kickNode.transform.position.y) <= 22)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
+                    }
+                    else if (22 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 100)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                    }
+
                 }
             }
+            Debug.Log(Mathf.Abs(kickNode.transform.position.y));
             timer = 0;
         }
     }
