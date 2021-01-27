@@ -18,6 +18,9 @@ public class HandleDamage : MonoBehaviour
 
     public GameObject camera;
 
+    public GameObject punchNode;
+    public GameObject kickNode;
+
 
     // Start is called before the first frame update
     void Start()
@@ -78,10 +81,31 @@ public class HandleDamage : MonoBehaviour
                 {
                     HealthBarHandler.SetHealthBarValue(0);
                 }
-                else
+                if(PlayerAnim.GetPunchState() == true)
                 {
                     anim.SetTrigger("damaged");
-                    HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+
+                    if (Mathf.Abs(punchNode.transform.position.y) <= 50)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.2f);
+                    }else if(50<Mathf.Abs(punchNode.transform.position.y) && Mathf.Abs(punchNode.transform.position.y) <= 200)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                    }
+                }
+                if (PlayerAnim.GetKickState() == true)
+                {
+                    anim.SetTrigger("damaged");
+
+                    if (Mathf.Abs(kickNode.transform.position.y) <= 50)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.2f);
+                    }
+                    else if (50 < Mathf.Abs(kickNode.transform.position.y) && Mathf.Abs(kickNode.transform.position.y) <= 200)
+                    {
+                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                    }
+
                 }
             }
             timer = 0;

@@ -19,9 +19,9 @@ public class PlayerAnim : MonoBehaviour
 
     public float timer = 0;
 
-    public static bool attack;
     public static bool jump;
     public static bool kick;
+    public static bool punch;
 
     // 바닥 UI 타일
     public GameObject leftFloorTile;
@@ -43,9 +43,9 @@ public class PlayerAnim : MonoBehaviour
     void Start()
     {
         animator = GetComponent<Animator>();
-        attack = false;
         jump = false;
         kick = false;
+        punch = false;
 
         avatarPosition = 0;
         kinectState = false;
@@ -168,13 +168,13 @@ public class PlayerAnim : MonoBehaviour
         if (Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
         {
             animator.SetTrigger("leftPunch");
-            attack = true;
+            punch = true;
             StartCoroutine(HandleAttackTimer());
         }
         if (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3)
         {
             animator.SetTrigger("rightPunch");
-            attack = true;
+            punch = true;
             StartCoroutine(HandleAttackTimer());
 
         }
@@ -183,7 +183,6 @@ public class PlayerAnim : MonoBehaviour
         if (Avatar.userPositionRightFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)
         {
             animator.SetTrigger("kickRight");
-            attack = true;
             kick = true;
             StartCoroutine(HandleAttackTimer());
 
@@ -192,7 +191,6 @@ public class PlayerAnim : MonoBehaviour
         if (Avatar.userPositionLeftFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)
         {
             animator.SetTrigger("kickLeft");
-            attack = true;
             kick = true;
             StartCoroutine(HandleAttackTimer());
         }
@@ -250,7 +248,6 @@ public class PlayerAnim : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return))
         {
             animator.SetTrigger("kick");
-            attack = true;
             kick = true;
             StartCoroutine(HandleAttackTimer());
         }
@@ -259,7 +256,7 @@ public class PlayerAnim : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
             animator.SetTrigger("punch");
-            attack = true;
+            punch = true;
             StartCoroutine(HandleAttackTimer());
         }
 
@@ -282,8 +279,8 @@ public class PlayerAnim : MonoBehaviour
         animator.ResetTrigger("rightPunch");
         animator.ResetTrigger("kickRight");
         animator.ResetTrigger("kickLeft");
-        attack = false;
         kick = false;
+        punch = false;
 
     }
     private IEnumerator HandleJumpTimer()
@@ -291,9 +288,19 @@ public class PlayerAnim : MonoBehaviour
         yield return new WaitForSeconds(2f);
         jump = false;
     }
+    public static bool GetPunchState()
+    {
+        if (punch == true) return true;
+        else return false;
+    }
+    public static bool GetKickState()
+    {
+        if (kick == true) return true;
+        else return false;
+    }
     public static bool GetPlayerState()
     {
-        if (attack == true)
+        if (kick == true || punch == true)
         {
             return true;
         }
