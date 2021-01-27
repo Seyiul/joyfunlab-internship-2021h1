@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Security.Cryptography;
 
 public enum PlayerLocation : int
 {
@@ -91,19 +93,19 @@ public class Player : MonoBehaviour
         curLocation = PlayerLocation.Center;
         InitialStepRecords();
     }
-        // 걸음 시간 리스트 초기화 (0)
-        public static void InitialStepRecords()
-        {
-            steps = Enumerable.Repeat<float>(0, 3).ToList();
-        }
+    // 걸음 시간 리스트 초기화 (0)
+    public static void InitialStepRecords()
+    {
+        steps = Enumerable.Repeat<float>(0, 3).ToList();
+    }
 
-        // 걸음 시간 측정 (+ fixedDeltaTime)
-        private void FixedUpdate()
-        {
-            stepRecordTime += Time.fixedDeltaTime;
-            decreaseSpeedTimer += Time.fixedDeltaTime;
-        }
-        void Update()
+    // 걸음 시간 측정 (+ fixedDeltaTime)
+    private void FixedUpdate()
+    {
+        stepRecordTime += Time.fixedDeltaTime;
+        decreaseSpeedTimer += Time.fixedDeltaTime;
+    }
+    void Update()
     {
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
@@ -194,12 +196,11 @@ public class Player : MonoBehaviour
             steps.RemoveAt(0);
         }
 
-        if ((( Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight)
-            || ( Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
+        if (((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight)
+            || (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
             && stepRecordTime != 0)
             HandleStep();
-
-        Tile.userSpeed = steps.Average();
+        speed = steps.Average();
     }
 
     // 걸음시간 기록 및 초기화, 결음 방향 변경
@@ -403,5 +404,5 @@ public class Player : MonoBehaviour
         yield return new WaitForSeconds(3f);
         SceneManager.LoadScene("BattleScene");
     }
-
+}
 
