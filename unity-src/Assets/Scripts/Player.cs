@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Serialization;
-using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Linq;
+using UnityEngine;
+using UnityEngine.UI;
+using System.Security.Cryptography;
 
 public enum PlayerLocation : int
 {
@@ -18,6 +20,10 @@ public class Player : MonoBehaviour
 
     // 애니매이터 변수 선언
     Animator animator;
+    // 걸음 관련 변수 선언
+    public static float stepRecordTime;
+    public static float decreaseSpeedTimer;
+    public static List<float> steps;
 
     // 행동 관련 번수 선언
     public bool isJumping;
@@ -85,6 +91,9 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
+        stepRecordTime = 0;
+        decreaseSpeedTimer = 0;
+
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -98,6 +107,19 @@ public class Player : MonoBehaviour
         maxCombo = 0;
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
+        InitialStepRecords();
+    }
+    // 걸음 시간 리스트 초기화 (0)
+    public static void InitialStepRecords()
+    {
+        steps = Enumerable.Repeat<float>(0, 3).ToList();
+    }
+
+    // 걸음 시간 측정 (+ fixedDeltaTime)
+    private void FixedUpdate()
+    {
+        stepRecordTime += Time.fixedDeltaTime;
+        decreaseSpeedTimer += Time.fixedDeltaTime;
     }
     void Update()
     {
@@ -181,8 +203,31 @@ public class Player : MonoBehaviour
         {
             HandlePlayerLocation(PlayerLocation.Center);
         }
+    }
+    // 결음 기록 조건 만족 시 함수 호출
+    void HandleSteps()
+    {
+        if (decreaseSpeedTimer >= 2 && !Player.instance.isJumping)
+        {
+            decreaseSpeedTimer = 0;
+            steps.Add(0);
+            steps.RemoveAt(0);
+        }
 
+        if (((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight)
+            || (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
+            && stepRecordTime != 0)
+            HandleStep();
+        speed = steps.Average();
+    }
 
+    // 걸음시간 기록 및 초기화, 결음 방향 변경
+    void HandleStep()
+    {
+        steps.Add(10 / stepRecordTime);
+        steps.RemoveAt(0);
+        stepRecordTime = 0;
+        decreaseSpeedTimer = 0;
     }
     void HandleInput()
     {
@@ -382,3 +427,4 @@ public class Player : MonoBehaviour
         SceneManager.LoadScene("BattleScene");
     }
 }
+
