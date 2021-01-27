@@ -218,7 +218,7 @@ public class Player : MonoBehaviour
             || (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
             && stepRecordTime != 0)
             HandleStep();
-        speed = steps.Average();
+        speed = steps.Average()/500;
     }
 
     // 걸음시간 기록 및 초기화, 결음 방향 변경
@@ -234,6 +234,7 @@ public class Player : MonoBehaviour
         if (GameManager.instance.GetKinectState() == true)
         {
             HandleKinectPlayer();
+            HandleSteps();
         }
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
