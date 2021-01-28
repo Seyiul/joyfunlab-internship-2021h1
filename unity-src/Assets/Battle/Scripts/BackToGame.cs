@@ -37,6 +37,12 @@ public class BackToGame : MonoBehaviour
     private IEnumerator SceneChage()
     {
         yield return new WaitForSeconds(1f);
+        time = PlayerPrefs.GetFloat("time");
+        Debug.Log(time);
+        time += PlayerHealthbarHandler.GetHealthBarValue();
+        Debug.Log(time);
+        PlayerPrefs.SetFloat("time", time);
+
         GameManager.instance.SetGameState(GameState.Game);
         SceneManager.LoadScene(sceneIndex);
 

@@ -13,7 +13,8 @@ public enum GameState: int
     Game = 4,
     Pause = 5,
     Result = 6,
-    Battle = 7
+    Battle = 7,
+    Quit = 8
 }
 
 public class GameManager : MonoBehaviour
@@ -51,10 +52,18 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
+
         //게임 중에 일시정지 상태로 변경하면(esc 누르면)
         if (Input.GetKeyDown(KeyCode.Escape) && curGameState == GameState.Game)
         {
             curGameState = GameState.Pause;
+        }
+        if (curGameState == GameState.Menu)
+            player.InitialValues();
+        if (curGameState == GameState.Quit)
+        {
+            player.InitialValues();
+            Application.Quit();
         }
         ui.MenuHandle();
     }

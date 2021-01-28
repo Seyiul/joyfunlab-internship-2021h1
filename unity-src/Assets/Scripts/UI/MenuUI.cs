@@ -79,16 +79,17 @@ public class MenuUI : MonoBehaviour
             if (curBtn == menuBtn.start)
             {
                 GameManager.instance.SetGameState(GameState.Game);
-                Player.instance.InitialValues();
+                Debug.Log(Player.instance.curLocation);
+                Player.instance.InitialAll();
+                Debug.Log(Player.instance.curLocation);
             }
             else if (curBtn == menuBtn.setting)
                 GameManager.instance.SetGameState(GameState.Setting);
             else if (curBtn == menuBtn.ranking)
                 GameManager.instance.SetGameState(GameState.Rank);
             else if (curBtn == menuBtn.quit)
-                GameManager.instance.SetGameState(GameState.Result);
+                GameManager.instance.SetGameState(GameState.Quit);
             GameManager.instance.SetStateChanged(true);
         }
     }
-
 }

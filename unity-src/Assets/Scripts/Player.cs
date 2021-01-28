@@ -92,7 +92,15 @@ public class Player : MonoBehaviour
             //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
         }
     }
-
+    public void InitialAll()
+    {
+        InitialValues();
+        if (GameManager.instance.curTile != null && GameManager.instance.nextTile != null)
+        {
+            Destroy(GameManager.instance.curTile);
+            Destroy(GameManager.instance.nextTile);
+        }
+    }
     // 변수 초기화
     public void InitialValues()
     {
@@ -433,12 +441,8 @@ public class Player : MonoBehaviour
         else if (col.gameObject.tag == "Pass Tile")
         {
             combo++;
-
         }
-    }
-    void OnCollisionExit(Collision col)
-    {
-        if (col.gameObject.tag == "Battle Tile")
+        else if (col.gameObject.tag == "Battle Tile")
         {
 
             PlayerPrefs.SetFloat("time", time);
@@ -448,11 +452,12 @@ public class Player : MonoBehaviour
             PlayerPrefs.SetFloat("speed", speed);
             PlayerPrefs.SetInt("combo", combo);
             PlayerPrefs.SetInt("maxCombo", maxCombo);
-            PlayerPrefs.SetInt("afterBattle", 1);            
+            PlayerPrefs.SetInt("afterBattle", 1);
             GameManager.instance.SetGameState(GameState.Battle);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
         }
+
     }
     IEnumerator SceneLoad()
     {
