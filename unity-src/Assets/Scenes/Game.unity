@@ -9470,6 +9470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2406ac6fce9fca74f935c67b38185086, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  menu: {fileID: 585532530}
   isJumping: 0
   jumpTimer: 0
   isStumbling: 0
