@@ -96,6 +96,8 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
+        PlayerPrefs.DeleteAll();
+
         leftUp = false;
         rightUp = false;
 
@@ -113,13 +115,18 @@ public class Player : MonoBehaviour
         maxCombo = 0;
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
-        PlayerPrefs.SetInt("afterBattle", 0);
+        //PlayerPrefs.SetInt("afterBattle", 0);
 
         time = 60;
         hp = 50;
         maxHp = 100;
         playtime = time;
         InitialStepRecords();
+    }
+    void Ondestroy()
+    {
+        PlayerPrefs.SetInt("afterBattle", 0);
+
     }
     // 걸음 시간 리스트 초기화 (0)
     public static void InitialStepRecords()
