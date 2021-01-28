@@ -225,7 +225,6 @@ public class Player : MonoBehaviour
             steps.Add(0);
             steps.RemoveAt(0);
         }
-
         //왼발 오른발 여부
         if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight) && stepRecordTime != 0)
             leftUp = true;
@@ -238,7 +237,7 @@ public class Player : MonoBehaviour
             leftUp = false;
             rightUp = false;
         }
-        speed = 5 + steps.Average() * 30;
+        speed = 5 + steps.Average();
         if (speed > 60)
             speed = 60;
     }
@@ -246,7 +245,7 @@ public class Player : MonoBehaviour
     // 걸음시간 기록 및 초기화
     void HandleStep()
     {
-        steps.Add(stepRecordTime);
+        steps.Add(10/stepRecordTime);
         steps.RemoveAt(0);
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
