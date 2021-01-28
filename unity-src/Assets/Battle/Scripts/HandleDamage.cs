@@ -99,7 +99,7 @@ public class HandleDamage : MonoBehaviour
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");
                     }
-                    else if (200 < punchTime && punchTime <= 240)
+                    else if (200 < punchTime && punchTime <= 300)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");
@@ -116,7 +116,7 @@ public class HandleDamage : MonoBehaviour
 
 
                     }
-                    else if (200 < kickTime && kickTime <= 240)
+                    else if (200 < kickTime && kickTime <= 300)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");
