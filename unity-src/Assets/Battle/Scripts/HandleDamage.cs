@@ -18,6 +18,13 @@ public class HandleDamage : MonoBehaviour
 
     public GameObject camera;
 
+    public GameObject leftPunch;
+    public GameObject rightPunch;
+    public GameObject leftKick;
+    public GameObject rightKick;
+
+
+
     public GameObject punchNode;
     public GameObject kickNode;
     public GameObject canvas;
@@ -40,6 +47,11 @@ public class HandleDamage : MonoBehaviour
         animator = player.GetComponent<Animator>();
         anim = monster.GetComponent<Animator>();
 
+        leftPunch.SetActive(false);
+        rightPunch.SetActive(false);
+        leftKick.SetActive(false);
+        rightKick.SetActive(false);
+
     }
 
     // Update is called once per frame
@@ -52,7 +64,7 @@ public class HandleDamage : MonoBehaviour
 
         punchTime = punchNode.GetComponent<RectTransform>().rect.width;
         kickTime = kickNode.GetComponent<RectTransform>().rect.width;
-        
+
 
         if (timer > 1)
         {
@@ -77,50 +89,65 @@ public class HandleDamage : MonoBehaviour
                 StartCoroutine(EffectHanlder());
                 PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
                 StartCoroutine(HandleHitAnim());
-            }
 
+
+
+            }
+            StartCoroutine(ShowNode());
             timer = 0;
         }
         if (playerAttack)
         {
             if (ComparePosition())
             {
-                Debug.Log("Player Attack!");
-                if (PlayerAnim.KillMonster() == true)
-                {
-                    HealthBarHandler.SetHealthBarValue(0);
-                }
+
+                //기본공격
                 if (PlayerAnim.GetPunchState() == true)
                 {
+                    if (leftPunch.activeSelf || rightPunch.activeSelf)
+                    {
+                        if (punchTime <= 200)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            anim.SetTrigger("damaged");
+                        }
+                        else if (200 < punchTime && punchTime <= 300)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            anim.SetTrigger("damaged");
+                        }
 
-                    if (punchTime <= 200)
-                    {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        anim.SetTrigger("damaged");
                     }
-                    else if (200 < punchTime && punchTime <= 300)
-                    {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        anim.SetTrigger("damaged");
-                    }
+
+
                 }
+                //회전공격
                 if (PlayerAnim.GetKickState() == true)
                 {
-
-                    if (kickTime <= 200)
+                    if (leftKick.activeSelf || rightKick.activeSelf)
                     {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        anim.SetTrigger("damaged");
+                        if (PlayerAnim.KillMonster() == true)
+                        {
+                            HealthBarHandler.SetHealthBarValue(0);
+                        }
 
+                        if (kickTime <= 200)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            anim.SetTrigger("damaged");
+
+
+                        }
+                        else if (200 < kickTime && kickTime <= 300)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            anim.SetTrigger("damaged");
+                        }
 
                     }
-                    else if (200 < kickTime && kickTime <= 300)
-                    {
-                        HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                        anim.SetTrigger("damaged");
-                    }
+
 
                 }
             }
@@ -142,6 +169,39 @@ public class HandleDamage : MonoBehaviour
         yield return new WaitForSeconds(2f);
         blood.gameObject.SetActive(false);
 
+    }
+    private IEnumerator ShowNode()
+    {
+        yield return new WaitForSeconds(1f);
+        int rn = Random.Range(1, 5);
+        switch (rn)
+        {
+            case 1:
+                leftPunch.SetActive(true);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(false);
+                rightKick.SetActive(false);
+                break;
+            case 2:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(true);
+                rightKick.SetActive(false);
+                break;
+            case 3:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(false);
+                rightKick.SetActive(true);
+                break;
+            default:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(true);
+                leftKick.SetActive(false);
+                rightKick.SetActive(false);
+                break;
+
+        }
     }
 
 

@@ -1430,6 +1430,10 @@ MonoBehaviour:
   blood: {fileID: 545318340}
   timer: 0
   camera: {fileID: 1294204975}
+  leftPunch: {fileID: 906007199}
+  rightPunch: {fileID: 1089767390}
+  leftKick: {fileID: 136420985}
+  rightKick: {fileID: 1033645043}
   punchNode: {fileID: 1022486531}
   kickNode: {fileID: 1089627847}
   canvas: {fileID: 585532530}
@@ -6059,7 +6063,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1863569196}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e2317bec5ce2934eac3434ebbe634cb, type: 3}
   m_Name: 
