@@ -39,11 +39,9 @@ public class Player : MonoBehaviour
 
     public float speed;
 
-    public bool isGameover;
     // 콤보, 체력 관련 변수, 상수 선언
     public int maxCombo;
     public int combo;
-    public int point;
     public int hp;
     public int maxHp;
     public float time;
@@ -74,13 +72,12 @@ public class Player : MonoBehaviour
             animator = GetComponent<Animator>();
             collider = gameObject.GetComponent<BoxCollider>();
             time = PlayerPrefs.GetFloat("time");
+            playtime = PlayerPrefs.GetFloat("playtime");
             hp = PlayerPrefs.GetInt("hp");
             maxHp = PlayerPrefs.GetInt("maxHp");
-            point = PlayerPrefs.GetInt("point");
             speed = PlayerPrefs.GetFloat("speed");
             combo = PlayerPrefs.GetInt("combo");
             maxCombo = PlayerPrefs.GetInt("maxCombo");
-            playtime = time;
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetInt("afterBattle",0);
 
@@ -107,9 +104,7 @@ public class Player : MonoBehaviour
         stumbleTimer = 0;
         isPunching = false;
         punchTimer = 0;
-        isGameover = false;
         speed = 0;
-        point = 0;
         combo = 0;
         maxCombo = 0;
         avatarPosition = 0;
@@ -143,15 +138,13 @@ public class Player : MonoBehaviour
             //게임의 상태가 변화하면 속도를 업데이트
             SpeedUpdate(speed);
             HandlePlayerAction();
+            gameCanvas.DisplayCombo();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
-            Debug.Log(onDisplayTime);
             UnDisplay(ref onDisplayHp, "UnDisplayHpIncrease");
             UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
             if (time <= 0 || hp <= 0)
             {
-                hp = 0;
-                time = 0;
                 GameManager.instance.SetGameState(GameState.Result);
                 PlayerPrefs.DeleteAll();
 
@@ -403,7 +396,6 @@ public class Player : MonoBehaviour
                 hp -= (int)hp / 2;
             else
                 hp -= 10;
-            gameCanvas.DisplayCombo();
             HandlePlayerStumbling();
         }
         else if (col.gameObject.tag == "Balloon Tile")
@@ -415,14 +407,13 @@ public class Player : MonoBehaviour
                 playtime += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
                 gameCanvas.DisplayTimeIncrease();
-                gameCanvas.DisplayCombo();
                 onDisplayTime = true;
             }
         }
         else if (col.gameObject.tag == "Pass Tile")
         {
             combo++;
-            gameCanvas.DisplayCombo();
+
         }
     }
     void OnCollisionExit(Collision col)
@@ -430,16 +421,15 @@ public class Player : MonoBehaviour
         if (col.gameObject.tag == "Battle Tile")
         {
 
-            PlayerPrefs.SetInt("point", point);
             PlayerPrefs.SetFloat("time", time);
+            PlayerPrefs.SetFloat("playtime", playtime);
             PlayerPrefs.SetInt("hp", hp);
-            PlayerPrefs.SetFloat("maxHp", maxHp);
+            PlayerPrefs.SetInt("maxHp", maxHp);
             PlayerPrefs.SetFloat("speed", speed);
-            PlayerPrefs.SetFloat("combo", combo);
-            PlayerPrefs.SetFloat("maxCombo", maxCombo);
+            PlayerPrefs.SetInt("combo", combo);
+            PlayerPrefs.SetInt("maxCombo", maxCombo);
             PlayerPrefs.SetInt("afterBattle", 1);            
-            GameManager.instance.SetGameState(GameState.Pause);
-            menu.SetActive(false);
+            GameManager.instance.SetGameState(GameState.Battle);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
         }
