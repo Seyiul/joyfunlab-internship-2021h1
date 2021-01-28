@@ -50,9 +50,9 @@ public class HandleDamage : MonoBehaviour
         timer += Time.deltaTime;
 
 
-        punchTime = Mathf.Abs(punchNode.transform.position.y - canvas.transform.position.y);
-        kickTime = Mathf.Abs(kickNode.transform.position.y - canvas.transform.position.y);
-
+        punchTime = punchNode.GetComponent<RectTransform>().rect.width;
+        kickTime = kickNode.GetComponent<RectTransform>().rect.width;
+        
 
         if (timer > 1)
         {
@@ -93,13 +93,13 @@ public class HandleDamage : MonoBehaviour
                 if (PlayerAnim.GetPunchState() == true)
                 {
 
-                    if (punchTime <= 0.05)
+                    if (punchTime <= 200)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");
                     }
-                    else if (0.05 < punchTime && punchTime <= 0.1)
+                    else if (200 < punchTime && punchTime <= 240)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");
@@ -108,7 +108,7 @@ public class HandleDamage : MonoBehaviour
                 if (PlayerAnim.GetKickState() == true)
                 {
 
-                    if (kickTime <= 0.05)
+                    if (kickTime <= 200)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
@@ -116,7 +116,7 @@ public class HandleDamage : MonoBehaviour
 
 
                     }
-                    else if (0.05 < kickTime && kickTime <= 0.1)
+                    else if (200 < kickTime && kickTime <= 240)
                     {
                         HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                         anim.SetTrigger("damaged");

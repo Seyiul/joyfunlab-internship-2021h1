@@ -10,6 +10,7 @@ public class BackToGame : MonoBehaviour
     public int sceneIndex;
     Animator animator;
     public float time;
+    public GameObject Nodes;
     // Start is called before the first frame update
     void Start()
     {
@@ -20,6 +21,7 @@ public class BackToGame : MonoBehaviour
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0 || PlayerHealthbarHandler.GetHealthBarValue() ==0)
         {
+            Nodes.SetActive(false);
             time = PlayerPrefs.GetFloat("time");
             time += PlayerHealthbarHandler.GetHealthBarValue();
             PlayerPrefs.SetFloat("time", time);
