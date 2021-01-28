@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
     // 애니매이터 변수 선언
     Animator animator;
     // 걸음 관련 변수 선언
+    public bool leftUp, rightUp;
     public static float stepRecordTime;
     public static float decreaseSpeedTimer;
     public static List<float> steps;
@@ -95,6 +96,9 @@ public class Player : MonoBehaviour
     // 변수 초기화
     public void InitialValues()
     {
+        leftUp = false;
+        rightUp = false;
+
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
 
@@ -222,17 +226,27 @@ public class Player : MonoBehaviour
             steps.RemoveAt(0);
         }
 
-        if (((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight)
-            || (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight))
-            && stepRecordTime != 0)
+        //왼발 오른발 여부
+        if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight) && stepRecordTime != 0)
+            leftUp = true;
+        else if ((Avatar.userPositionRightFoot.y > ConstInfo.stepHeight && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight) && stepRecordTime != 0)
+            rightUp = true;
+        //왼발과 오른발이 leftup rightup 상황에서만 step인식
+        if (leftUp && rightUp)
+        {
             HandleStep();
-        speed = steps.Average();
+            leftUp = false;
+            rightUp = false;
+        }
+        speed = 5 + steps.Average() * 30;
+        if (speed > 60)
+            speed = 60;
     }
 
-    // 걸음시간 기록 및 초기화, 결음 방향 변경
+    // 걸음시간 기록 및 초기화
     void HandleStep()
     {
-        steps.Add(30*stepRecordTime/steps.Count());
+        steps.Add(stepRecordTime);
         steps.RemoveAt(0);
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
