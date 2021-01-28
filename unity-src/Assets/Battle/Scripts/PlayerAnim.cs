@@ -196,8 +196,8 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //jump
-        if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
-            (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
+        if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
+            (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight) && Mathf.Abs(Avatar.userPositionLeftFoot.y - Avatar.userPositionRightFoot.y) < ConstInfo.jumpHeight)
         {
             animator.SetTrigger("jump");
             jump = true;
