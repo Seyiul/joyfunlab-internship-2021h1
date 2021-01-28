@@ -6,14 +6,12 @@ enum pmenuBtn
 {
     resume = 0,
     restart = 1,
-    ranking = 2,
-    quit = 3
+    quit = 2
 }
 public class PauseUI : MonoBehaviour
 {
     public GameObject resumeBtn;
     public GameObject restartBtn;
-    public GameObject rankingBtn;
     public GameObject quitBtn;
     pmenuBtn curBtn;
     public Sprite buttonSelected;
@@ -39,9 +37,6 @@ public class PauseUI : MonoBehaviour
             case pmenuBtn.restart:
                 restartBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
-            case pmenuBtn.ranking:
-                rankingBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
-                break;
             case pmenuBtn.quit:
                 quitBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonSelected;
                 break;
@@ -52,7 +47,6 @@ public class PauseUI : MonoBehaviour
     {
         resumeBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonUnselected;
         restartBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonUnselected;
-        rankingBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonUnselected;
         quitBtn.GetComponent<UnityEngine.UI.Image>().sprite = buttonUnselected;
     }
     public void MenuHandle()
@@ -80,12 +74,8 @@ public class PauseUI : MonoBehaviour
             else if (curBtn == pmenuBtn.restart)
             {
                 GameManager.instance.SetGameState(GameState.Game);
-                Player.instance.InitialValues();
-                Destroy(GameManager.instance.curTile);
-                Destroy(GameManager.instance.nextTile);
+                Player.instance.InitialAll();
             }
-            else if (curBtn == pmenuBtn.ranking)
-                GameManager.instance.SetGameState(GameState.Rank);
             else if (curBtn == pmenuBtn.quit)
                 GameManager.instance.SetGameState(GameState.Result);
             GameManager.instance.SetStateChanged(true);

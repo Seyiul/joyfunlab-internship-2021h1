@@ -22,9 +22,9 @@ public class ResultUI : MonoBehaviour
     {
         maxComboText.text = Player.instance.maxCombo.ToString() + " 회";
         playtimeText.text = (Mathf.Floor((Player.instance.playtime - Player.instance.time) * 10) * 0.1f).ToString() + " 초";
-        Debug.Log(Player.instance.playtime);
-        Debug.Log(Player.instance.time);
         float comboPoint = 1 + (float)((int)Player.instance.maxCombo / 10)/10;
         pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint)).ToString() + " 점";
+        if (Input.GetKeyDown(KeyCode.Return))
+            GameManager.instance.SetGameState(GameState.Menu);
     }
 }
