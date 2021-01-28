@@ -22,9 +22,6 @@ public class BackToGame : MonoBehaviour
         if (HealthBarHandler.GetHealthBarValue() == 0 || PlayerHealthbarHandler.GetHealthBarValue() ==0)
         {
             Nodes.SetActive(false);
-            time = PlayerPrefs.GetFloat("time");
-            time += PlayerHealthbarHandler.GetHealthBarValue();
-            PlayerPrefs.SetFloat("time", time);
             StartCoroutine(LoadSceneAFterTransition());
         }
     }
@@ -37,12 +34,12 @@ public class BackToGame : MonoBehaviour
     private IEnumerator SceneChage()
     {
         yield return new WaitForSeconds(1f);
+        float plusTime = PlayerHealthbarHandler.GetHealthBarValue();
+        plusTime *= 20;
         time = PlayerPrefs.GetFloat("time");
-        Debug.Log(time);
-        time += PlayerHealthbarHandler.GetHealthBarValue();
-        Debug.Log(time);
+        time += plusTime;
         PlayerPrefs.SetFloat("time", time);
-
+        PlayerPrefs.SetFloat("playtime", PlayerPrefs.GetFloat("playtime") + plusTime);
         GameManager.instance.SetGameState(GameState.Game);
         SceneManager.LoadScene(sceneIndex);
 

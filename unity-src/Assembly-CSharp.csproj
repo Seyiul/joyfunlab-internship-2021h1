@@ -158,6 +158,7 @@
      <Compile Include="Assets\Battle\Scripts\HandleDamage.cs" />
      <Compile Include="Assets\Battle\Scripts\HealthBarHandler.cs" />
      <Compile Include="Assets\Battle\Scripts\MonsterAnim.cs" />
+     <Compile Include="Assets\Battle\Scripts\NodeAnim.cs" />
      <Compile Include="Assets\Battle\Scripts\PlayerAnim.cs" />
      <Compile Include="Assets\Battle\Scripts\PlayerHealthbarHandler.cs" />
      <Compile Include="Assets\Battle\Scripts\ShakeBehavior.cs" />
