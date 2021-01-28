@@ -207,8 +207,8 @@ public class Player : MonoBehaviour
         if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
         { isPunching = true; }
-        else if ((Avatar.userPositionLeftFoot.y > ConstInfo.jumpHeight) &&
-            (Avatar.userPositionRightFoot.y > ConstInfo.jumpHeight))
+        else if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
+            (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight)&&Mathf.Abs(Avatar.userPositionLeftFoot.y-Avatar.userPositionRightFoot.y)<ConstInfo.jumpHeight)
         { isJumping = true; }
         /*
         //isKicking
