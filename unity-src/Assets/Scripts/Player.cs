@@ -375,7 +375,8 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Heart Tile")
         {
-            hp++;
+            if(hp <= maxHp)
+                hp++;
             gameCanvas.DisplayHpIncrease();
             onDisplayHp = true;
         }
