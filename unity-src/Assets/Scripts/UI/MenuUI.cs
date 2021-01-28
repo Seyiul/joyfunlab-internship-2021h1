@@ -79,9 +79,8 @@ public class MenuUI : MonoBehaviour
             if (curBtn == menuBtn.start)
             {
                 GameManager.instance.SetGameState(GameState.Game);
-                Debug.Log(Player.instance.curLocation);
+                Player.instance.HandlePlayerLocation(PlayerLocation.Center);
                 Player.instance.InitialAll();
-                Debug.Log(Player.instance.curLocation);
             }
             else if (curBtn == menuBtn.setting)
                 GameManager.instance.SetGameState(GameState.Setting);
