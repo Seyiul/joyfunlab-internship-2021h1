@@ -52,6 +52,7 @@ public class Player : MonoBehaviour
     public PlayerLocation curLocation;
 
     public GameObject transition;
+    public int afterBattle;
 
     bool onDisplayHp = false;
     bool onDisplayTime = false;
@@ -64,7 +65,7 @@ public class Player : MonoBehaviour
 
     void Start()
     {
-        if (PlayerPrefs.HasKey("hp"))
+        if (PlayerPrefs.GetInt("afterBattle") == 1)
         {
 
             GameManager.instance.SetGameState(GameState.Game);
@@ -74,11 +75,14 @@ public class Player : MonoBehaviour
             collider = gameObject.GetComponent<BoxCollider>();
             time = PlayerPrefs.GetFloat("time");
             hp = PlayerPrefs.GetInt("hp");
+            maxHp = PlayerPrefs.GetInt("maxHp");
             point = PlayerPrefs.GetInt("point");
-            maxHp = 100;
             speed = PlayerPrefs.GetFloat("speed");
+            combo = PlayerPrefs.GetInt("combo");
+            maxCombo = PlayerPrefs.GetInt("maxCombo");
             playtime = time;
             PlayerPrefs.DeleteAll();
+            PlayerPrefs.SetInt("afterBattle",0);
 
         }
         else
@@ -87,10 +91,6 @@ public class Player : MonoBehaviour
             highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
             animator = GetComponent<Animator>();
             collider = gameObject.GetComponent<BoxCollider>();
-            time = 60;
-            hp = 50;
-            maxHp = 100;
-            playtime = time;
             //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
         }
     }
@@ -114,6 +114,12 @@ public class Player : MonoBehaviour
         maxCombo = 0;
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
+        PlayerPrefs.SetInt("afterBattle", 0);
+
+        time = 60;
+        hp = 50;
+        maxHp = 100;
+        playtime = time;
         InitialStepRecords();
     }
     // 걸음 시간 리스트 초기화 (0)
@@ -142,7 +148,7 @@ public class Player : MonoBehaviour
             Debug.Log(onDisplayTime);
             UnDisplay(ref onDisplayHp, "UnDisplayHpIncrease");
             UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
-            if (time < 0 || hp <= 0)
+            if (time <= 0 || hp <= 0)
             {
                 hp = 0;
                 time = 0;
@@ -384,7 +390,7 @@ public class Player : MonoBehaviour
     {
         if (col.gameObject.tag == "Heart Tile")
         {
-            if(hp <= maxHp)
+            if(hp < maxHp)
                 hp++;
             gameCanvas.DisplayHpIncrease();
             onDisplayHp = true;
@@ -427,8 +433,11 @@ public class Player : MonoBehaviour
             PlayerPrefs.SetInt("point", point);
             PlayerPrefs.SetFloat("time", time);
             PlayerPrefs.SetInt("hp", hp);
+            PlayerPrefs.SetFloat("maxHp", maxHp);
             PlayerPrefs.SetFloat("speed", speed);
-            
+            PlayerPrefs.SetFloat("combo", combo);
+            PlayerPrefs.SetFloat("maxCombo", maxCombo);
+            PlayerPrefs.SetInt("afterBattle", 1);            
             GameManager.instance.SetGameState(GameState.Pause);
             menu.SetActive(false);
             transition.GetComponent<Animator>().SetBool("animateIn", true);
@@ -438,7 +447,6 @@ public class Player : MonoBehaviour
     IEnumerator SceneLoad()
     {
         yield return new WaitForSeconds(3f);
-        
         SceneManager.LoadScene("BattleScene");
     }
 }
