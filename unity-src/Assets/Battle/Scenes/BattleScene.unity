@@ -4246,7 +4246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 1/100
+  m_Text: PAUSE
 --- !u!222 &1074906987
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -5514,7 +5514,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Timer
+  m_Text: PAUSE
 --- !u!222 &1542192211
 CanvasRenderer:
   m_ObjectHideFlags: 0
