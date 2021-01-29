@@ -15,6 +15,7 @@ public class HandleDamage : MonoBehaviour
     Animator anim;
 
     public float timer = 0;
+    public float nodeTimer = 0;
 
     public GameObject camera;
 
@@ -23,14 +24,18 @@ public class HandleDamage : MonoBehaviour
     public GameObject leftKick;
     public GameObject rightKick;
 
-
-
     public GameObject punchNode;
     public GameObject kickNode;
     public GameObject canvas;
 
     public float punchTime;
     public float kickTime;
+
+
+    public GameObject perfectText;
+    public GameObject greatText;
+    public GameObject goodText;
+    public GameObject missText;
 
 
     // Start is called before the first frame update
@@ -51,7 +56,6 @@ public class HandleDamage : MonoBehaviour
         rightPunch.SetActive(false);
         leftKick.SetActive(false);
         rightKick.SetActive(false);
-
     }
 
     // Update is called once per frame
@@ -60,7 +64,7 @@ public class HandleDamage : MonoBehaviour
         monsterAttack = MonsterAnim.GetMonsterState();
         playerAttack = PlayerAnim.GetPlayerState();
         timer += Time.deltaTime;
-
+        nodeTimer += Time.deltaTime;
 
         punchTime = punchNode.GetComponent<RectTransform>().rect.width;
         kickTime = kickNode.GetComponent<RectTransform>().rect.width;
@@ -69,6 +73,11 @@ public class HandleDamage : MonoBehaviour
         if (timer > 1)
         {
             AttackHandler();
+
+        }
+        if (nodeTimer > 3)
+        {
+            ShowNode();
         }
     }
     public bool ComparePosition()
@@ -80,6 +89,7 @@ public class HandleDamage : MonoBehaviour
     }
     void AttackHandler()
     {
+
         if (monsterAttack)
         {
             if (ComparePosition())
@@ -89,11 +99,8 @@ public class HandleDamage : MonoBehaviour
                 StartCoroutine(EffectHanlder());
                 PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
                 StartCoroutine(HandleHitAnim());
-
-
-
             }
-            StartCoroutine(ShowNode());
+
             timer = 0;
         }
         if (playerAttack)
@@ -106,18 +113,37 @@ public class HandleDamage : MonoBehaviour
                 {
                     if (leftPunch.activeSelf || rightPunch.activeSelf)
                     {
-                        if (punchTime <= 200)
+                        if (punchTime <= 210)
                         {
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                             anim.SetTrigger("damaged");
-                        }
-                        else if (200 < punchTime && punchTime <= 300)
-                        {
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                            anim.SetTrigger("damaged");
-                        }
+                            GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
 
+
+                        }
+                        else if (210 < punchTime && punchTime <= 250)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            anim.SetTrigger("damaged");
+                            GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+
+
+                        }
+                        else if (250 < punchTime && punchTime <= 350)
+                        {
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
+                            anim.SetTrigger("damaged");
+                            GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                        }
+                        else if (punchTime > 350)
+                        {
+                            GameObject text = Instantiate(missText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                        }
                     }
 
 
@@ -129,32 +155,59 @@ public class HandleDamage : MonoBehaviour
                     {
                         if (PlayerAnim.KillMonster() == true)
                         {
+                            GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                            text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
                             HealthBarHandler.SetHealthBarValue(0);
                         }
-
-                        if (kickTime <= 200)
+                        else
                         {
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                            anim.SetTrigger("damaged");
 
+                            if (kickTime <= 210)
+                            {
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                                anim.SetTrigger("damaged");
+                                GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                                text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                            }
+                            else if (210 < kickTime && kickTime <= 250)
+                            {
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                                anim.SetTrigger("damaged");
+                                GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                                text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
 
+                            }
+                            else if (250 < kickTime && kickTime <= 350)
+                            {
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
+                                anim.SetTrigger("damaged");
+                                GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                                text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                            }
+                            else if (kickTime > 350)
+                            {
+                                GameObject text = Instantiate(missText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
+                                text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
+                            }
                         }
-                        else if (200 < kickTime && kickTime <= 300)
-                        {
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                            anim.SetTrigger("damaged");
-                        }
+
 
                     }
 
 
                 }
             }
+            //StartCoroutine(InitializeDamageText());
             StartCoroutine(HandleHitAnim());
-
             timer = 0;
         }
+    }
+
+    IEnumerator InitializeDamageText()
+    {
+        yield return new WaitForSeconds(1f);
+        perfectText.SetActive(false);
     }
     private IEnumerator HandleHitAnim()
     {
@@ -170,9 +223,10 @@ public class HandleDamage : MonoBehaviour
         blood.gameObject.SetActive(false);
 
     }
-    private IEnumerator ShowNode()
+
+    void ShowNode()
     {
-        yield return new WaitForSeconds(1f);
+        //yield return new WaitForSeconds(0f);
         int rn = Random.Range(1, 5);
         switch (rn)
         {
@@ -202,6 +256,8 @@ public class HandleDamage : MonoBehaviour
                 break;
 
         }
+
+        nodeTimer = 0;
     }
 
 

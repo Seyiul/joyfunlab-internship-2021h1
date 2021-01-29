@@ -1429,6 +1429,7 @@ MonoBehaviour:
   playerAttack: 0
   blood: {fileID: 545318340}
   timer: 0
+  nodeTimer: 0
   camera: {fileID: 1294204975}
   leftPunch: {fileID: 906007199}
   rightPunch: {fileID: 1089767390}
@@ -1439,6 +1440,14 @@ MonoBehaviour:
   canvas: {fileID: 585532530}
   punchTime: 0
   kickTime: 0
+  perfectText: {fileID: 5040667627965252064, guid: 7f16a8295cb3a044eae338464fb7e04c,
+    type: 3}
+  greatText: {fileID: 6486054769127103341, guid: f63557db91819bd479e147cf19b40590,
+    type: 3}
+  goodText: {fileID: 6255212517797014705, guid: 2f3259ec5950edd4dbbb0da7d1272b5d,
+    type: 3}
+  missText: {fileID: 1747901103703422565, guid: 8cd90b431b5d60241adf33815c286c77,
+    type: 3}
 --- !u!224 &580897518 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4103648660059068931, guid: 1313ba361a0fe914c8c94cae1d999732,
@@ -1459,7 +1468,7 @@ GameObject:
   - component: {fileID: 585532532}
   m_Layer: 5
   m_Name: ScreenUICanvas
-  m_TagString: Untagged
+  m_TagString: Canvas
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1520,7 +1529,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -4147,7 +4156,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1059779487}
-  - component: {fileID: 1059779488}
   m_Layer: 0
   m_Name: highlight
   m_TagString: Untagged
@@ -4169,18 +4177,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1059779488
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1059779486}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7e5d451d014442347af5854dd890286d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1074906984
 GameObject:
   m_ObjectHideFlags: 0
@@ -6025,7 +6021,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1863569197}
-  - component: {fileID: 1863569198}
   m_Layer: 5
   m_Name: Guide
   m_TagString: Untagged
@@ -6056,20 +6051,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1863569198
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1863569196}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e2317bec5ce2934eac3434ebbe634cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  leftKick: {fileID: 1089627847}
-  rightKick: {fileID: 1162407363}
 --- !u!1 &1890178742
 GameObject:
   m_ObjectHideFlags: 0

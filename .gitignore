@@ -6,3 +6,4 @@ unity-src/.vs/unity-src/v16/.suo
 unity-src/cudnn64_7.dll
 unity-src/dnn_model_2_0.onnx
 *.csproj
+*.dll
