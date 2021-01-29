@@ -135,5 +135,6 @@ public class Tile : MonoBehaviour
     {
         monster = Instantiate(monsterSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
         monster.transform.parent = GameManager.instance.nextTile.transform;
+        monster.transform.Rotate(0, 180, 0, Space.Self);
     }
 }
