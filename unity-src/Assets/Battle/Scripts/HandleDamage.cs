@@ -198,16 +198,9 @@ public class HandleDamage : MonoBehaviour
 
                 }
             }
-            //StartCoroutine(InitializeDamageText());
             StartCoroutine(HandleHitAnim());
             timer = 0;
         }
-    }
-
-    IEnumerator InitializeDamageText()
-    {
-        yield return new WaitForSeconds(1f);
-        perfectText.SetActive(false);
     }
     private IEnumerator HandleHitAnim()
     {
@@ -221,7 +214,6 @@ public class HandleDamage : MonoBehaviour
         camera.GetComponent<ShakeBehavior>().TriggerShake();
         yield return new WaitForSeconds(2f);
         blood.gameObject.SetActive(false);
-
     }
 
     void ShowNode()
@@ -258,6 +250,8 @@ public class HandleDamage : MonoBehaviour
         }
 
         nodeTimer = 0;
+
+
     }
 
 

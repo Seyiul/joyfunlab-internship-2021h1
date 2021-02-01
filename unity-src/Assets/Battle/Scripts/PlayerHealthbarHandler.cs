@@ -15,7 +15,7 @@ public class PlayerHealthbarHandler : MonoBehaviour
         {
             SetHealthBarColor(Color.red);
         }
-        else if (HealthBarImage.fillAmount < 0.4f)
+        else if (HealthBarImage.fillAmount < 0.65f)
         {
             SetHealthBarColor(Color.yellow);
         }
