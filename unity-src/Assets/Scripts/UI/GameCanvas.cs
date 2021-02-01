@@ -12,9 +12,13 @@ public class GameCanvas : MonoBehaviour
     public Text HpText;
     public GameObject TimeIncreaseText;
     public GameObject HpIncreaseText;
+    public GameObject HpDecreaseText;
     // Start is called before the first frame update
     void Start()
     {
+        TimeIncreaseText.SetActive(false);
+        HpIncreaseText.SetActive(false);
+        HpDecreaseText.SetActive(false);
     }
 
     // Update is called once per frame
@@ -28,11 +32,13 @@ public class GameCanvas : MonoBehaviour
     }
     public void DisplayTimeIncrease()
     {
-        TimeIncreaseText.GetComponent<Outline>().useGraphicAlpha = false;
+        TimeIncreaseText.SetActive(true);
+        StartCoroutine(InvisibleText(TimeIncreaseText));
     }
-    public void UnDisplayTimeIncrease()
+    IEnumerator InvisibleText(GameObject text)
     {
-        TimeIncreaseText.GetComponent<Outline>().useGraphicAlpha = true;
+        yield return new WaitForSeconds(0.5f);
+        text.SetActive(false);
     }
     public void DisplayHp()
     {
@@ -40,11 +46,13 @@ public class GameCanvas : MonoBehaviour
     }
     public void DisplayHpIncrease()
     {
-        HpIncreaseText.GetComponent<Outline>().useGraphicAlpha = false;
+        HpIncreaseText.SetActive(true);
+        StartCoroutine(InvisibleText(HpIncreaseText));
     }
-    public void UnDisplayHpIncrease()
+    public void DisplayHpDecrease()
     {
-        HpIncreaseText.GetComponent<Outline>().useGraphicAlpha = true;
+        HpDecreaseText.SetActive(true);
+        StartCoroutine(InvisibleText(HpDecreaseText));
     }
     public void DisplayCombo()
     {

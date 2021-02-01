@@ -53,8 +53,6 @@ public class Player : MonoBehaviour
     public GameObject transition;
     public int afterBattle;
 
-    bool onDisplayHp = false;
-    bool onDisplayTime = false;
     BoxCollider collider;
     HighlightTiles highlightTiles;
     public GameCanvas gameCanvas;
@@ -89,7 +87,7 @@ public class Player : MonoBehaviour
             highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
             animator = GetComponent<Animator>();
             collider = gameObject.GetComponent<BoxCollider>();
-            //    gameCanvas = GameObject.Find("GameCanvas").GetComponent<xgameCanvas>();
+            gameCanvas = GameObject.Find("GameCanvas").GetComponent<GameCanvas>();
         }
     }
     public void InitialAll()
@@ -160,8 +158,6 @@ public class Player : MonoBehaviour
             gameCanvas.DisplayCombo();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
-            UnDisplay(ref onDisplayHp, "UnDisplayHpIncrease");
-            UnDisplay(ref onDisplayTime, "UnDisplayTimeIncrease");
             if (time <= 0 || hp <= 0)
             {
                 GameManager.instance.SetGameState(GameState.Result);
@@ -183,22 +179,6 @@ public class Player : MonoBehaviour
         
 
 
-    }
-    void UnDisplay(ref bool onDisplay, string functionName)
-    {
-        if (onDisplay)
-        {
-            onDisplay = false;
-            Invoke(functionName, ConstInfo.displayTimer);
-        }
-    }
-    void UnDisplayHpIncrease()
-    {
-        gameCanvas.UnDisplayHpIncrease();
-    }
-    void UnDisplayTimeIncrease()
-    {
-        gameCanvas.UnDisplayTimeIncrease();
     }
     void HandleKinectPlayer()
     {
@@ -414,7 +394,6 @@ public class Player : MonoBehaviour
             if(hp < maxHp)
                 hp++;
             gameCanvas.DisplayHpIncrease();
-            onDisplayHp = true;
         }
         else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
         {
@@ -424,6 +403,7 @@ public class Player : MonoBehaviour
                 hp -= (int)hp / 2;
             else
                 hp -= 10;
+            gameCanvas.DisplayHpDecrease();
             HandlePlayerStumbling();
         }
         else if (col.gameObject.tag == "Balloon Tile")
@@ -435,7 +415,6 @@ public class Player : MonoBehaviour
                 playtime += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
                 gameCanvas.DisplayTimeIncrease();
-                onDisplayTime = true;
             }
         }
         else if (col.gameObject.tag == "Pass Tile")
