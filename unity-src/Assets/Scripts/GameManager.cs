@@ -29,17 +29,18 @@ public class GameManager : MonoBehaviour
     bool stateChanged;
     public GameObject curTile;
     public GameObject nextTile;
+
     void Awake()
     {
         if (!instance)
         {
             instance = this;
-            //DontDestroyOnLoad(gameObject);
         }
         else
             Destroy(gameObject);
     }
 
+    // 화면 설정, 키넥트 연결 초기화, 메뉴 상태로 게임 시작, 플레이어와 UI 컴포넌트로 액세스 준비
     void Start()
     {
         DisplaySetting();
@@ -52,19 +53,20 @@ public class GameManager : MonoBehaviour
 
     void Update()
     {
-
-        //게임 중에 일시정지 상태로 변경하면(esc 누르면)
+        // 게임 중에 esc 누르면
         if (Input.GetKeyDown(KeyCode.Escape) && curGameState == GameState.Game)
         {
+            // 일시정지 상태로 변경
             curGameState = GameState.Pause;
+            stateChanged = true;
         }
-        if (curGameState == GameState.Menu)
-            player.InitialValues();
+        // 종료 상태이면
         if (curGameState == GameState.Quit)
         {
             player.InitialValues();
             Application.Quit();
         }
+        // 메뉴 핸들링
         ui.MenuHandle();
     }
 
@@ -87,6 +89,7 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState() { return curGameState; }
     public void SetGameState(GameState newGameState) { curGameState = newGameState; }
 
+    // 게임상태가 변화했는지 판단하는 변수 Getter & Setter
     public bool GetStateChanged() { return stateChanged; }
     public void SetStateChanged(bool changed) { stateChanged = changed; }
 }

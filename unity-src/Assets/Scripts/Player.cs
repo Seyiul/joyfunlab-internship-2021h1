@@ -92,7 +92,11 @@ public class Player : MonoBehaviour
     }
     public void InitialAll()
     {
+        InitialTile();
         InitialValues();
+    }
+    public void InitialTile()
+    {
         if (GameManager.instance.curTile != null && GameManager.instance.nextTile != null)
         {
             Destroy(GameManager.instance.curTile);
@@ -150,6 +154,7 @@ public class Player : MonoBehaviour
     {
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
+            Debug.Log(curLocation);
             time -= Time.deltaTime;
             HandleInput();
             //게임의 상태가 변화하면 속도를 업데이트

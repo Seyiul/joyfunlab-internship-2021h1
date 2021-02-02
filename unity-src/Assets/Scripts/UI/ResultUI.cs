@@ -27,7 +27,11 @@ public class ResultUI : MonoBehaviour
         float comboPoint = 1 + (float)((int)Player.instance.maxCombo / 10) / 10;
         pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint)).ToString() + " 점";
         if (Input.GetKeyDown(KeyCode.Return))
+        {
+            Player.instance.InitialAll();
             GameManager.instance.SetGameState(GameState.Menu);
+            GameManager.instance.SetStateChanged(true);
+        }
     }
     public void ShowBattleResult()
     {

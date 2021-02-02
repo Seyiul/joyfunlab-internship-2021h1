@@ -18,6 +18,7 @@ public class SettingUI : MonoBehaviour
     public GameObject startHpBtn;
     public GameObject timeBtn;
     public GameObject backBtn;
+    GameCanvas gameCanvas;
     public Text monsterHpText;
     public Text maxHpText;
     public Text startHpText;
@@ -30,6 +31,7 @@ public class SettingUI : MonoBehaviour
     {
         curBtn = settingBtn.monsterHp;
         Selected();
+        gameCanvas = GameObject.Find("GameCanvas").GetComponent<GameCanvas>();
     }
     // Update is called once per frame
     void Update()
@@ -93,11 +95,12 @@ public class SettingUI : MonoBehaviour
             }
             else if (curBtn == settingBtn.maxHp)
             {
-                if (Player.instance.maxHp > 50)
+                if (Player.instance.maxHp > 50 && Player.instance.maxHp > Player.instance.hp)
                 {
                     Player.instance.maxHp -= 10;
                     maxHpText.text = Player.instance.maxHp.ToString();
                 }
+                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.startHp)
             {
@@ -106,6 +109,7 @@ public class SettingUI : MonoBehaviour
                     Player.instance.hp -= 10;
                     startHpText.text = Player.instance.hp.ToString();
                 }
+                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.time)
             {
@@ -115,6 +119,7 @@ public class SettingUI : MonoBehaviour
                     Player.instance.playtime -= 10;
                     timeText.text = Player.instance.time.ToString();
                 }
+                gameCanvas.DisplayTime();
             }
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow))
@@ -130,14 +135,16 @@ public class SettingUI : MonoBehaviour
                     Player.instance.maxHp += 10;
                     maxHpText.text = Player.instance.maxHp.ToString();
                 }
+                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.startHp)
             {
-                if (Player.instance.hp < 150)
+                if (Player.instance.hp < 150 && Player.instance.maxHp > Player.instance.hp)
                 {
                     Player.instance.hp += 10;
                     startHpText.text = Player.instance.hp.ToString();
                 }
+                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.time)
             {
@@ -147,6 +154,7 @@ public class SettingUI : MonoBehaviour
                     Player.instance.playtime += 10;
                     timeText.text = Player.instance.time.ToString();
                 }
+                gameCanvas.DisplayTime();
             }
         }
         else if(Input.GetKeyDown(KeyCode.Return))

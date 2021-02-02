@@ -37,7 +37,7 @@ public class GameCanvas : MonoBehaviour
     }
     IEnumerator InvisibleText(GameObject text)
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(ConstInfo.displayTimer);
         text.SetActive(false);
     }
     public void DisplayHp()

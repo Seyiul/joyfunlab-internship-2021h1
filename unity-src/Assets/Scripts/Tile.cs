@@ -16,7 +16,7 @@ enum Obstacle: int
     Hurdle = 2,
     Trap = 3,
     Balloon = 4,
-    Monster = 5
+    Monster = 5 
 }
 
 public class Tile : MonoBehaviour
@@ -29,112 +29,158 @@ public class Tile : MonoBehaviour
     public GameObject monsterSrc;
     public GameObject passSrc;
     int point;
-    GameObject heart;
-    GameObject hurdle;
-    GameObject trap;
-    GameObject balloon;
-    GameObject monster;
-    GameObject pass;
-    // Start is called before the first frame update
+    GameObject obj;
+    
+    // 첫 타일은 빈칸, 두번째 타일부터는 장애물이 생성
     void Start()
     {
-        if(GameManager.instance.nextTile != null && gameObject != GameManager.instance.curTile)
+        // 첫 타일(메뉴상태에서 플레이어가 올라서 있는 타일)이 아닐 경우
+        if (GameManager.instance.nextTile != null && gameObject != GameManager.instance.curTile)
         {
+            // 타일이 만들어지는 즉시 5군데의 포인트에
             for (point = 0; point <= 4; point++)
             {
+                // 장애물을 생성
                 MakePath();
             }
         }
     }
 
-    // Update is called once per frame
+    // 게임 중 바닥이 뒤로 진행
     void Update()
     {
+        // 게임 상태가 Game이면
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
+            // 플레이어의 스피드를 받아와서 그 1.5배만큼의 속도로 타일을 뒤로 움직임
             mapSpeed = Player.instance.speed * 1.5f;
             MoveTile();
         }
     }
+
+    // 타일을 움직임
     void MoveTile()
     {
-        if (GameManager.instance.GetGameState() == GameState.Game)
-        {
-            transform.Translate(0,0, -mapSpeed * Time.deltaTime);
-        }
+        // 이 스크립트가 들어간 게임오브젝트(타일)를 z축(앞뒤)방향에서 뒤로(-) 속도 X 시간만큼 움직임
+        transform.Translate(0,0, -mapSpeed * Time.deltaTime);
     }
+
+    // 장애물이 있는 타일과 없는 타일을 생성
     void MakePath()
     {
+        // 빈 타일을 왼쪽, 가운데, 오른쪽 라인 중 1군데에 생성
         int emptyTile = Random.Range((int)Line.Left, (int)Line.Right + 1);
+
+        //빈 타일 핸들링(콤보를 올리기 위한 투명한 패스존(콜리전 박스), 혹은 하트 등의 +요인들 생성)
         MakeEmpty(emptyTile);
+
+        // 빈 타일이 왼쪽이었으면
         if (emptyTile == (int)Line.Left)
         {
+            // 가운데와 오른쪽에 장애물 생성
             MakeObstacle((int)Line.Center);
             MakeObstacle((int)Line.Right);
         }
+
+        //빈 타일이 가운데였으면
         else if (emptyTile == (int)Line.Center)
         {
+            //왼쪽과 오른쪽에 장애물 생성
             MakeObstacle((int)Line.Left);
             MakeObstacle((int)Line.Right);
         }
+
+        //빈 타일이 오른쪽이었으면
         else
         { 
+            //왼쪽과 가운데에 장애물 생성
             MakeObstacle((int)Line.Center);
             MakeObstacle((int)Line.Left);
         }
     }
+
+    // +요인 생성
     void MakeEmpty(int emptyTile)
     {
-        // 1/4확률로 하트
+        // 1/4확률로 하트 생성
         if (Random.Range(0, 4) == 0)
             MakeHeart(emptyTile);
+
+        //지나가면 콤보가 쌓일 투명한 패스존 생성, 두 번째 상수값은 패스존의 높이
         MakePassZone(emptyTile, 3);
     }
+
+    // 하트 생성
     void MakeHeart(int emptyTile)
     {
-        heart = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        heart.transform.parent = GameManager.instance.nextTile.transform;
+        // heartSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성
+        obj = Instantiate(heartSrc, new Vector3(ConstInfo.tileX + emptyTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
+
+    // 타일과 높이(Y축 좌표)를 받아 콤보가 쌓이는 투명한 패스존 생성
     void MakePassZone(int tile,int y)
     {
-        pass = Instantiate(passSrc, new Vector3(ConstInfo.tileX + tile * ConstInfo.lineWidth, ConstInfo.tileY + y, ConstInfo.tileLength + point * ConstInfo.tileTerm),Quaternion.identity);
-        pass.transform.parent = GameManager.instance.nextTile.transform;
+        // passSrc에 들어있는 프리팹을 Y축 포인트 * 타일의 Y축 간격,Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
+        obj = Instantiate(passSrc, new Vector3(ConstInfo.tileX + tile * ConstInfo.lineWidth, ConstInfo.tileY + y, ConstInfo.tileLength + point * ConstInfo.tileTerm),Quaternion.identity);
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
+
+    // 장애물 생성
     void MakeObstacle(int obstacleTile)
     {
+        // 허들과 괴물 사이의 장애물중 임의의 하나를 뽑음
         int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster + 1);
+
+        // 풍선을 만듦
         if (obstacle == (int)Obstacle.Balloon)
             MakeBalloon(obstacleTile);
+        // 풍선이 아니면
         else
         {
+            // 허들을 만듦
             if (obstacle == (int)Obstacle.Hurdle)
                 MakeHurdle(obstacleTile);
+            // 곰덫을 만듦
             else if (obstacle == (int)Obstacle.Trap)
                 MakeTrap(obstacleTile);
+            // 몬스터를 만듦
             else if (obstacle == (int)Obstacle.Monster)
                 MakeMonster(obstacleTile);
+            // 패스존을 23만큼 위로 만듦(점프시 인식하기 위함)
             MakePassZone(obstacleTile, 23);
         }
     }
+
+    //허들 생성
     void MakeHurdle(int obstacleTile)
     {
-        hurdle = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        hurdle.transform.parent = GameManager.instance.nextTile.transform;
+        // hurdleSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
+        obj = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeTrap(int obstacleTile)
     {
-        trap = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        trap.transform.parent = GameManager.instance.nextTile.transform;
+        // trapSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
+        obj = Instantiate(trapSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeBalloon(int obstacleTile)
     {
-        balloon = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        balloon.transform.parent = GameManager.instance.nextTile.transform;
+        // balloonSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
+        obj = Instantiate(balloonSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 4, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
     void MakeMonster(int obstacleTile)
     {
-        monster = Instantiate(monsterSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
-        monster.transform.parent = GameManager.instance.nextTile.transform;
-        monster.transform.Rotate(0, 180, 0, Space.Self);
+        // monsterSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
+        obj = Instantiate(monsterSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.Euler(new Vector3(0,180,0)));
+        // 이를 다음 타일의 자식 오브젝트로 설정
+        obj.transform.parent = GameManager.instance.nextTile.transform;
     }
 }

@@ -10,7 +10,8 @@ public class ScreenUICanvas : MonoBehaviour
     public GameObject result;
     public GameObject setting;
     public GameObject pmenu;
-    // Start is called before the first frame update
+
+
     void Start()
     {
     }
@@ -19,50 +20,82 @@ public class ScreenUICanvas : MonoBehaviour
     void Update()
     {
     }
+    
+    // 메뉴 핸들링
     public void MenuHandle()
     {
+        // 게임이 메뉴 상태이면
         if (GameManager.instance.GetGameState() == GameState.Menu)
         {
+            // 메뉴 상태로 방금 전환되었으면 메뉴 UI를 켬
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(menu);
+
+            // 메뉴 UI의 입력에 대한 이벤트 핸들
             menu.GetComponent<MenuUI>().MenuHandle();
         }
+
+        // 게임이 랭크 상태이면
         else if (GameManager.instance.GetGameState() == GameState.Rank)
         {
+            // 랭크 상태로 방금 전환되었으면 랭크 UI를 켬
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(rank);
+
+            // 랭크 UI의 입력에 대한 이벤트 핸들
             rank.GetComponent<MyRankUI>().MenuHandle();
         }
+
+        // 게임이 결과 상태이면
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {
+            // 결과 상태로 방금 전환되었으면 결과 UI를 켬
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(result);
+
+            // 결과 UI에 나타나는 정보 갱신
             result.GetComponent<ResultUI>().ShowResult();
         }
+
+        // 게임이 세팅 상태이면
         else if (GameManager.instance.GetGameState() == GameState.Setting)
         {
+            // 세팅 상태로 방금 전환되었으면 세팅 UI를 켬
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(setting);
+
+            // 세팅 UI의 입력에 대한 이벤트 핸들
             setting.GetComponent<SettingUI>().MenuHandle();
         }
+
+        // 게임이 퍼즈 상태이면
         else if (GameManager.instance.GetGameState() == GameState.Pause)
         {
+            // 퍼즈 상태로 방금 전환되었으면 퍼즈 UI를 켬
             if(GameManager.instance.GetStateChanged())
                 ActivateUI(pmenu);
+
+            // 퍼즈 UI의 입력에 대한 이벤트 핸들
             pmenu.GetComponent<PauseUI>().MenuHandle();
         }
+
+        // 게임이 게임, 배틀, 종료 상태이면
         else
         {
+            // 방금 전환되었으면 모든 UI를 끔
             if(GameManager.instance.GetStateChanged())
                 DeactivateAllUI();
         }
     }
+
+    // UI 오브젝트를 파라미터로 받아서 켬
     void ActivateUI(GameObject obj)
     {
         DeactivateAllUI();
         obj.SetActive(true);
     }
 
+    // 모든 UI 오브젝트를 끔
     void DeactivateAllUI()
     {
         menu.SetActive(false);

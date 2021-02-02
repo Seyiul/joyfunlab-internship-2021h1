@@ -41,15 +41,21 @@ public class BackToGame : MonoBehaviour
     private IEnumerator SceneChage()
     {
         yield return new WaitForSeconds(1f);
-        float plusTime = PlayerHealthbarHandler.GetHealthBarValue();
-        plusTime *= 20;
-        time = PlayerPrefs.GetFloat("time");
-        time += plusTime;
-        PlayerPrefs.SetFloat("time", time);
-        PlayerPrefs.SetFloat("playtime", PlayerPrefs.GetFloat("playtime") + plusTime);
+        if(PlayerHealthbarHandler.GetHealthBarValue() > 0)
+        {
+            float plusTime = PlayerHealthbarHandler.GetHealthBarValue() * 20;
+            time = PlayerPrefs.GetFloat("time");
+            PlayerPrefs.SetFloat("time", time + plusTime);
+            PlayerPrefs.SetFloat("playtime", PlayerPrefs.GetFloat("playtime") + plusTime);
+        }
+        else
+        {
+            float leftTime = PlayerPrefs.GetFloat("time");
+            PlayerPrefs.SetFloat("time", 0);
+            PlayerPrefs.SetFloat("playtime", PlayerPrefs.GetFloat("playtime") - leftTime);
+        }
         GameManager.instance.SetGameState(GameState.Game);
         SceneManager.LoadScene(sceneIndex);
-
     }
-  
+
 }

@@ -71,13 +71,14 @@ public class PauseUI : MonoBehaviour
         {
             if (curBtn == pmenuBtn.resume)
                 GameManager.instance.SetGameState(GameState.Game);
-            else if (curBtn == pmenuBtn.restart)
+            else
             {
-                GameManager.instance.SetGameState(GameState.Game);
+                if (curBtn == pmenuBtn.restart)
+                    GameManager.instance.SetGameState(GameState.Game);
+                else if (curBtn == pmenuBtn.quit)
+                    GameManager.instance.SetGameState(GameState.Result);
                 Player.instance.InitialAll();
             }
-            else if (curBtn == pmenuBtn.quit)
-                GameManager.instance.SetGameState(GameState.Result);
             GameManager.instance.SetStateChanged(true);
         }
     }
