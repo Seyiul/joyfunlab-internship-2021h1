@@ -36,8 +36,7 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        handlePositionLeftFoot = HandleKinectPosition(Avatar.userPositionLeftFoot);
-        handlePositionRightFoot = HandleKinectPosition(Avatar.userPositionRightFoot);
+
         timeTimer += Player.instance.time;
         if (timeTimer > 1.2)
         {
@@ -118,8 +117,8 @@ public class Floor : MonoBehaviour
 
     void MarkerMove()
     {
-        leftMarker.transform.position = new Vector3(handlePositionLeftFoot.x, handlePositionLeftFoot.z, 0);
-        rightMarker.transform.position = new Vector3(handlePositionRightFoot.x, handlePositionRightFoot.z, 0);
+        leftMarker.transform.position = new Vector3(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z, 0);
+        rightMarker.transform.position = new Vector3(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z, 0);
     }
     void HandleKinectClick()
     {
