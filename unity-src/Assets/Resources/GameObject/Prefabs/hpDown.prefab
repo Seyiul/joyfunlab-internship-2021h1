@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 1116843636361032940}
   - component: {fileID: 7143985474256558936}
   - component: {fileID: 8528467348295118983}
-  - component: {fileID: 7841523431457909424}
   m_Layer: 5
   m_Name: hpDown
   m_TagString: Untagged
@@ -158,16 +157,3 @@ MonoBehaviour:
   - {fileID: 0}
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
---- !u!114 &7841523431457909424
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7129518312901448143}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 929a8f7b1b2970c47af6968dab0a920b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damage: 0
