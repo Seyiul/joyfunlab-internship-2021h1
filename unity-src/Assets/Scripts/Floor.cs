@@ -117,8 +117,8 @@ public class Floor : MonoBehaviour
 
     void MarkerMove()
     {
-        leftMarker.transform.position = new Vector3(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z, 0);
-        rightMarker.transform.position = new Vector3(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z, 0);
+        leftMarker.transform.localPosition = new Vector3(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z, 0);
+        rightMarker.transform.localPosition = new Vector3(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z, 0);
     }
     void HandleKinectClick()
     {
