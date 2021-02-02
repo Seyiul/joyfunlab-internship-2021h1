@@ -16,7 +16,8 @@ public class Floor : MonoBehaviour
     public GameObject downButton;
     public GameObject centerButton;
 
-
+    private Vector3 handlePositionLeftFoot;
+    private Vector3 handlePositionRightFoot;
     private float timeTimer;
     private bool press;
     //게임정보
@@ -35,6 +36,8 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        handlePositionLeftFoot = HandleKinectPosition(Avatar.userPositionLeftFoot);
+        handlePositionRightFoot = HandleKinectPosition(Avatar.userPositionRightFoot);
         timeTimer += Player.instance.time;
         if (timeTimer > 1.2)
         {
@@ -108,10 +111,15 @@ public class Floor : MonoBehaviour
             pauseMenu.text = "일시정지";
         }
     }
+    public static Vector3 HandleKinectPosition(Vector3 kinectPosition)
+    {
+        return new Vector3(kinectPosition.x * 711, kinectPosition.y * 720, (kinectPosition.z - 1.45f) * -720);
+    }
+
     void MarkerMove()
     {
-        leftMarker.transform.position = new Vector3(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z, 0);
-        rightMarker.transform.position = new Vector3(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z, 0);
+        leftMarker.transform.position = new Vector3(handlePositionLeftFoot.x, handlePositionLeftFoot.z, 0);
+        rightMarker.transform.position = new Vector3(handlePositionRightFoot.x, handlePositionRightFoot.z, 0);
     }
     void HandleKinectClick()
     {
