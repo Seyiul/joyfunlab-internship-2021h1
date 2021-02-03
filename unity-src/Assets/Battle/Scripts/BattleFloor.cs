@@ -11,6 +11,7 @@ public class BattleFloor : MonoBehaviour
     public GameObject pauseButton;
     public GameObject enterButton;
 
+    public bool pause;
 
     private Vector3 handlePositiontRightFoot;
     private bool press;
@@ -22,6 +23,7 @@ public class BattleFloor : MonoBehaviour
     {
         timeTimer = 0;
         press = false;
+        pause = false;
 
         rightButton.SetActive(false);
         pauseButton.SetActive(false);
@@ -101,17 +103,7 @@ public class BattleFloor : MonoBehaviour
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
-            if (GameManager.instance.GetGameState() == GameState.Battle)
-            {
-                Time.timeScale = 0;
-                GameManager.instance.SetGameState(GameState.Pause);
-            }
-            else
-            {
-                Time.timeScale = 1;
-                GameManager.instance.SetGameState(GameState.Battle);
-            }
-            //GameManager.instance.SetGameState(GameState.Pause);
+            pause = true;
             press = false;
         }
         if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
