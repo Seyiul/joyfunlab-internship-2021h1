@@ -102,7 +102,13 @@ public class BattleFloor : MonoBehaviour
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
-            pause = true;
+            if (pause = true)
+            {
+                pause = false;
+            }
+            else
+                pause = true;
+
             press = false;
         }
         if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
