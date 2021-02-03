@@ -41,11 +41,17 @@ public class BackToGame : MonoBehaviour
         {
             Time.timeScale = 0;
             GameManager.instance.SetGameState(GameState.Pause);
+
+            BattleFloor.pause = false;
+
         }
-        else
+        if(BattleFloor.regame == true)
         {
             Time.timeScale = 1;
             GameManager.instance.SetGameState(GameState.Battle);
+
+            BattleFloor.regame = false;
+
         }
 
         //change scene when user presses Space key

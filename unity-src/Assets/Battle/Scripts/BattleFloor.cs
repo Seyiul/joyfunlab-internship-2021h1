@@ -9,6 +9,8 @@ public class BattleFloor : MonoBehaviour
     public GameObject rightMarker;
     public GameObject rightButton;
     public GameObject pauseButton;
+    public GameObject centerButton;
+
 
     public static bool pause;
     public static bool next;
@@ -31,6 +33,7 @@ public class BattleFloor : MonoBehaviour
         rightButton.SetActive(false);
         pauseButton.SetActive(false);
         rightMarker.SetActive(false);
+        centerButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -60,18 +63,21 @@ public class BattleFloor : MonoBehaviour
             rightButton.SetActive(false);
             pauseButton.SetActive(true);
             rightMarker.SetActive(true);
+            centerButton.SetActive(false);
         }
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {
             rightButton.SetActive(true);
             pauseButton.SetActive(false);
             rightMarker.SetActive(true);
+            centerButton.SetActive(true);
         }
         else if(GameManager.instance.GetGameState() == GameState.Pause)
         {
             rightButton.SetActive(false);
             pauseButton.SetActive(true);
             rightMarker.SetActive(true);
+            centerButton.SetActive(false);
         }
 
 
@@ -97,12 +103,15 @@ public class BattleFloor : MonoBehaviour
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
-            if (pause = false)
-                pause = true;
-            else
-                pause = false;
+            pause = true;
             press = false;
         }
-      
+        if ((Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
+              new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 140))
+        {
+            regame = true;
+            press = false;
+
+        }
     }
 }
