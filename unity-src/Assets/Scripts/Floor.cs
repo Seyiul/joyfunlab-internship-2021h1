@@ -32,7 +32,7 @@ public class Floor : MonoBehaviour
     public static bool isLeft;
     public static bool isPause;
     public static bool isEnter;
-
+    public static bool isGame;
     // Start is called before the first frame update
     void Start()
     {
@@ -43,6 +43,7 @@ public class Floor : MonoBehaviour
         isPause = false;
         isEnter = false;
 
+        isGame = false;
         isCenter = false;
 
       
@@ -68,6 +69,8 @@ public class Floor : MonoBehaviour
 
             if (isCenter)
                 HandleKinectClick();
+            else if (!isCenter && isGame)
+                HandleKinectPause();
             else
                 HandleCenter();
         }
@@ -97,7 +100,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(false);
             rightButton.SetActive(false);
             leftButton.SetActive(false);
-
+            isGame = false;
         }
         else if (GameManager.instance.GetGameState() == GameState.Setting)
         {
@@ -111,6 +114,7 @@ public class Floor : MonoBehaviour
             rightButton.SetActive(true);
             leftButton.SetActive(true);
 
+            isGame = false;
             pauseMenu.text = "뒤로가기";
         }
         else if (GameManager.instance.GetGameState() == GameState.Pause)
@@ -124,6 +128,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(false);
             rightButton.SetActive(false);
             leftButton.SetActive(false);
+            isGame = false;
 
         }
         else if ((GameManager.instance.GetGameState() == GameState.Game) || (GameManager.instance.GetGameState() == GameState.Battle))
@@ -138,6 +143,7 @@ public class Floor : MonoBehaviour
             rightButton.SetActive(false);
             leftButton.SetActive(false);
 
+            isGame = true;
             isCenter = false;
             pauseMenu.text = "일시정지";
         }
@@ -185,6 +191,15 @@ public class Floor : MonoBehaviour
         }
 
         else if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
+        {
+            isPause = true;
+            press = false;
+        }
+    }
+    void HandleKinectPause()
+    {
+        if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
             isPause = true;
