@@ -43,11 +43,12 @@ public class ResultUI : MonoBehaviour
 
         pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint)).ToString() + " 점";
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return)||BattleFloor.next == true)
         {
             GameManager.instance.SetGameState(GameState.Game);
             PlayerPrefs.SetInt("afterBattle", 0);
             SceneManager.LoadScene("Game");
+            BattleFloor.next = false;
         }
     } 
 }
