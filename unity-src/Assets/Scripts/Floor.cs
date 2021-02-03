@@ -25,9 +25,22 @@ public class Floor : MonoBehaviour
     public Text hp;
     public Text pauseMenu;
 
+    public static bool isUp;
+    public static bool isDown;
+    public static bool isRight;
+    public static bool isLeft;
+    public static bool isPause;
+    public static bool isEnter;
+
     // Start is called before the first frame update
     void Start()
     {
+        isUp = false;
+        isDown = false;
+        isRight = false;
+        isLeft = false;
+        isPause = false;
+        isEnter = false;
 
         timeTimer = 0;
         press = false;
@@ -38,7 +51,7 @@ public class Floor : MonoBehaviour
     {
 
         timeTimer += Player.instance.time;
-        if (timeTimer > 1.2)
+        if (timeTimer > 1.0)
         {
             press = true;
         }
@@ -125,33 +138,41 @@ public class Floor : MonoBehaviour
         if (((Vector2.Distance(new Vector2(downButton.transform.position.x, downButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
+            isDown = true;
             press = false;
         }
         else if (((Vector2.Distance(new Vector2(upButton.transform.position.x, upButton.transform.position.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
+            isUp = true;
             press = false;
         }
-        if ((Vector2.Distance(new Vector2(rightButton.transform.position.x, rightButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
+        else if ((Vector2.Distance(new Vector2(rightButton.transform.position.x, rightButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
             && GameManager.instance.GetGameState() == GameState.Setting)
         {
+            isRight = true;
             press = false;
         }
         else if ((Vector2.Distance(new Vector2(leftButton.transform.position.x, leftButton.transform.position.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107 && press)
             && GameManager.instance.GetGameState() == GameState.Setting)
         {
+            isLeft = true;
             press = false;
         }
-        if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
+        else if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
             (Avatar.userPositionLeftFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.position.y + 61)) ||
             ((Avatar.userPositionRightFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.position.x + 158) &&
             (Avatar.userPositionRightFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.position.y + 61)) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
-        { press = false; }
+        {
+            isEnter = true;
+            press = false;
+        }
 
-        if ((Vector2.Distance(new Vector2(pauseButton.transform.position.x, pauseButton.transform.position.y),
+        else if ((Vector2.Distance(new Vector2(pauseButton.transform.position.x, pauseButton.transform.position.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
+            isPause = true;
             press = false;
         }
     }

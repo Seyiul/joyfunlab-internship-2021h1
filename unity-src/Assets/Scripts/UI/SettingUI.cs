@@ -71,24 +71,27 @@ public class SettingUI : MonoBehaviour
     public void MenuHandle()
     {
         Debug.Log(GameManager.instance.GetGameState());
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow) || Floor.isUp)
         {
+            Floor.isUp = false;
             if (curBtn > settingBtn.monsterHp)
                 curBtn--;
             else if (curBtn == settingBtn.monsterHp)
                 curBtn = settingBtn.back;
             Selected();
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow) || Floor.isDown)
         {
+            Floor.isDown = false;
             if (curBtn < settingBtn.back)
                 curBtn++;
             else if (curBtn == settingBtn.back)
                 curBtn = settingBtn.monsterHp;
             Selected();
         }
-        else if (Input.GetKeyDown(KeyCode.LeftArrow))
+        else if (Input.GetKeyDown(KeyCode.LeftArrow)||Floor.isLeft)
         {
+            Floor.isLeft = false;
             if (curBtn == settingBtn.monsterHp)
             {
                 //몬스터 체력 하향 코드,텍스트 변환 코드
@@ -122,8 +125,9 @@ public class SettingUI : MonoBehaviour
                 gameCanvas.DisplayTime();
             }
         }
-        else if (Input.GetKeyDown(KeyCode.RightArrow))
+        else if (Input.GetKeyDown(KeyCode.RightArrow)||Floor.isRight)
         {
+            Floor.isRight = false;
             if (curBtn == settingBtn.monsterHp)
             {
                 //몬스터 체력 상향 코드,텍스트 변환 코드
@@ -157,8 +161,9 @@ public class SettingUI : MonoBehaviour
                 gameCanvas.DisplayTime();
             }
         }
-        else if(Input.GetKeyDown(KeyCode.Return))
+        else if(Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
+            Floor.isEnter;
             GameManager.instance.SetGameState(GameState.Menu);
             GameManager.instance.SetStateChanged(true);
         }
