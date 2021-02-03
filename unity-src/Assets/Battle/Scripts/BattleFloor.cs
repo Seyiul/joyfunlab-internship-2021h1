@@ -92,9 +92,19 @@ public class BattleFloor : MonoBehaviour
         }
 
         if ((Vector2.Distance(new Vector2(pauseButton.transform.position.x, pauseButton.transform.position.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press && GameManager.instance.GetGameState() == GameState.Battle)
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press )
         {
-            GameManager.instance.SetGameState(GameState.Pause);
+            if (GameManager.instance.GetGameState() == GameState.Battle)
+            {
+                Time.timeScale = 0;
+                GameManager.instance.SetGameState(GameState.Pause);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                GameManager.instance.SetGameState(GameState.Battle);
+            }
+            //GameManager.instance.SetGameState(GameState.Pause);
             press = false;
         }
         if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
