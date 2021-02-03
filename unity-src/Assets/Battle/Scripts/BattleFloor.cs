@@ -15,13 +15,13 @@ public class BattleFloor : MonoBehaviour
     private Vector3 handlePositiontRightFoot;
     private bool press;
 
-    private float timer;
+    private float timeTimer;
 
     // Start is called before the first frame update
     void Start()
     {
+        timeTimer = 0;
         press = false;
-        timer = 0;
 
         rightButton.SetActive(false);
         pauseButton.SetActive(false);
@@ -32,7 +32,13 @@ public class BattleFloor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer += Time.deltaTime;
+        timeTimer += Time.deltaTime;
+        if (timeTimer > 1.0)
+        {
+            press = true;
+            timeTimer = 0;
+
+        }
         HandleMenu();
 
 
@@ -84,16 +90,16 @@ public class BattleFloor : MonoBehaviour
     }
     void HandleKinectClick()
     {
-        if ((Vector2.Distance(new Vector2(rightButton.transform.position.x, rightButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
-       && GameManager.instance.GetGameState() == GameState.Result)
+        if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
+            && GameManager.instance.GetGameState() == GameState.Result)
         {
             GameManager.instance.SetGameState(GameState.Game);
             SceneManager.LoadScene("Game");
             press = false;
         }
 
-        if ((Vector2.Distance(new Vector2(pauseButton.transform.position.x, pauseButton.transform.position.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press )
+        if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
             if (GameManager.instance.GetGameState() == GameState.Battle)
             {
@@ -108,10 +114,11 @@ public class BattleFloor : MonoBehaviour
             //GameManager.instance.SetGameState(GameState.Pause);
             press = false;
         }
-        if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
-            (Avatar.userPositionLeftFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.position.y + 61)) ||
-            ((Avatar.userPositionRightFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.position.x + 158) &&
-            (Avatar.userPositionRightFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.position.y + 61)) && press))
+        if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
+            (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61)) ||
+            ((Avatar.userPositionRightFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.localPosition.x + 158) &&
+            (Avatar.userPositionRightFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.localPosition.y + 61)) && press)
+            && (GameManager.instance.GetGameState() == GameState.Battle))
         {
             GameManager.instance.SetGameState(GameState.Battle);
             press = false;
