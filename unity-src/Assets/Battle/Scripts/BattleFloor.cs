@@ -9,7 +9,6 @@ public class BattleFloor : MonoBehaviour
     public GameObject rightMarker;
     public GameObject rightButton;
     public GameObject pauseButton;
-    public GameObject enterButton;
 
     public static bool pause;
     public static bool next;
@@ -32,7 +31,6 @@ public class BattleFloor : MonoBehaviour
         rightButton.SetActive(false);
         pauseButton.SetActive(false);
         rightMarker.SetActive(false);
-        enterButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -62,21 +60,18 @@ public class BattleFloor : MonoBehaviour
             rightButton.SetActive(false);
             pauseButton.SetActive(true);
             rightMarker.SetActive(true);
-            enterButton.SetActive(false);
         }
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {
             rightButton.SetActive(true);
             pauseButton.SetActive(false);
             rightMarker.SetActive(true);
-            enterButton.SetActive(false);
         }
         else if(GameManager.instance.GetGameState() == GameState.Pause)
         {
             rightButton.SetActive(false);
-            pauseButton.SetActive(false);
+            pauseButton.SetActive(true);
             rightMarker.SetActive(true);
-            enterButton.SetActive(true);
         }
 
 
@@ -102,23 +97,12 @@ public class BattleFloor : MonoBehaviour
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
-            if (pause = true)
-            {
-                pause = false;
-            }
-            else
+            if (pause = false)
                 pause = true;
-
+            else
+                pause = false;
             press = false;
         }
-        if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
-            (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61)) ||
-            ((Avatar.userPositionRightFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.localPosition.x + 158) &&
-            (Avatar.userPositionRightFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.localPosition.y + 61)) && press)
-            && (GameManager.instance.GetGameState() == GameState.Battle))
-        {
-            pause = false;
-            press = false;
-        }
+      
     }
 }
