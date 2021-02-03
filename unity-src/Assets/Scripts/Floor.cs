@@ -25,6 +25,7 @@ public class Floor : MonoBehaviour
     public Text hp;
     public Text pauseMenu;
 
+    public static bool isCenter;
     public static bool isUp;
     public static bool isDown;
     public static bool isRight;
@@ -41,6 +42,8 @@ public class Floor : MonoBehaviour
         isLeft = false;
         isPause = false;
         isEnter = false;
+
+        isCenter = false;
 
         timeTimer = 0;
         press = false;
@@ -61,12 +64,24 @@ public class Floor : MonoBehaviour
         {
             MarkerMove();
             HandleMenu();
-            HandleKinectClick();
+
+            if (isCenter)
+                HandleKinectClick();
+            else
+                HandleCenter();
         }
         //현재 시간을 floor canvas 에 보여줌
         timer.text = (Mathf.Floor(Player.instance.time * 10) * 0.1f).ToString();
         //현재 체력을 floor canvas 에 보여줌
         hp.text = Player.instance.hp.ToString() + "/" + Player.instance.maxHp.ToString();
+    }
+    void HandleCenter()
+    {
+        if ((Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 140) &&
+                (Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
+                new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 140))
+            isCenter = true;
     }
     void HandleMenu()
     {
@@ -122,6 +137,7 @@ public class Floor : MonoBehaviour
             rightButton.SetActive(false);
             leftButton.SetActive(false);
 
+            isCenter = false;
             pauseMenu.text = "일시정지";
         }
     }
