@@ -163,7 +163,7 @@ public class SettingUI : MonoBehaviour
         }
         else if(Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
-            Floor.isEnter;
+            Floor.isEnter =false ;
             GameManager.instance.SetGameState(GameState.Menu);
             GameManager.instance.SetStateChanged(true);
         }

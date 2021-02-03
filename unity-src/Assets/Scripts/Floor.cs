@@ -123,10 +123,6 @@ public class Floor : MonoBehaviour
             pauseMenu.text = "일시정지";
         }
     }
-    public static Vector3 HandleKinectPosition(Vector3 kinectPosition)
-    {
-        return new Vector3(kinectPosition.x * 711, kinectPosition.y * 720, (kinectPosition.z - 1.45f) * -720);
-    }
 
     void MarkerMove()
     {
@@ -135,25 +131,25 @@ public class Floor : MonoBehaviour
     }
     void HandleKinectClick()
     {
-        if (((Vector2.Distance(new Vector2(downButton.transform.position.x, downButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107) && press)
+        if (((Vector2.Distance(new Vector2(downButton.transform.localPosition.x, downButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
             isDown = true;
             press = false;
         }
-        else if (((Vector2.Distance(new Vector2(upButton.transform.position.x, upButton.transform.position.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107) && press)
+        else if (((Vector2.Distance(new Vector2(upButton.transform.localPosition.x, upButton.transform.localPosition.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
             isUp = true;
             press = false;
         }
-        else if ((Vector2.Distance(new Vector2(rightButton.transform.position.x, rightButton.transform.position.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
+        else if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
             && GameManager.instance.GetGameState() == GameState.Setting)
         {
             isRight = true;
             press = false;
         }
-        else if ((Vector2.Distance(new Vector2(leftButton.transform.position.x, leftButton.transform.position.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107 && press)
+        else if ((Vector2.Distance(new Vector2(leftButton.transform.localPosition.x, leftButton.transform.localPosition.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107 && press)
             && GameManager.instance.GetGameState() == GameState.Setting)
         {
             isLeft = true;
@@ -169,7 +165,7 @@ public class Floor : MonoBehaviour
             press = false;
         }
 
-        else if ((Vector2.Distance(new Vector2(pauseButton.transform.position.x, pauseButton.transform.position.y),
+        else if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
         {
             isPause = true;
