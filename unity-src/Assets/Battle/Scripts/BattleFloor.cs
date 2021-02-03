@@ -26,6 +26,7 @@ public class BattleFloor : MonoBehaviour
         rightButton.SetActive(false);
         pauseButton.SetActive(false);
         rightMarker.SetActive(false);
+        enterButton.SetActive(false);
     }
 
     // Update is called once per frame
@@ -110,8 +111,7 @@ public class BattleFloor : MonoBehaviour
         if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
             (Avatar.userPositionLeftFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.position.y + 61)) ||
             ((Avatar.userPositionRightFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.position.x + 158) &&
-            (Avatar.userPositionRightFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.position.y + 61)) && press)
-            && (GameManager.instance.GetGameState() != GameState.Pause))
+            (Avatar.userPositionRightFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.position.y + 61)) && press))
         {
             GameManager.instance.SetGameState(GameState.Battle);
             press = false;
