@@ -19,6 +19,19 @@ public class BackToGame : MonoBehaviour
     }
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (GameManager.instance.GetGameState() == GameState.Battle)
+            {
+                Time.timeScale = 0;
+                GameManager.instance.SetGameState(GameState.Pause);
+            }
+            else
+            {
+                Time.timeScale = 1;
+                GameManager.instance.SetGameState(GameState.Battle);
+            }
+        }
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0)
         {
@@ -41,7 +54,7 @@ public class BackToGame : MonoBehaviour
     private IEnumerator SceneChage()
     {
         yield return new WaitForSeconds(1f);
-        if(PlayerHealthbarHandler.GetHealthBarValue() > 0)
+        if (PlayerHealthbarHandler.GetHealthBarValue() > 0)
         {
             float plusTime = PlayerHealthbarHandler.GetHealthBarValue() * 20;
             time = PlayerPrefs.GetFloat("time");
