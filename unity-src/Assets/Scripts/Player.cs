@@ -84,6 +84,7 @@ public class Player : MonoBehaviour
         else
         {
             InitialValues();
+            InitialSetting();
             highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
             animator = GetComponent<Animator>();
             collider = gameObject.GetComponent<BoxCollider>();
@@ -94,6 +95,9 @@ public class Player : MonoBehaviour
     {
         InitialTile();
         InitialValues();
+        InitialSetting();
+        HandlePlayerLocation(curLocation);
+
     }
     public void InitialTile()
     {
@@ -126,12 +130,20 @@ public class Player : MonoBehaviour
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
         //PlayerPrefs.SetInt("afterBattle", 0);
-
-        time = 60;
-        hp = 50;
-        maxHp = 100;
-        playtime = time;
         InitialStepRecords();
+    }
+    public void InitialSetting()
+    {
+        if (ConstInfo.time == 0)
+            ConstInfo.time = 60;
+        if (ConstInfo.startHp == 0)
+            ConstInfo.startHp = 50;
+        if (ConstInfo.maxHp == 0)
+            ConstInfo.maxHp = 100;
+        time = ConstInfo.time;
+        hp = ConstInfo.startHp;
+        maxHp = ConstInfo.maxHp;
+        playtime = time;
     }
     void Ondestroy()
     {

@@ -43,4 +43,7 @@ public class ConstInfo : MonoBehaviour
     public const float jumpFootHeightDifferenceLimit = 21.6f;
     public const float jumpFootPositionVariationLimit = 360;
 
+    public static float time = 0;
+    public static int startHp = 0;
+    public static int maxHp = 0;
 }

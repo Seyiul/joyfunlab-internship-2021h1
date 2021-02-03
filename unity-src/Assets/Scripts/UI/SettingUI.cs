@@ -98,32 +98,31 @@ public class SettingUI : MonoBehaviour
             }
             else if (curBtn == settingBtn.maxHp)
             {
-                if (Player.instance.maxHp > 50 && Player.instance.maxHp > Player.instance.hp)
+                if (ConstInfo.maxHp > 50 && ConstInfo.maxHp > ConstInfo.startHp)
                 {
-                    Player.instance.maxHp -= 10;
-                    maxHpText.text = Player.instance.maxHp.ToString();
+                    ConstInfo.maxHp -= 10;
+                    maxHpText.text = ConstInfo.maxHp.ToString();
                 }
-                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.startHp)
             {
-                if (Player.instance.hp > 10)
+                if (ConstInfo.startHp > 10)
                 {
-                    Player.instance.hp -= 10;
-                    startHpText.text = Player.instance.hp.ToString();
+                    ConstInfo.startHp -= 10;
+                    startHpText.text = ConstInfo.startHp.ToString();
                 }
-                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.time)
             {
-                if (Player.instance.time > 10)
+                if (ConstInfo.time > 10)
                 {
-                    Player.instance.time -= 10;
-                    Player.instance.playtime -= 10;
-                    timeText.text = Player.instance.time.ToString();
+                    ConstInfo.time -= 10;
+                    timeText.text = ConstInfo.time.ToString();
                 }
-                gameCanvas.DisplayTime();
             }
+            Player.instance.InitialSetting();
+            gameCanvas.DisplayTime();
+            gameCanvas.DisplayHp();
         }
         else if (Input.GetKeyDown(KeyCode.RightArrow)||Floor.isRight)
         {
@@ -134,32 +133,31 @@ public class SettingUI : MonoBehaviour
             }
             else if (curBtn == settingBtn.maxHp)
             {
-                if (Player.instance.maxHp < 150)
+                if (ConstInfo.maxHp < 150)
                 {
-                    Player.instance.maxHp += 10;
-                    maxHpText.text = Player.instance.maxHp.ToString();
+                    ConstInfo.maxHp += 10;
+                    maxHpText.text = ConstInfo.maxHp.ToString();
                 }
-                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.startHp)
             {
-                if (Player.instance.hp < 150 && Player.instance.maxHp > Player.instance.hp)
+                if (ConstInfo.startHp < 150 && ConstInfo.maxHp > ConstInfo.startHp)
                 {
-                    Player.instance.hp += 10;
-                    startHpText.text = Player.instance.hp.ToString();
+                    ConstInfo.startHp += 10;
+                    startHpText.text = ConstInfo.startHp.ToString();
                 }
-                gameCanvas.DisplayHp();
             }
             else if (curBtn == settingBtn.time)
             {
-                if (Player.instance.time < 120)
+                if (ConstInfo.time < 120)
                 {
-                    Player.instance.time += 10;
-                    Player.instance.playtime += 10;
-                    timeText.text = Player.instance.time.ToString();
+                    ConstInfo.time += 10;
+                    timeText.text = ConstInfo.time.ToString();
                 }
-                gameCanvas.DisplayTime();
             }
+            Player.instance.InitialSetting();
+            gameCanvas.DisplayHp();
+            gameCanvas.DisplayTime();
         }
         else if(Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
