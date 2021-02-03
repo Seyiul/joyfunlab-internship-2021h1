@@ -54,8 +54,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // 게임 중에 esc 누르면
-        if (Input.GetKeyDown(KeyCode.Escape) && curGameState == GameState.Game)
+        if (Input.GetKeyDown(KeyCode.Escape)||Floor.isPause && curGameState == GameState.Game)
         {
+            Floor.isPause = false;
             // 일시정지 상태로 변경
             curGameState = GameState.Pause;
             stateChanged = true;

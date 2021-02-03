@@ -67,8 +67,9 @@ public class MenuUI : MonoBehaviour
     public void MenuHandle()
     {
         // 윗방향키 입력시
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow)||Floor.isUp)
         {
+            Floor.isUp = false;
             // 현재 버튼이 게임 시작이 아니면 위로 한칸씩
             if (curBtn > menuBtn.start)
                 curBtn--;
@@ -77,11 +78,13 @@ public class MenuUI : MonoBehaviour
                 curBtn = menuBtn.quit;
             // 변경한 현재 버튼에 하이라이트
             Selected();
+
         }
 
         // 아랫방향키 입력시
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow)||Floor.isDown)
         {
+            Floor.isDown = false;
             // 현재 버튼이 게임 종료가 아니면 아래로 한칸씩
             if (curBtn < menuBtn.quit)
                 curBtn++;
@@ -93,8 +96,9 @@ public class MenuUI : MonoBehaviour
         }
 
         // 엔터키 입력시
-        else if (Input.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
+            Floor.isEnter = false;
             // 현재 버튼이 게임 시작이면
             if (curBtn == menuBtn.start)
             {

@@ -51,24 +51,27 @@ public class PauseUI : MonoBehaviour
     }
     public void MenuHandle()
     {
-        if (Input.GetKeyDown(KeyCode.UpArrow))
+        if (Input.GetKeyDown(KeyCode.UpArrow)||Floor.isUp)
         {
+            Floor.isUp = false;
             if (curBtn > pmenuBtn.resume)
                 curBtn--;
             else if (curBtn == pmenuBtn.resume)
                 curBtn = pmenuBtn.quit;
             Selected();
         }
-        else if (Input.GetKeyDown(KeyCode.DownArrow))
+        else if (Input.GetKeyDown(KeyCode.DownArrow)||Floor.isDown)
         {
+            Floor.isDown = false;
             if (curBtn < pmenuBtn.quit)
                 curBtn++;
             else if (curBtn == pmenuBtn.quit)
                 curBtn = pmenuBtn.resume;
             Selected();
         }
-        else if (Input.GetKeyDown(KeyCode.Return))
+        else if (Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
+            Floor.isEnter = false;
             if (curBtn == pmenuBtn.resume)
                 GameManager.instance.SetGameState(GameState.Game);
             else
