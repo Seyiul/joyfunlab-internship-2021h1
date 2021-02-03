@@ -11,7 +11,7 @@ public class BattleFloor : MonoBehaviour
     public GameObject pauseButton;
     public GameObject enterButton;
 
-    public bool pause;
+    public static bool pause;
 
     private Vector3 handlePositiontRightFoot;
     private bool press;
@@ -44,10 +44,6 @@ public class BattleFloor : MonoBehaviour
         HandleMenu();
 
 
-        if (timer > 1.2)
-        {
-            press = true;
-        }
         if (GameManager.instance.GetKinectState())
         {
             MarkerMove();

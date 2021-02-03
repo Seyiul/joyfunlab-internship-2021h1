@@ -11,19 +11,18 @@ public class BackToGame : MonoBehaviour
     Animator animator;
     public float time;
     public GameObject Nodes;
-
-    public bool pause;
+    
     // Start is called before the first frame update
     void Start()
     {
         GameManager.instance.SetGameState(GameState.Battle);
         animator = transform.GetComponent<Animator>();
 
-        pause = false;
+        
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape) || pause == true)
+        if (Input.GetKeyDown(KeyCode.Escape) || BattleFloor.pause == true)
         {
             if (GameManager.instance.GetGameState() == GameState.Battle)
             {
@@ -36,7 +35,7 @@ public class BackToGame : MonoBehaviour
                 GameManager.instance.SetGameState(GameState.Battle);
             }
 
-            pause = false;
+            BattleFloor.pause = false;
         }
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0)
