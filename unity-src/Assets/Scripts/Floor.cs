@@ -54,6 +54,8 @@ public class Floor : MonoBehaviour
         if (timeTimer > 1.0)
         {
             press = true;
+            timeTimer = 0;
+
         }
         if (GameManager.instance.GetKinectState())
         {
@@ -155,10 +157,10 @@ public class Floor : MonoBehaviour
             isLeft = true;
             press = false;
         }
-        else if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.position.x + 158) &&
-            (Avatar.userPositionLeftFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.position.y + 61)) ||
-            ((Avatar.userPositionRightFoot.x > enterButton.transform.position.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.position.x + 158) &&
-            (Avatar.userPositionRightFoot.z > enterButton.transform.position.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.position.y + 61)) && press)
+        else if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
+            (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61)) ||
+            ((Avatar.userPositionRightFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.localPosition.x + 158) &&
+            (Avatar.userPositionRightFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.localPosition.y + 61)) && press)
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
             isEnter = true;
