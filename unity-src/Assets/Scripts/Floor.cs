@@ -45,6 +45,7 @@ public class Floor : MonoBehaviour
 
         isCenter = false;
 
+      
         timeTimer = 0;
         press = false;
     }
@@ -53,7 +54,7 @@ public class Floor : MonoBehaviour
     void Update()
     {
 
-        timeTimer += Player.instance.time;
+        timeTimer += Time.deltaTime;
         if (timeTimer > 1.0)
         {
             press = true;
