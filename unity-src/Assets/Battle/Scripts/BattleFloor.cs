@@ -70,14 +70,14 @@ public class BattleFloor : MonoBehaviour
             rightButton.SetActive(true);
             pauseButton.SetActive(false);
             rightMarker.SetActive(true);
-            centerButton.SetActive(true);
+            centerButton.SetActive(false);
         }
         else if(GameManager.instance.GetGameState() == GameState.Pause)
         {
             rightButton.SetActive(false);
             pauseButton.SetActive(true);
             rightMarker.SetActive(true);
-            centerButton.SetActive(false);
+            centerButton.SetActive(true);
         }
 
 
