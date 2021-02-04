@@ -26,10 +26,11 @@ public class ResultUI : MonoBehaviour
         playtimeText.text = (Mathf.Floor((Player.instance.playtime - Player.instance.time) * 10) * 0.1f).ToString() + " 초";
         float comboPoint = 1 + (float)((int)Player.instance.maxCombo / 10) / 10;
         pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint)).ToString() + " 점";
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight == true)
         {
             GameManager.instance.SetGameState(GameState.Menu);
             GameManager.instance.SetStateChanged(true);
+            Floor.isRight = false;
         }
     }
     public void ShowBattleResult()
@@ -43,13 +44,13 @@ public class ResultUI : MonoBehaviour
 
         pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
 
-        if (Input.GetKeyDown(KeyCode.Return) || BattleFloor.next == true || Floor.isRight == true)
+        if (Input.GetKeyDown(KeyCode.Return) || BattleFloor.next == true )
         {
             GameManager.instance.SetGameState(GameState.Game);
             PlayerPrefs.SetInt("afterBattle", 0);
             SceneManager.LoadScene("Game");
             BattleFloor.next = false;
-            Floor.isRight = false;
+            
         }
     } 
 }
