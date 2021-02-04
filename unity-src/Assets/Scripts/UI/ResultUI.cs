@@ -49,6 +49,7 @@ public class ResultUI : MonoBehaviour
             PlayerPrefs.SetInt("afterBattle", 0);
             SceneManager.LoadScene("Game");
             BattleFloor.next = false;
+            Floor.isRight = false;
         }
     } 
 }
