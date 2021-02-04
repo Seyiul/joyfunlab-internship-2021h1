@@ -56,6 +56,10 @@ public class Player : MonoBehaviour
     BoxCollider collider;
     HighlightTiles highlightTiles;
     public GameCanvas gameCanvas;
+
+    public GameObject leftFloorTile;
+    public GameObject centerFloorTile;
+    public GameObject rightFloorTile;
     // 인스턴스 설정
     private void Awake() { instance = this;
     }
@@ -470,7 +474,7 @@ public class Player : MonoBehaviour
     }
     void SelectFloorTile()
     {
-        if (kinectState)
+        if (GameManager.instance.GetKinectState())
         {
             if (avatarPosition < 107)
             {

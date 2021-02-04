@@ -36,11 +36,12 @@ public class ResultUI : MonoBehaviour
     {
         maxComboText.text = PlayerPrefs.GetInt("maxCombo") + " 회";
 
-        playtimeText.text = (Mathf.Floor((PlayerPrefs.GetFloat("playtime") - PlayerPrefs.GetFloat("time")) * 10) * 0.1f).ToString() + " 초";
+        float playedTime = Mathf.Floor((PlayerPrefs.GetFloat("playtime") - PlayerPrefs.GetFloat("time")) * 10) * 0.1f;
+        playtimeText.text = playedTime.ToString() + " 초";
 
         float comboPoint = 1 + (float)((int)PlayerPrefs.GetInt("maxCombo") / 10) / 10;
 
-        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint)).ToString() + " 점";
+        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
 
         if (Input.GetKeyDown(KeyCode.Return) || BattleFloor.next == true || Floor.isRight == true;)
         {

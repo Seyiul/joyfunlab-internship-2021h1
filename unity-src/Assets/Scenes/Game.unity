@@ -1963,7 +1963,7 @@ GameObject:
   - component: {fileID: 250836680}
   - component: {fileID: 250836679}
   m_Layer: 5
-  m_Name: LeftFloorTile
+  m_Name: RightFloorTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2184,8 +2184,8 @@ GameObject:
   - component: {fileID: 260062133}
   - component: {fileID: 260062132}
   - component: {fileID: 260062131}
-  - component: {fileID: 260062138}
   - component: {fileID: 260062137}
+  - component: {fileID: 260062138}
   m_Layer: 5
   m_Name: FloorUICanvas
   m_TagString: Untagged
@@ -9780,6 +9780,9 @@ MonoBehaviour:
   transition: {fileID: 882654139}
   afterBattle: 0
   gameCanvas: {fileID: 1799101085}
+  leftFloorTile: {fileID: 2138023095}
+  centerFloorTile: {fileID: 691079594}
+  rightFloorTile: {fileID: 250836677}
 --- !u!54 &1339462818
 Rigidbody:
   m_ObjectHideFlags: 0
