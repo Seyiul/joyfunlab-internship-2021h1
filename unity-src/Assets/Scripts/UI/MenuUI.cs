@@ -105,15 +105,24 @@ public class MenuUI : MonoBehaviour
                 // 게임 상태로 변경 
                 GameManager.instance.SetGameState(GameState.Game);
 
-                // 타일을 초기화(첫 타일은 아무것도 없고 두번째 타일부터 장애물이 나오도록)
-                Player.instance.InitialTile();
+                // 플레이어의 점수와 타일 등 모든 변수를 초기화
+                Player.instance.InitialAll();
             }
+
+            // 현재 버튼이 설정 버튼이면
             else if (curBtn == menuBtn.setting)
+                // 게임 상태를 설정 상태로
                 GameManager.instance.SetGameState(GameState.Setting);
+            // 현재 버튼이 랭킹 버튼이면
             else if (curBtn == menuBtn.ranking)
+                // 게임 상태를 랭킹 상태로
                 GameManager.instance.SetGameState(GameState.Rank);
+            // 현재 버튼이 종료 상태이면
             else if (curBtn == menuBtn.quit)
+                // 게임 상태를 종료 상태로
                 GameManager.instance.SetGameState(GameState.Quit);
+
+            // 상태 변화 여부를 변화로
             GameManager.instance.SetStateChanged(true);
         }
     }

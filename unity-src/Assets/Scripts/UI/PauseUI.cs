@@ -77,10 +77,12 @@ public class PauseUI : MonoBehaviour
             else
             {
                 if (curBtn == pmenuBtn.restart)
+                {
                     GameManager.instance.SetGameState(GameState.Game);
+                    Player.instance.InitialAll();
+                }
                 else if (curBtn == pmenuBtn.quit)
                     GameManager.instance.SetGameState(GameState.Result);
-                Player.instance.InitialAll();
             }
             GameManager.instance.SetStateChanged(true);
         }

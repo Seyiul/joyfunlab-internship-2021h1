@@ -43,6 +43,7 @@ public class ConstInfo : MonoBehaviour
     public const float jumpFootHeightDifferenceLimit = 21.6f;
     public const float jumpFootPositionVariationLimit = 360;
 
+    // 세팅 메뉴에서 설정할 수 있는 시간, 시작 체력, 최대 체력
     public static float time = 0;
     public static int startHp = 0;
     public static int maxHp = 0;

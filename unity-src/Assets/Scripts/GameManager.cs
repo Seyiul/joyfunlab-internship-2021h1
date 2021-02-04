@@ -40,9 +40,9 @@ public class GameManager : MonoBehaviour
             Destroy(gameObject);
     }
 
-    // 화면 설정, 키넥트 연결 초기화, 메뉴 상태로 게임 시작, 플레이어와 UI 컴포넌트로 액세스 준비
     void Start()
     {
+        // 디스플레이 설정, 키넥트는 없다고 가정한 상태, 게임은 초기 메뉴 상태
         DisplaySetting();
         kinectState = false;
         curGameState = GameState.Menu;
@@ -64,7 +64,8 @@ public class GameManager : MonoBehaviour
         // 종료 상태이면
         if (curGameState == GameState.Quit)
         {
-            player.InitialValues();
+            // 모든 변수 초기화 후 종료
+            player.InitialAll();
             Application.Quit();
         }
         // 메뉴 핸들링
@@ -90,7 +91,7 @@ public class GameManager : MonoBehaviour
     public GameState GetGameState() { return curGameState; }
     public void SetGameState(GameState newGameState) { curGameState = newGameState; }
 
-    // 게임상태가 변화했는지 판단하는 변수 Getter & Setter
+    // 게임상태가 이전과 비교해 변화했는지 판단하는 변수 Getter & Setter
     public bool GetStateChanged() { return stateChanged; }
     public void SetStateChanged(bool changed) { stateChanged = changed; }
 }

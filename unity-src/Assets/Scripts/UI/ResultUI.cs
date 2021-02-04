@@ -28,7 +28,6 @@ public class ResultUI : MonoBehaviour
         pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint)).ToString() + " 점";
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            Player.instance.InitialAll();
             GameManager.instance.SetGameState(GameState.Menu);
             GameManager.instance.SetStateChanged(true);
         }
