@@ -145,6 +145,20 @@ public class Floor : MonoBehaviour
             isCenter = false;
             pauseMenu.text = "일시정지";
         }
+        else if ((GameManager.instatnce.GetGameState() == GameState.Result))
+        {
+            centerButton.SetActive(true);
+            rightMarker.SetActive(true);
+            leftMarker.SetActive(true);
+            enterButton.SetActive(false);
+            upButton.SetActive(false);
+            downButton.SetActive(false);
+            pauseButton.SetActive(false);
+            rightButton.SetActive(true);
+            leftButton.SetActive(false);
+            isGame = false;
+
+        }
     }
 
     void MarkerMove()
@@ -167,7 +181,7 @@ public class Floor : MonoBehaviour
             press = false;
         }
         else if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
-            && GameManager.instance.GetGameState() == GameState.Setting)
+            && (GameManager.instance.GetGameState() == GameState.Setting||GameManager.instance.GetGameState == GameState.Result))
         {
             isRight = true;
             press = false;
