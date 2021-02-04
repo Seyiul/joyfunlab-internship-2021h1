@@ -283,6 +283,7 @@ public class Player : MonoBehaviour
             isJumping = true;
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !IsPlayerActing())
             isPunching = true;
+        HandleFloorTileHighlight();
     }
 
     void SpeedUpdate(float speed)
@@ -455,6 +456,54 @@ public class Player : MonoBehaviour
         }
 
     }
+
+    void HandleFloorTileHighlight()
+    {
+        UnselectFloorTile();
+        SelectFloorTile();
+    }
+    void UnselectFloorTile()
+    {
+        FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileUnSelected);
+        FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileUnSelected);
+        FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileUnSelected);
+    }
+    void SelectFloorTile()
+    {
+        if (kinectState)
+        {
+            if (avatarPosition < 107)
+            {
+                FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileSelected);
+            }
+            else if (avatarPosition > 121)
+            {
+                FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileSelected);
+
+            }
+            else
+            {
+                FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileSelected);
+
+            }
+        }
+        else
+        {
+            if (Input.GetKeyDown(KeyCode.LeftArrow))
+            {
+                FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileSelected);
+            }
+            if (Input.GetKeyDown(KeyCode.DownArrow))
+            {
+                FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileSelected);
+            }
+            if (Input.GetKeyDown(KeyCode.RightArrow))
+            {
+                FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileSelected);
+            }
+        }
+    }
+
     IEnumerator SceneLoad()
     {
         yield return new WaitForSeconds(3f);

@@ -2184,6 +2184,7 @@ GameObject:
   - component: {fileID: 260062133}
   - component: {fileID: 260062132}
   - component: {fileID: 260062131}
+  - component: {fileID: 260062138}
   - component: {fileID: 260062137}
   m_Layer: 5
   m_Name: FloorUICanvas
@@ -2343,6 +2344,18 @@ MonoBehaviour:
   timer: {fileID: 634948703}
   hp: {fileID: 2113031566}
   pauseMenu: {fileID: 611443707}
+--- !u!114 &260062138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 260062130}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3266c38d156719a49aab9e5e88dab2ef, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &260120248
 GameObject:
   m_ObjectHideFlags: 0

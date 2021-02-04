@@ -46,7 +46,6 @@ public class Floor : MonoBehaviour
         isGame = false;
         isCenter = false;
 
-      
         timeTimer = 0;
         press = false;
     }
@@ -60,7 +59,6 @@ public class Floor : MonoBehaviour
         {
             press = true;
             timeTimer = 0;
-
         }
         if (GameManager.instance.GetKinectState())
         {
@@ -129,7 +127,7 @@ public class Floor : MonoBehaviour
             rightButton.SetActive(false);
             leftButton.SetActive(false);
             isGame = false;
-
+            
         }
         else if ((GameManager.instance.GetGameState() == GameState.Game) || (GameManager.instance.GetGameState() == GameState.Battle))
         {
