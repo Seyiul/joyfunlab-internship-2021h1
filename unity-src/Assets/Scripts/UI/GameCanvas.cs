@@ -26,36 +26,43 @@ public class GameCanvas : MonoBehaviour
     {
         
     }
+    // 남은 시간 출력(소수점 첫 번째까지)
     public void DisplayTime()
     {
         TimerText.text = (Mathf.Floor(Player.instance.time*10)*0.1f).ToString();
     }
+    // 풍선 히트 시 호출, 시간 증가 문구 출력, 일정 시간 후 사라짐
     public void DisplayTimeIncrease()
     {
         TimeIncreaseText.SetActive(true);
         StartCoroutine(InvisibleText(TimeIncreaseText));
     }
-    IEnumerator InvisibleText(GameObject text)
-    {
-        yield return new WaitForSeconds(ConstInfo.displayTimer);
-        text.SetActive(false);
-    }
+    // 체력 출력
     public void DisplayHp()
     {
         HpText.text = Player.instance.hp.ToString() + "/" + Player.instance.maxHp.ToString();
     }
+    // 하트 획득 시 호출, 체력 증가 문구 출력, 일정 시간 후 사라짐
     public void DisplayHpIncrease()
     {
         HpIncreaseText.SetActive(true);
         StartCoroutine(InvisibleText(HpIncreaseText));
     }
+    // 장애물 충돌 시 호출, 체력 감소 문구 출력, 일정 시간 후 사라짐
     public void DisplayHpDecrease()
     {
         HpDecreaseText.SetActive(true);
         StartCoroutine(InvisibleText(HpDecreaseText));
     }
+    // 현재 콤보 출력
     public void DisplayCombo()
     {
         Combo.text = Player.instance.combo.ToString() + " Combo";
+    }
+    // ConstInfo에 저장된 시간이 지난 뒤 안내 문구 비활성화
+    IEnumerator InvisibleText(GameObject text)
+    {
+        yield return new WaitForSeconds(ConstInfo.displayTimer);
+        text.SetActive(false);
     }
 }
