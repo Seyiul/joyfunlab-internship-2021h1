@@ -168,31 +168,34 @@ public class Player : MonoBehaviour
     }
     void Update()
     {
+        // 게임 상태에 들어오면
         if (GameManager.instance.GetGameState() == GameState.Game)
         {
-            Debug.Log(curLocation);
+            // 시간을 실시간으로 감소, 입력 핸들링, 속도 업데이트, 인풋에 따른 액션 출력, 콤보와 시간, 체력 출력
             time -= Time.deltaTime;
             HandleInput();
-            //게임의 상태가 변화하면 속도를 업데이트
             SpeedUpdate(speed);
             HandlePlayerAction();
             gameCanvas.DisplayCombo();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
+            // 타임이나 체력이 0 이하로 떨어지면
             if (time <= 0 || hp <= 0)
             {
+                // 결과창으로 이동, 기존 정보 초기화
                 GameManager.instance.SetGameState(GameState.Result);
                 PlayerPrefs.DeleteAll();
-
             }
+            // 최대 콤보 갱신
             if (combo > maxCombo)
                 maxCombo = combo;
 
         }
         else
         {
-            //현재 속도를 저장하기 위해서 speed 변수를 초기화하지 않음
+            // 현재 속도를 초기화하지 않고 애니메이션을 멈추기 위해서 speed 변수를 초기화하지 않고 직접 값으로 호출
             SpeedUpdate(0);
+            // 점프, 펀치, 비틀 상태 초기화
             InitialJumpState();
             InitialPunchState();
             InitialStumbleState();
@@ -261,6 +264,7 @@ public class Player : MonoBehaviour
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
     }
+    // 게임 중 입력 핸들링
     void HandleInput()
     {
         if (GameManager.instance.GetKinectState() == true)
@@ -268,28 +272,37 @@ public class Player : MonoBehaviour
             HandleKinectPlayer();
             HandleSteps();
         }
+        // 윗방향키 입력시 속도 증가
         if (Input.GetKeyDown(KeyCode.UpArrow) && speed < 60)
             speed += 5;
-        else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 0)
+        // 아랫방향키 입력시 속도 감소
+        else if (Input.GetKeyDown(KeyCode.DownArrow) && speed > 5)
             speed -= 5;
+        // 왼방향키 입력시 현위치가 왼쪽 타일이 아니면 왼쪽 타일로 이동
         else if ((Input.GetKeyDown(KeyCode.LeftArrow) && curLocation != PlayerLocation.Left))
             HandlePlayerLocation(PlayerLocation.Left);
+        // 오른방향키 입력시 현위치가 오른쪽 타일이 아니면 오른쪽 타일로 이동
         else if ((Input.GetKeyDown(KeyCode.RightArrow) && curLocation != PlayerLocation.Right))
             HandlePlayerLocation(PlayerLocation.Right);
+        // f 입력시 현위치가 가운데 타일이 아니면 가운데 타일로 이동
         else if (Input.GetKeyDown(KeyCode.F) && curLocation != PlayerLocation.Center)
             HandlePlayerLocation(PlayerLocation.Center);
+        // 스페이스 입력시 다른 모션 도중이 아니면 점프 상태로 변환
         else if (Input.GetKeyDown(KeyCode.Space) && !IsPlayerActing())
             isJumping = true;
+        // 왼쪽 컨트롤 입력시 다른 모션 도중이 아니면 펀치 상태로 변환
         else if (Input.GetKeyDown(KeyCode.LeftControl) && !IsPlayerActing())
             isPunching = true;
+        // 현재 서있는 타일을 하이라이트
         HandleFloorTileHighlight();
     }
 
+    // 속도에 따라 애니메이션이 변화하므로 애니메이터의 속도 업데이트를 해줘야함
     void SpeedUpdate(float speed)
     {
         animator.SetFloat("speed", speed);
     }
-
+    // 비틀대거나 점프중이거나 펀치중이면 true 반환, 아니면 false 반환
     bool IsPlayerActing()
     {
         if (isStumbling || isJumping || isPunching)
@@ -299,19 +312,16 @@ public class Player : MonoBehaviour
     // 플레이어 동작 업데이트
     void HandlePlayerAction()
     {
-        if (isJumping || isStumbling || isPunching)
+        if (isStumbling)
+            HandlePlayerStumbling();
+        else
         {
-            if (isStumbling)
-                HandlePlayerStumbling();
-            else
-            {
-                if (isJumping)
-                    HandlePlayerJumping();
-                else if (isPunching)
-                    HandlePlayerPunching();
-            }
-            HandlePlayerActionTimer();
+            if (isJumping)
+                HandlePlayerJumping();
+            else if (isPunching)
+                HandlePlayerPunching();
         }
+        HandlePlayerActionTimer();
     }
 
 
