@@ -16,6 +16,7 @@ public class Balloon : MonoBehaviour
     {
         
     }
+    // 펀치 당하면 날아가는 애니메이션
     public void GoAway()
     {
         animator.SetBool("isPunched",true);

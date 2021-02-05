@@ -46,7 +46,6 @@ public class Floor : MonoBehaviour
         isGame = false;
         isCenter = false;
 
-      
         timeTimer = 0;
         press = false;
     }
@@ -60,7 +59,6 @@ public class Floor : MonoBehaviour
         {
             press = true;
             timeTimer = 0;
-
         }
         if (GameManager.instance.GetKinectState())
         {
@@ -129,7 +127,7 @@ public class Floor : MonoBehaviour
             rightButton.SetActive(false);
             leftButton.SetActive(false);
             isGame = false;
-
+            
         }
         else if ((GameManager.instance.GetGameState() == GameState.Game) || (GameManager.instance.GetGameState() == GameState.Battle))
         {
@@ -146,6 +144,20 @@ public class Floor : MonoBehaviour
             isGame = true;
             isCenter = false;
             pauseMenu.text = "일시정지";
+        }
+        else if ((GameManager.instance.GetGameState() == GameState.Result))
+        {
+            centerButton.SetActive(true);
+            rightMarker.SetActive(true);
+            leftMarker.SetActive(true);
+            enterButton.SetActive(false);
+            upButton.SetActive(false);
+            downButton.SetActive(false);
+            pauseButton.SetActive(false);
+            rightButton.SetActive(true);
+            leftButton.SetActive(false);
+            isGame = false;
+
         }
     }
 
@@ -169,7 +181,7 @@ public class Floor : MonoBehaviour
             press = false;
         }
         else if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
-            && GameManager.instance.GetGameState() == GameState.Setting)
+            && (GameManager.instance.GetGameState() == GameState.Setting||GameManager.instance.GetGameState() == GameState.Result))
         {
             isRight = true;
             press = false;
@@ -179,6 +191,7 @@ public class Floor : MonoBehaviour
         {
             isLeft = true;
             press = false;
+            
         }
         else if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
             (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61)) ||
