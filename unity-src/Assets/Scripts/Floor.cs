@@ -54,8 +54,9 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
         timeTimer += Time.deltaTime;
+        //1초에 한번씩 press를 true로 변경
         if (timeTimer > 1.0)
         {
             press = true;
@@ -87,6 +88,7 @@ public class Floor : MonoBehaviour
                 new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 140))
             isCenter = true;
     }
+    //바닥에 표시되는 버튼을 상황에따라 다르게 출려
     void HandleMenu()
     {
         if (GameManager.instance.GetGameState() == GameState.Menu)
@@ -111,7 +113,7 @@ public class Floor : MonoBehaviour
             enterButton.SetActive(true);
             upButton.SetActive(true);
             downButton.SetActive(true);
-            pauseButton.SetActive(true);
+            pauseButton.SetActive(false);
             rightButton.SetActive(true);
             leftButton.SetActive(true);
             pauseText.SetActive(false);
