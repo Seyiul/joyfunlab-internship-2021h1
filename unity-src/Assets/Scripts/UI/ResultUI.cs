@@ -31,7 +31,7 @@ public class ResultUI : MonoBehaviour
         // 콤보 계수 = 1 + 콤보/100(소수점 첫번째 까지만) 
         float comboPoint = 1 + (float)((int)Player.instance.maxCombo / 10) / 10;
         // 점수 = 최대 콤보 * 콤보 계수 + 플레이 시간
-        pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint) + playtime).ToString() + " 점";
+        pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint + playtime)).ToString() + " 점";
         // 엔터키 입력시
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight == true)
         {
@@ -50,7 +50,7 @@ public class ResultUI : MonoBehaviour
 
         float comboPoint = 1 + (float)((int)PlayerPrefs.GetInt("maxCombo") / 10) / 10;
 
-        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint + playedTime)).ToString() + " 점";
+        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
 
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
