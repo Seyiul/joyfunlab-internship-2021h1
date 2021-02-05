@@ -24,6 +24,8 @@ public class BackToGame : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
+            GameManager.instance.SetStateChanged(true);
+
             if (GameManager.instance.GetGameState() == GameState.Battle)
             {
                 Time.timeScale = 0;
@@ -37,20 +39,14 @@ public class BackToGame : MonoBehaviour
 
         }
 
-        if (BattleFloor.pause == true)
+        if (Floor.isPause == true)
         {
+            GameManager.instance.SetStateChanged(true);
+
             Time.timeScale = 0;
             GameManager.instance.SetGameState(GameState.Pause);
 
-            BattleFloor.pause = false;
-
-        }
-        if(BattleFloor.regame == true)
-        {
-            Time.timeScale = 1;
-            GameManager.instance.SetGameState(GameState.Battle);
-
-            BattleFloor.regame = false;
+            Floor.isPause = false;
 
         }
 

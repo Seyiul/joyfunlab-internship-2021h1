@@ -206,6 +206,7 @@ public class Player : MonoBehaviour
     }
     void HandleKinectPlayer()
     {
+        //키넥트가 받아들이는 내 위치를 좌표값에 맞게 변환
         avatarPosition = (Avatar.userPosition.x * ((ConstInfo.lineWidth * 3) / 1920) + ConstInfo.tileX);
         //ispunching
         if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
@@ -214,14 +215,6 @@ public class Player : MonoBehaviour
         else if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
             (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight)&&Mathf.Abs(Avatar.userPositionLeftFoot.y-Avatar.userPositionRightFoot.y)<ConstInfo.jumpHeight)
         { isJumping = true; }
-        /*
-        //isKicking
-        
-        if((Avatar.userPositionLeftFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee*5/3) ||
-             (Avatar.userPositionRightFoot.z > Avatar.userPositionHead.z + Avatar.distanceFootKnee * 5 / 3)) 
-        { isKicking = true; }
-         else { isKicking = false; }
-        */
         if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
@@ -256,6 +249,7 @@ public class Player : MonoBehaviour
             leftUp = false;
             rightUp = false;
         }
+        //step을 세번 받은 것의 평균값 + 5 의 속도를 계속해서 더해줌
         speed = 5 + steps.Average();
         if (speed > 60)
             speed = 60;
@@ -264,6 +258,7 @@ public class Player : MonoBehaviour
     // 걸음시간 기록 및 초기화
     void HandleStep()
     {
+        //왼발 오른발을 교차하면서 걸을때 시간을 저장
         steps.Add(10/stepRecordTime);
         steps.RemoveAt(0);
         stepRecordTime = 0;
