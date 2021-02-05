@@ -50,7 +50,7 @@ public class ResultUI : MonoBehaviour
 
         float comboPoint = 1 + (float)((int)PlayerPrefs.GetInt("maxCombo") / 10) / 10;
 
-        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
+        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint + playedTime)).ToString() + " 점";
 
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
