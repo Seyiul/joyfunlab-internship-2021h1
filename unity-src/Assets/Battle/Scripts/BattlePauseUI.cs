@@ -78,6 +78,8 @@ public class BattlePauseUI : MonoBehaviour
             Floor.isEnter = false;
             if (curBtn == pmenuBtn.resume)
             {
+                GameManager.instance.SetStateChanged(true);
+
                 Time.timeScale = 1;
                 GameManager.instance.SetGameState(GameState.Battle);
             }
@@ -86,6 +88,8 @@ public class BattlePauseUI : MonoBehaviour
             {
                 if (curBtn == pmenuBtn.restart)
                 {
+                    GameManager.instance.SetStateChanged(true);
+
                     GameManager.instance.SetGameState(GameState.Game);
                     SceneManager.LoadScene("Game");
                     Player.instance.InitialAll();
