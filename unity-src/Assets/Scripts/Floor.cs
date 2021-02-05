@@ -15,6 +15,7 @@ public class Floor : MonoBehaviour
     public GameObject upButton;
     public GameObject downButton;
     public GameObject centerButton;
+    public GameObject pauseText;
 
     private Vector3 handlePositionLeftFoot;
     private Vector3 handlePositionRightFoot;
@@ -99,6 +100,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(false);
             rightButton.SetActive(false);
             leftButton.SetActive(false);
+            pauseText.SetActive(false);
             isGame = false;
         }
         else if (GameManager.instance.GetGameState() == GameState.Setting)
@@ -112,6 +114,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(true);
             rightButton.SetActive(true);
             leftButton.SetActive(true);
+            pauseText.SetActive(false);
 
             isGame = false;
             pauseMenu.text = "뒤로가기";
@@ -127,6 +130,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(false);
             rightButton.SetActive(false);
             leftButton.SetActive(false);
+            pauseText.SetActive(true);
             isGame = false;
             
         }
@@ -141,6 +145,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(true);
             rightButton.SetActive(false);
             leftButton.SetActive(false);
+            pauseText.SetActive(false);
 
             isGame = true;
             isCenter = false;
@@ -157,6 +162,7 @@ public class Floor : MonoBehaviour
             pauseButton.SetActive(false);
             rightButton.SetActive(true);
             leftButton.SetActive(false);
+            pauseText.SetActive(false);
             isGame = false;
 
         }
