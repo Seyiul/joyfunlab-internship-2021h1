@@ -49,14 +49,6 @@ public class BackToGame : MonoBehaviour
             Floor.isPause = false;
 
         }
-        if(BattleFloor.regame == true)
-        {
-            Time.timeScale = 1;
-            GameManager.instance.SetGameState(GameState.Battle);
-
-            BattleFloor.regame = false;
-
-        }
 
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0)
