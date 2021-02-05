@@ -176,7 +176,6 @@ public class Player : MonoBehaviour
             HandleInput();
             SpeedUpdate(speed);
             HandlePlayerAction();
-            gameCanvas.DisplayCombo();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
             // 타임이나 체력이 0 이하로 떨어지면
@@ -421,6 +420,7 @@ public class Player : MonoBehaviour
             if(hp < maxHp)
                 hp++;
             gameCanvas.DisplayHpIncrease();
+            gameCanvas.DisplayCombo();
         }
         else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
         {
@@ -447,6 +447,7 @@ public class Player : MonoBehaviour
         else if (col.gameObject.tag == "Pass Tile")
         {
             combo++;
+            gameCanvas.DisplayCombo();
         }
         else if (col.gameObject.tag == "Battle Tile")
         {

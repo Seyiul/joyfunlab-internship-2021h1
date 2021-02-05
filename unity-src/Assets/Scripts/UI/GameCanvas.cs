@@ -35,7 +35,7 @@ public class GameCanvas : MonoBehaviour
     public void DisplayTimeIncrease()
     {
         TimeIncreaseText.SetActive(true);
-        StartCoroutine(InvisibleText(TimeIncreaseText));
+        StartCoroutine(InvisibleObject(TimeIncreaseText));
     }
     // 체력 출력
     public void DisplayHp()
@@ -46,21 +46,23 @@ public class GameCanvas : MonoBehaviour
     public void DisplayHpIncrease()
     {
         HpIncreaseText.SetActive(true);
-        StartCoroutine(InvisibleText(HpIncreaseText));
+        StartCoroutine(InvisibleObject(HpIncreaseText));
     }
     // 장애물 충돌 시 호출, 체력 감소 문구 출력, 일정 시간 후 사라짐
     public void DisplayHpDecrease()
     {
         HpDecreaseText.SetActive(true);
-        StartCoroutine(InvisibleText(HpDecreaseText));
+        StartCoroutine(InvisibleObject(HpDecreaseText));
     }
     // 현재 콤보 출력
     public void DisplayCombo()
     {
+        Combo.gameObject.SetActive(true);
         Combo.text = Player.instance.combo.ToString() + " Combo";
+        StartCoroutine(InvisibleObject(Combo.gameObject));
     }
     // ConstInfo에 저장된 시간이 지난 뒤 안내 문구 비활성화
-    IEnumerator InvisibleText(GameObject text)
+    IEnumerator InvisibleObject(GameObject text)
     {
         yield return new WaitForSeconds(ConstInfo.displayTimer);
         text.SetActive(false);
