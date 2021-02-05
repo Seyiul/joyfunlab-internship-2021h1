@@ -166,6 +166,19 @@ public class Floor : MonoBehaviour
             isGame = false;
 
         }
+        else if ((GameManager.instance.GetGameState() == GameState.Rank))
+        {
+            centerButton.SetActive(true);
+            rightMarker.SetActive(true);
+            leftMarker.SetActive(true);
+            enterButton.SetActive(true);
+            upButton.SetActive(false);
+            downButton.SetActive(false);
+            pauseButton.SetActive(false);
+            rightButton.SetActive(false);
+            leftButton.SetActive(false);
+            pauseText.SetActive(false);
+        }
     }
 
     void MarkerMove()
