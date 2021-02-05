@@ -5,42 +5,39 @@ using UnityEngine;
 public class ScreenCanvas : MonoBehaviour
 {
     public GameObject result;
-    public GameObject pauseText;
+    public GameObject pause;
 
 
     // Start is called before the first frame update
     void Start()
     {
         result.SetActive(false);
-        pauseText.SetActive(false);
+        pause.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
-    if (GameManager.instance.GetGameState() == GameState.Result)
+        if (GameManager.instance.GetGameState() == GameState.Result)
         {
             if (GameManager.instance.GetStateChanged())
                 result.SetActive(true);
             result.GetComponent<ResultUI>().ShowBattleResult();
 
         }
-
-        if (GameManager.instance.GetGameState() == GameState.Pause)
+        else if (GameManager.instance.GetGameState() == GameState.Pause)
         {
-            pauseText.SetActive(true);
+            // 퍼즈 상태로 방금 전환되었으면 퍼즈 UI를 켬
+            if (GameManager.instance.GetStateChanged())
+                pause.SetActive(true);
+
+            // 퍼즈 UI의 입력에 대한 이벤트 핸들
+            pause.GetComponent<BattlePauseUI>().MenuHandle();
         }
         if (GameManager.instance.GetGameState() == GameState.Battle)
         {
-            pauseText.SetActive(false);
+            pause.SetActive(false);
         }
     }
-    public void MenuHandle()
-    {
-        
-    }
-    void ActivateUI(GameObject obj)
-    {
-        obj.SetActive(true);
-    }
+   
 }
