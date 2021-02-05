@@ -60,6 +60,7 @@ public class Floor : MonoBehaviour
             press = true;
             timeTimer = 0;
         }
+        HandleMenu();
         if (GameManager.instance.GetKinectState())
         {
             MarkerMove();
