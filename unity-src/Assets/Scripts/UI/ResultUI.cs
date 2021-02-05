@@ -52,12 +52,12 @@ public class ResultUI : MonoBehaviour
 
         pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
 
-        if (Input.GetKeyDown(KeyCode.Return) || BattleFloor.next == true )
+        if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
             GameManager.instance.SetGameState(GameState.Game);
             PlayerPrefs.SetInt("afterBattle", 0);
             SceneManager.LoadScene("Game");
-            BattleFloor.next = false;
+            Floor.isRight = false;
             
         }
     } 
