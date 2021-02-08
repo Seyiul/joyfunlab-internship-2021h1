@@ -221,7 +221,7 @@ public class Player : MonoBehaviour
         if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
         { isPunching = true; }
-        HandleJump();
+        else if (isJumping == false) { HandleJump(); }
         if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
@@ -334,6 +334,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isJumping", true);
         // 플레이어의 콜리젼 박스를 위로 움직임
         collider.center = (new Vector3(ConstInfo.originalColliderX, ConstInfo.jumpingColliderY, ConstInfo.originalColliderZ));
+        
     }
 
     // 플레이어 발걸림 애니메이션 (발걸림 도중 다른 동작 불가)
