@@ -29,6 +29,10 @@ public class Player : MonoBehaviour
     public static List<float> steps;
 
     // 행동 관련 번수 선언
+    public static Vector3 lastPositionLeftFoot;
+    public static Vector3 lastPositionRightFoot;
+    public static Vector3 lastPositionHead;
+
     public bool isJumping;
     public float jumpTimer;
 
@@ -125,6 +129,10 @@ public class Player : MonoBehaviour
         stepRecordTime = 0;
         decreaseSpeedTimer = 0;
 
+        lastPositionLeftFoot = Vector3.zero;
+        lastPositionRightFoot = Vector3.zero;
+        lastPositionHead = Vector3.zero;
+
         isJumping = false;
         jumpTimer = 0;
         isStumbling = false;
@@ -213,9 +221,7 @@ public class Player : MonoBehaviour
         if ((Avatar.userPositionLeftHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3) ||
              (Avatar.userPositionRightHand.z > Avatar.userPositionHead.z + Avatar.distanceHandElbow * 5 / 3))
         { isPunching = true; }
-        else if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
-            (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight)&&Mathf.Abs(Avatar.userPositionLeftFoot.y-Avatar.userPositionRightFoot.y)<ConstInfo.jumpHeight)
-        { isJumping = true; }
+        else if (isJumping == false) { HandleJump(); }
         if (avatarPosition < 107)
         {
             HandlePlayerLocation(PlayerLocation.Left);
@@ -328,6 +334,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isJumping", true);
         // 플레이어의 콜리젼 박스를 위로 움직임
         collider.center = (new Vector3(ConstInfo.originalColliderX, ConstInfo.jumpingColliderY, ConstInfo.originalColliderZ));
+        
     }
 
     // 플레이어 발걸림 애니메이션 (발걸림 도중 다른 동작 불가)
@@ -467,6 +474,20 @@ public class Player : MonoBehaviour
             StartCoroutine(SceneLoad());
         }
 
+    }
+
+    // 점프 조건 (이전 프레임보다 양 발 모두 jumpHeight 이상 증가 + 발높이 차가 0.3 이하 + 양발의 x변화량이 5 미만)
+    void HandleJump()
+    {
+        isJumping = lastPositionLeftFoot.y + ConstInfo.jumpHeight < Avatar.userPositionLeftFoot.y
+            && lastPositionRightFoot.y + ConstInfo.jumpHeight < Avatar.userPositionRightFoot.y
+            && lastPositionHead.y + ConstInfo.jumpHeight < Avatar.userPositionHead.y
+            && lastPositionLeftFoot.y != 0 && lastPositionRightFoot.y != 0
+            && Mathf.Abs(lastPositionLeftFoot.y - lastPositionRightFoot.y) < ConstInfo.jumpFootHeightDifferenceLimit
+            && Mathf.Abs(lastPositionLeftFoot.x - Avatar.userPositionLeftFoot.x) < ConstInfo.jumpFootPositionVariationLimit
+            && Mathf.Abs(lastPositionRightFoot.x - Avatar.userPositionRightFoot.x) < ConstInfo.jumpFootPositionVariationLimit;
+        lastPositionLeftFoot = Avatar.userPositionLeftFoot;
+        lastPositionRightFoot = Avatar.userPositionRightFoot;
     }
 
     void HandleFloorTileHighlight()
