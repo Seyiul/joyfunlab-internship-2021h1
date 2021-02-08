@@ -66,14 +66,17 @@ public class Player : MonoBehaviour
 
     void Start()
     {
+        highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
+        animator = GetComponent<Animator>();
+        collider = gameObject.GetComponent<BoxCollider>();
+        gameCanvas = GameObject.Find("GameCanvas").GetComponent<GameCanvas>();
+        // 배틀이 끝난 뒤면
         if (PlayerPrefs.GetInt("afterBattle") == 1)
         {
-
+            // 게임 상태로 전환
             GameManager.instance.SetGameState(GameState.Game);
 
-            highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
-            animator = GetComponent<Animator>();
-            collider = gameObject.GetComponent<BoxCollider>();
+            // 배틀 씬이 종료될때 기록된 이전까지의 플레이에서의 기록들을 불러옴
             time = PlayerPrefs.GetFloat("time");
             playtime = PlayerPrefs.GetFloat("playtime");
             hp = PlayerPrefs.GetInt("hp");
@@ -81,28 +84,28 @@ public class Player : MonoBehaviour
             speed = PlayerPrefs.GetFloat("speed");
             combo = PlayerPrefs.GetInt("combo");
             maxCombo = PlayerPrefs.GetInt("maxCombo");
+
+            // 이전 기록 초기화
             PlayerPrefs.DeleteAll();
             PlayerPrefs.SetInt("afterBattle",0);
-
         }
+        // 배틀 이후가 아니면(처음 시작에 해당)
         else
         {
+            // 시작시 타일을 제외한 변수들을 초기화
             InitialValues();
             InitialSetting();
-            highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();
-            animator = GetComponent<Animator>();
-            collider = gameObject.GetComponent<BoxCollider>();
-            gameCanvas = GameObject.Find("GameCanvas").GetComponent<GameCanvas>();
         }
     }
+    // 타일, 기록 관련 변수, 세팅 관련 변수 초기화 후 플레이어를 센터로
     public void InitialAll()
     {
         InitialTile();
         InitialValues();
         InitialSetting();
         HandlePlayerLocation(curLocation);
-
     }
+    // 월드의 타일 두 장을 제거
     public void InitialTile()
     {
         if (GameManager.instance.curTile != null && GameManager.instance.nextTile != null)
@@ -111,7 +114,7 @@ public class Player : MonoBehaviour
             Destroy(GameManager.instance.nextTile);
         }
     }
-    // 변수 초기화
+    // 기록 관련 변수 초기화
     public void InitialValues()
     {
         PlayerPrefs.DeleteAll();
@@ -133,9 +136,9 @@ public class Player : MonoBehaviour
         maxCombo = 0;
         avatarPosition = 0;
         curLocation = PlayerLocation.Center;
-        //PlayerPrefs.SetInt("afterBattle", 0);
         InitialStepRecords();
     }
+    // 설정 관련 변수 초기화
     public void InitialSetting()
     {
         if (ConstInfo.time == 0)
@@ -152,7 +155,6 @@ public class Player : MonoBehaviour
     void Ondestroy()
     {
         PlayerPrefs.SetInt("afterBattle", 0);
-
     }
     // 걸음 시간 리스트 초기화 (0)
     public static void InitialStepRecords()
@@ -313,22 +315,18 @@ public class Player : MonoBehaviour
     {
         if (isStumbling)
             HandlePlayerStumbling();
-        else
-        {
-            if (isJumping)
-                HandlePlayerJumping();
-            else if (isPunching)
-                HandlePlayerPunching();
-        }
+        else if (isJumping)
+            HandlePlayerJumping();
+        else if (isPunching)
+            HandlePlayerPunching();
         HandlePlayerActionTimer();
     }
 
-
-
-    // 플레이어 점프 애니메이션 (점프 중 펀치 가능)
+    // 플레이어 점프 애니메이션
     void HandlePlayerJumping()
     {
         animator.SetBool("isJumping", true);
+        // 플레이어의 콜리젼 박스를 위로 움직임
         collider.center = (new Vector3(ConstInfo.originalColliderX, ConstInfo.jumpingColliderY, ConstInfo.originalColliderZ));
     }
 
@@ -345,6 +343,7 @@ public class Player : MonoBehaviour
         animator.SetBool("isPunching", true);
     }
 
+    // 파라미터로 왼쪽, 가운데, 오른쪽을 받아 플레이어 캐릭터를 그 위치로 이동
     public void HandlePlayerLocation(PlayerLocation MovedLocation)
     {
         if (MovedLocation == PlayerLocation.Left)
@@ -442,6 +441,7 @@ public class Player : MonoBehaviour
                 playtime += 3;
                 col.gameObject.GetComponent<Balloon>().GoAway();
                 gameCanvas.DisplayTimeIncrease();
+                gameCanvas.DisplayCombo();
             }
         }
         else if (col.gameObject.tag == "Pass Tile")

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+﻿    using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -13,9 +13,9 @@ enum Obstacle: int
 {
     Empty = 0,
     Heart = 1,
-    Hurdle = 2,
-    Trap = 3,
-    Balloon = 4,
+    Balloon = 2,
+    Hurdle = 3,
+    Trap = 4,
     Monster = 5 
 }
 
@@ -71,7 +71,7 @@ public class Tile : MonoBehaviour
         // 빈 타일을 왼쪽, 가운데, 오른쪽 라인 중 1군데에 생성
         int emptyTile = Random.Range((int)Line.Left, (int)Line.Right + 1);
 
-        //빈 타일 핸들링(콤보를 올리기 위한 투명한 패스존(콜리전 박스), 혹은 하트 등의 +요인들 생성)
+        //빈 타일 핸들링(콤보를 올리기 위한 투명한 패스존(콜리전 박스), 혹은 하트와 풍선 생성)
         MakeEmpty(emptyTile);
 
         // 빈 타일이 왼쪽이었으면
@@ -102,12 +102,22 @@ public class Tile : MonoBehaviour
     // +요인 생성
     void MakeEmpty(int emptyTile)
     {
-        // 1/4확률로 하트 생성
-        if (Random.Range(0, 4) == 0)
-            MakeHeart(emptyTile);
+        int randBonus = Random.Range(0, 8);
 
-        //지나가면 콤보가 쌓일 투명한 패스존 생성, 두 번째 상수값은 패스존의 높이
-        MakePassZone(emptyTile, 3);
+        // 1/8 확률로 풍선 생성(패스존이 없음-펀치를 해야 콤보가 쌓임)
+        if (randBonus == 0)
+            MakeBalloon(emptyTile);
+
+        // 하트와 빈 타일은 패스존이 존재(그냥 지나가기만 해도 콤보가 쌓임)
+        else
+        {
+            // 1/8 확률로 하트 생성
+            if (randBonus == 1)
+                MakeHeart(emptyTile);
+
+            //패스존 생성, 두 번째 상수값은 패스존의 높이(점프해도 닿는 크기)
+            MakePassZone(emptyTile, 3);
+        }
     }
 
     // 하트 생성
@@ -133,25 +143,17 @@ public class Tile : MonoBehaviour
     {
         // 허들과 괴물 사이의 장애물중 임의의 하나를 뽑음
         int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster + 1);
-
-        // 풍선을 만듦
-        if (obstacle == (int)Obstacle.Balloon)
-            MakeBalloon(obstacleTile);
-        // 풍선이 아니면
-        else
-        {
-            // 허들을 만듦
-            if (obstacle == (int)Obstacle.Hurdle)
-                MakeHurdle(obstacleTile);
-            // 곰덫을 만듦
-            else if (obstacle == (int)Obstacle.Trap)
-                MakeTrap(obstacleTile);
-            // 몬스터를 만듦
-            else if (obstacle == (int)Obstacle.Monster)
-                MakeMonster(obstacleTile);
-            // 패스존을 23만큼 위로 만듦(점프시 인식하기 위함)
-            MakePassZone(obstacleTile, 23);
-        }
+        // 허들을 만듦
+        if (obstacle == (int)Obstacle.Hurdle)
+            MakeHurdle(obstacleTile);
+        // 곰덫을 만듦
+        else if (obstacle == (int)Obstacle.Trap)
+            MakeTrap(obstacleTile);
+        // 몬스터를 만듦
+        else if (obstacle == (int)Obstacle.Monster)
+            MakeMonster(obstacleTile);
+        // 패스존을 23만큼 위로 만듦(점프시 인식하기 위함)
+        MakePassZone(obstacleTile, 23);
     }
 
     //허들 생성
