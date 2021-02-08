@@ -91,6 +91,8 @@ public class BattlePauseUI : MonoBehaviour
                 {
                     GameManager.instance.SetGameState(GameState.Menu);
                     PlayerPrefs.SetInt("afterBattle", 0);
+                    Time.timeScale = 1;
+
                     SceneManager.LoadScene("Game");
                 }
                 else if (curBtn == pmenuBtn.quit)

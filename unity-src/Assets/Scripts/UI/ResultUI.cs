@@ -58,6 +58,7 @@ public class ResultUI : MonoBehaviour
             GameManager.instance.SetStateChanged(true);
 
             PlayerPrefs.SetInt("afterBattle", 0);
+            Time.timeScale = 1;
             SceneManager.LoadScene("Game");
             Floor.isRight = false;
             
