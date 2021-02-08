@@ -76,30 +76,29 @@ public class BattlePauseUI : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.Return) || Floor.isEnter)
         {
             Floor.isEnter = false;
+
             if (curBtn == pmenuBtn.resume)
             {
-                GameManager.instance.SetStateChanged(true);
-
                 Time.timeScale = 1;
                 GameManager.instance.SetGameState(GameState.Battle);
             }
                
             else
             {
+                GameManager.instance.SetStateChanged(true);
+                
                 if (curBtn == pmenuBtn.restart)
                 {
-                    GameManager.instance.SetStateChanged(true);
-
-                    GameManager.instance.SetGameState(GameState.Game);
+                    GameManager.instance.SetGameState(GameState.Menu);
+                    PlayerPrefs.SetInt("afterBattle", 0);
                     SceneManager.LoadScene("Game");
-                    Player.instance.InitialAll();
                 }
                 else if (curBtn == pmenuBtn.quit)
-                { GameManager.instance.SetGameState(GameState.Result);
+                {
+                    GameManager.instance.SetGameState(GameState.Result);
                     gameObject.SetActive(false);
                 }
             }
-            GameManager.instance.SetStateChanged(true);
         }
     }
 }

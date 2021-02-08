@@ -17,12 +17,10 @@ public class BackToGame : MonoBehaviour
     {
         GameManager.instance.SetGameState(GameState.Battle);
         animator = transform.GetComponent<Animator>();
-
-
     }
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) || Floor.isPause)
         {
             GameManager.instance.SetStateChanged(true);
 
@@ -31,24 +29,9 @@ public class BackToGame : MonoBehaviour
                 Time.timeScale = 0;
                 GameManager.instance.SetGameState(GameState.Pause);
             }
-            else
-            {
-                Time.timeScale = 1;
-                GameManager.instance.SetGameState(GameState.Battle);
-            }
-
-        }
-
-        if (Floor.isPause == true)
-        {
-            GameManager.instance.SetStateChanged(true);
-
-            Time.timeScale = 0;
-            GameManager.instance.SetGameState(GameState.Pause);
-
             Floor.isPause = false;
-
         }
+ 
 
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0)

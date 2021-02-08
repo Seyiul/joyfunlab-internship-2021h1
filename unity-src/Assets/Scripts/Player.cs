@@ -87,6 +87,7 @@ public class Player : MonoBehaviour
         }
         else
         {
+            Time.timeScale = 1;
             InitialValues();
             InitialSetting();
             highlightTiles = GameObject.Find("HighlightTiles").GetComponent<HighlightTiles>();

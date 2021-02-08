@@ -54,7 +54,9 @@ public class ResultUI : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
-            GameManager.instance.SetGameState(GameState.Game);
+            GameManager.instance.SetGameState(GameState.Menu);
+            GameManager.instance.SetStateChanged(true);
+
             PlayerPrefs.SetInt("afterBattle", 0);
             SceneManager.LoadScene("Game");
             Floor.isRight = false;
