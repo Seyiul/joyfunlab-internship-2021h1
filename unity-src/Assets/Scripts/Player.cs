@@ -431,6 +431,8 @@ public class Player : MonoBehaviour
                 hp -= 10;
             gameCanvas.DisplayHpDecrease();
             HandlePlayerStumbling();
+            if (col.gameObject.tag == "Hurdle Tile")
+                col.gameObject.GetComponent<Hurdle>().GetDown();
         }
         else if (col.gameObject.tag == "Balloon Tile")
         {

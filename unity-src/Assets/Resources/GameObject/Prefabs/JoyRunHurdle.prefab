@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 7540281305365325025}
   - component: {fileID: 6113303408479863876}
   - component: {fileID: 4170575869530833369}
-  - component: {fileID: 6679262449842973274}
+  - component: {fileID: 8495953961956262987}
+  - component: {fileID: 6889331946891583902}
   m_Layer: 0
   m_Name: JoyRunHurdle
   m_TagString: Hurdle Tile
@@ -95,23 +96,37 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7, y: 5, z: 0.2}
   m_Center: {x: 0, y: 3, z: -0.4}
---- !u!111 &6679262449842973274
-Animation:
+--- !u!114 &8495953961956262987
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5471411465510363513}
   m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ecaad047e68dd84381864e199d76fb1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!95 &6889331946891583902
+Animator:
   serializedVersion: 3
-  m_Animation: {fileID: 0}
-  m_Animations:
-  - {fileID: 0}
-  - {fileID: 0}
-  m_WrapMode: 0
-  m_PlayAutomatically: 0
-  m_AnimatePhysics: 0
-  m_CullingType: 0
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5471411465510363513}
+  m_Enabled: 1
+  m_Avatar: {fileID: 9000000, guid: 6b27de22451e3f444afd9032a44d3433, type: 3}
+  m_Controller: {fileID: 9100000, guid: be45466acb272a34c8dceb08e2f32cbf, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &8731710984173196308
 PrefabInstance:
   m_ObjectHideFlags: 0

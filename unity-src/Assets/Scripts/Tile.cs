@@ -115,7 +115,7 @@ public class Tile : MonoBehaviour
             if (randBonus == 1)
                 MakeHeart(emptyTile);
 
-            //패스존 생성, 두 번째 상수값은 패스존의 높이(점프해도 닿는 크기)
+            //패스존 생성, 두 번째 상수값은 패스존의 높이(점프해도, 하지 않아도 닿는 위치)
             MakePassZone(emptyTile, 3);
         }
     }
@@ -142,17 +142,17 @@ public class Tile : MonoBehaviour
     void MakeObstacle(int obstacleTile)
     {
         // 허들과 괴물 사이의 장애물중 임의의 하나를 뽑음
-        int obstacle = Random.Range((int)Obstacle.Hurdle, (int)Obstacle.Monster + 1);
+        int obstacle = Random.Range(0,21);
         // 허들을 만듦
-        if (obstacle == (int)Obstacle.Hurdle)
+        if (obstacle >= 0 && obstacle < 10)
             MakeHurdle(obstacleTile);
         // 곰덫을 만듦
-        else if (obstacle == (int)Obstacle.Trap)
+        else if (obstacle >= 10 && obstacle < 20)
             MakeTrap(obstacleTile);
         // 몬스터를 만듦
-        else if (obstacle == (int)Obstacle.Monster)
+        else if (obstacle == 20)
             MakeMonster(obstacleTile);
-        // 패스존을 23만큼 위로 만듦(점프시 인식하기 위함)
+        // 패스존을 23만큼 위로 만듦(점프할 때만 닿는 위치)
         MakePassZone(obstacleTile, 23);
     }
 
@@ -160,7 +160,7 @@ public class Tile : MonoBehaviour
     void MakeHurdle(int obstacleTile)
     {
         // hurdleSrc에 들어있는 프리팹을 Z축 포인트 * 타일의 Z축 간격만큼 떨어진 위치(다음 타일의 위)에 생성 
-        obj = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
+        obj = Instantiate(hurdleSrc, new Vector3(ConstInfo.tileX + obstacleTile * ConstInfo.lineWidth, ConstInfo.tileY - 0.9f, ConstInfo.tileLength + point * ConstInfo.tileTerm), Quaternion.identity);
         // 이를 다음 타일의 자식 오브젝트로 설정
         obj.transform.parent = GameManager.instance.nextTile.transform;
     }
