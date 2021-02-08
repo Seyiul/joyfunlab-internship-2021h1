@@ -28,7 +28,10 @@ public class PlayerAnim : MonoBehaviour
     public GameObject centerFloorTile;
     public GameObject rightFloorTile;
 
-
+    // 행동 관련 번수 선언
+    public static Vector3 lastPositionLeftFoot;
+    public static Vector3 lastPositionRightFoot;
+    public static Vector3 lastPositionHead;
 
     public BattlePlayerLocation curLocation;
     BattleHighlight highlightTiles;
@@ -51,6 +54,11 @@ public class PlayerAnim : MonoBehaviour
         kinectState = false;
         curLocation = BattlePlayerLocation.Center;
         highlightTiles = GameObject.Find("HighlightTiles").GetComponent<BattleHighlight>();
+
+        lastPositionLeftFoot = Vector3.zero;
+        lastPositionRightFoot = Vector3.zero;
+        lastPositionHead = Vector3.zero;
+
 
     }
 
@@ -196,13 +204,21 @@ public class PlayerAnim : MonoBehaviour
         }
 
         //jump
-        if ((Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight) &&
-            (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight) && Mathf.Abs(Avatar.userPositionLeftFoot.y - Avatar.userPositionRightFoot.y) < ConstInfo.jumpHeight)
+        if (lastPositionLeftFoot.y + ConstInfo.jumpHeight < Avatar.userPositionLeftFoot.y
+            && lastPositionRightFoot.y + ConstInfo.jumpHeight < Avatar.userPositionRightFoot.y
+            && lastPositionHead.y + ConstInfo.jumpHeight < Avatar.userPositionHead.y
+            && lastPositionLeftFoot.y != 0 && lastPositionRightFoot.y != 0
+            && Mathf.Abs(lastPositionLeftFoot.y - lastPositionRightFoot.y) < ConstInfo.jumpFootHeightDifferenceLimit
+            && Mathf.Abs(lastPositionLeftFoot.x - Avatar.userPositionLeftFoot.x) < ConstInfo.jumpFootPositionVariationLimit
+            && Mathf.Abs(lastPositionRightFoot.x - Avatar.userPositionRightFoot.x) < ConstInfo.jumpFootPositionVariationLimit)
         {
             animator.SetTrigger("jump");
             jump = true;
             StartCoroutine(HandleJumpTimer());
         }
+
+        lastPositionLeftFoot = Avatar.userPositionLeftFoot;
+        lastPositionRightFoot = Avatar.userPositionRightFoot;
     }
     void HandlePlayerPosition()
     {
