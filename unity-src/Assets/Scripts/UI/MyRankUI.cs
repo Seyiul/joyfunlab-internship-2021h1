@@ -16,8 +16,9 @@ public class MyRankUI : MonoBehaviour
     public void MenuHandle()
     {
         // 엔터 키 누르면(뒤로가기 버튼 하나밖에 없음)
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetKeyDown(KeyCode.Return)||Floor.isEnter)
         {
+            Floor.isEnter = false;
             // 메뉴 상태로 변경
             GameManager.instance.SetGameState(GameState.Menu);
             GameManager.instance.SetStateChanged(true);
