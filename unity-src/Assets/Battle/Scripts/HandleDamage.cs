@@ -78,7 +78,7 @@ public class HandleDamage : MonoBehaviour
             AttackHandler();
 
         }
-        if (nodeTimer > 3.5)
+        if (nodeTimer > 5f)
         {
             ShowNode();
         }
@@ -117,7 +117,7 @@ public class HandleDamage : MonoBehaviour
                 {
                     if (leftPunch.activeSelf || rightPunch.activeSelf)
                     {
-                    
+
                         if (punchTime <= 210)
                         {
                             monsterBox.GetComponent<Animator>().SetTrigger("size");
@@ -161,7 +161,7 @@ public class HandleDamage : MonoBehaviour
                 {
                     if (leftKick.activeSelf || rightKick.activeSelf)
                     {
-                        
+
                         if (PlayerAnim.KillMonster() == true)
                         {
                             monsterBox.GetComponent<Animator>().SetTrigger("size");
@@ -232,42 +232,39 @@ public class HandleDamage : MonoBehaviour
     void ShowNode()
     {
 
-        if(nodeTimer > 4.5)
+        int rn = Random.Range(1, 5);
+        switch (rn)
         {
-            //yield return new WaitForSeconds(0f);
-            int rn = Random.Range(1, 5);
-            switch (rn)
-            {
-                case 1:
-                    leftPunch.SetActive(true);
-                    rightPunch.SetActive(false);
-                    leftKick.SetActive(false);
-                    rightKick.SetActive(false);
-                    break;
-                case 2:
-                    leftPunch.SetActive(false);
-                    rightPunch.SetActive(false);
-                    leftKick.SetActive(true);
-                    rightKick.SetActive(false);
-                    break;
-                case 3:
-                    leftPunch.SetActive(false);
-                    rightPunch.SetActive(false);
-                    leftKick.SetActive(false);
-                    rightKick.SetActive(true);
-                    break;
-                default:
-                    leftPunch.SetActive(false);
-                    rightPunch.SetActive(true);
-                    leftKick.SetActive(false);
-                    rightKick.SetActive(false);
-                    break;
+            case 1:
+                leftPunch.SetActive(true);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(false);
+                rightKick.SetActive(false);
+                break;
+            case 2:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(true);
+                rightKick.SetActive(false);
+                break;
+            case 3:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(false);
+                leftKick.SetActive(false);
+                rightKick.SetActive(true);
+                break;
+            default:
+                leftPunch.SetActive(false);
+                rightPunch.SetActive(true);
+                leftKick.SetActive(false);
+                rightKick.SetActive(false);
+                break;
 
-            }
-
-            nodeTimer = 0;
-            StartCoroutine(DeleteAllNode());
         }
+
+        StartCoroutine(DeleteAllNode());
+        nodeTimer -= 3.5f;
+
 
 
     }
@@ -279,5 +276,10 @@ public class HandleDamage : MonoBehaviour
         rightPunch.SetActive(false);
         leftKick.SetActive(false);
         rightKick.SetActive(false);
+
+
+
+
+
     }
 }

@@ -96,7 +96,6 @@ public class MonsterAnim : MonoBehaviour
         yield return new WaitForSeconds(1f);
         animator.ResetTrigger("kick");
         animator.ResetTrigger("punch");
-        timer -= 1;
         attack = false;
     }
 
