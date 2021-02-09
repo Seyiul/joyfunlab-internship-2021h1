@@ -263,7 +263,7 @@ public class PlayerAnim : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Return))
         {
-            animator.SetTrigger("kick");
+            animator.SetTrigger("kickRight");
             kick = true;
             StartCoroutine(HandleAttackTimer());
         }
@@ -271,7 +271,7 @@ public class PlayerAnim : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftShift))
         {
-            animator.SetTrigger("punch");
+            animator.SetTrigger("rightPunch");
             punch = true;
             StartCoroutine(HandleAttackTimer());
         }
@@ -290,7 +290,6 @@ public class PlayerAnim : MonoBehaviour
     private IEnumerator HandleAttackTimer()
     {
         yield return new WaitForSeconds(.5f);
-        animator.ResetTrigger("punch");
         animator.ResetTrigger("leftPunch");
         animator.ResetTrigger("rightPunch");
         animator.ResetTrigger("kickRight");
