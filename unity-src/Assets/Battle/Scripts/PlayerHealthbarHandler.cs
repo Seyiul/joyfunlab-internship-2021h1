@@ -23,8 +23,8 @@ public class PlayerHealthbarHandler : MonoBehaviour
         {
             SetHealthBarColor(Color.green);
         }
+        
     }
-
     public static float GetHealthBarValue()
     {
         return HealthBarImage.fillAmount;

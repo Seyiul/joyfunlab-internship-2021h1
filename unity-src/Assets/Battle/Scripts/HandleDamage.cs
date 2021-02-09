@@ -37,6 +37,9 @@ public class HandleDamage : MonoBehaviour
     public GameObject goodText;
     public GameObject missText;
 
+    public GameObject playerBox;
+    public GameObject monsterBox;
+
 
     // Start is called before the first frame update
     void Start()
@@ -75,7 +78,7 @@ public class HandleDamage : MonoBehaviour
             AttackHandler();
 
         }
-        if (nodeTimer > 3)
+        if (nodeTimer > 3.5)
         {
             ShowNode();
         }
@@ -97,6 +100,7 @@ public class HandleDamage : MonoBehaviour
                 Debug.Log("Monster Attack!");
                 animator.SetTrigger("hit");
                 StartCoroutine(EffectHanlder());
+                playerBox.GetComponent<Animator>().SetTrigger("size");
                 PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
                 StartCoroutine(HandleHitAnim());
             }
@@ -113,8 +117,10 @@ public class HandleDamage : MonoBehaviour
                 {
                     if (leftPunch.activeSelf || rightPunch.activeSelf)
                     {
+                    
                         if (punchTime <= 210)
                         {
+                            monsterBox.GetComponent<Animator>().SetTrigger("size");
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                             anim.SetTrigger("damaged");
@@ -125,6 +131,7 @@ public class HandleDamage : MonoBehaviour
                         }
                         else if (210 < punchTime && punchTime <= 250)
                         {
+                            monsterBox.GetComponent<Animator>().SetTrigger("size");
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                             anim.SetTrigger("damaged");
                             GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -134,6 +141,7 @@ public class HandleDamage : MonoBehaviour
                         }
                         else if (250 < punchTime && punchTime <= 350)
                         {
+                            monsterBox.GetComponent<Animator>().SetTrigger("size");
                             HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
                             anim.SetTrigger("damaged");
                             GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -153,8 +161,10 @@ public class HandleDamage : MonoBehaviour
                 {
                     if (leftKick.activeSelf || rightKick.activeSelf)
                     {
+                        
                         if (PlayerAnim.KillMonster() == true)
                         {
+                            monsterBox.GetComponent<Animator>().SetTrigger("size");
                             GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                             text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
                             HealthBarHandler.SetHealthBarValue(0);
@@ -164,6 +174,7 @@ public class HandleDamage : MonoBehaviour
 
                             if (kickTime <= 210)
                             {
+                                monsterBox.GetComponent<Animator>().SetTrigger("size");
                                 HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                                 HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                                 anim.SetTrigger("damaged");
@@ -172,6 +183,7 @@ public class HandleDamage : MonoBehaviour
                             }
                             else if (210 < kickTime && kickTime <= 250)
                             {
+                                monsterBox.GetComponent<Animator>().SetTrigger("size");
                                 HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
                                 anim.SetTrigger("damaged");
                                 GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -180,6 +192,7 @@ public class HandleDamage : MonoBehaviour
                             }
                             else if (250 < kickTime && kickTime <= 350)
                             {
+                                monsterBox.GetComponent<Animator>().SetTrigger("size");
                                 HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
                                 anim.SetTrigger("damaged");
                                 GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
@@ -218,41 +231,53 @@ public class HandleDamage : MonoBehaviour
 
     void ShowNode()
     {
-        //yield return new WaitForSeconds(0f);
-        int rn = Random.Range(1, 5);
-        switch (rn)
+
+        if(nodeTimer > 4.5)
         {
-            case 1:
-                leftPunch.SetActive(true);
-                rightPunch.SetActive(false);
-                leftKick.SetActive(false);
-                rightKick.SetActive(false);
-                break;
-            case 2:
-                leftPunch.SetActive(false);
-                rightPunch.SetActive(false);
-                leftKick.SetActive(true);
-                rightKick.SetActive(false);
-                break;
-            case 3:
-                leftPunch.SetActive(false);
-                rightPunch.SetActive(false);
-                leftKick.SetActive(false);
-                rightKick.SetActive(true);
-                break;
-            default:
-                leftPunch.SetActive(false);
-                rightPunch.SetActive(true);
-                leftKick.SetActive(false);
-                rightKick.SetActive(false);
-                break;
+            //yield return new WaitForSeconds(0f);
+            int rn = Random.Range(1, 5);
+            switch (rn)
+            {
+                case 1:
+                    leftPunch.SetActive(true);
+                    rightPunch.SetActive(false);
+                    leftKick.SetActive(false);
+                    rightKick.SetActive(false);
+                    break;
+                case 2:
+                    leftPunch.SetActive(false);
+                    rightPunch.SetActive(false);
+                    leftKick.SetActive(true);
+                    rightKick.SetActive(false);
+                    break;
+                case 3:
+                    leftPunch.SetActive(false);
+                    rightPunch.SetActive(false);
+                    leftKick.SetActive(false);
+                    rightKick.SetActive(true);
+                    break;
+                default:
+                    leftPunch.SetActive(false);
+                    rightPunch.SetActive(true);
+                    leftKick.SetActive(false);
+                    rightKick.SetActive(false);
+                    break;
 
+            }
+
+            nodeTimer = 0;
+            StartCoroutine(DeleteAllNode());
         }
-
-        nodeTimer = 0;
 
 
     }
 
-
+    IEnumerator DeleteAllNode()
+    {
+        yield return new WaitForSeconds(2f);
+        leftPunch.SetActive(false);
+        rightPunch.SetActive(false);
+        leftKick.SetActive(false);
+        rightKick.SetActive(false);
+    }
 }

@@ -34,47 +34,43 @@ public class MonsterAnim : MonoBehaviour
 
         playerHp = (float)PlayerHealthbarHandler.GetHealthBarValue() * 100;
         hp = (float)HealthBarHandler.GetHealthBarValue() * 100;
- 
-        //Landing time = 3.5f
-        if (timer > 3.5)
-        {
-            HandleGame(playerHp, hp);
-        }
-        else
-        {
-            if (hp == 0)
-            {
-                animator.SetBool("die", true);
-                attack = false;
 
-            }
-            else if (playerHp == 0)
-            {
-                animator.SetBool("victory", true);
-                attack = false;
-            }
-
-        }
-
-
-    }
-    void HandleGame(float playerHp, float hp)
-    {
         if (hp == 0)
         {
             animator.SetBool("die", true);
+            attack = false;
 
         }
         else if (playerHp == 0)
         {
             animator.SetBool("victory", true);
+            attack = false;
         }
         else
         {
-            HandleMonsterAction();
-
+            if (timer > 3.5f)
+                HandleGame(hp, playerHp);
         }
 
+
+
+
+    }
+    void HandleGame(float hp, float playerHp)
+    {
+        if (hp == 0)
+        {
+            animator.SetBool("die", true);
+            attack = false;
+
+        }
+        else if (playerHp == 0)
+        {
+            animator.SetBool("victory", true);
+            attack = false;
+        }
+        else
+            HandleMonsterAction();
     }
     void HandleMonsterAction()
     {
@@ -86,8 +82,10 @@ public class MonsterAnim : MonoBehaviour
                 animator.SetTrigger("kick");
                 break;
 
-            default:
+            case 2:
                 animator.SetTrigger("punch");
+                break;
+            default:
                 break;
         }
         StartCoroutine(MonsterActionInitialize());
@@ -98,6 +96,7 @@ public class MonsterAnim : MonoBehaviour
         yield return new WaitForSeconds(1f);
         animator.ResetTrigger("kick");
         animator.ResetTrigger("punch");
+        timer -= 1;
         attack = false;
     }
 

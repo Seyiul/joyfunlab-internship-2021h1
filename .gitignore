@@ -9,3 +9,4 @@ unity-src/dnn_model_2_0.onnx
 *.dll
 unity-src/Assembly-CSharp-Editor.csproj
 unity-src/Assembly-CSharp.csproj
+*.csproj
