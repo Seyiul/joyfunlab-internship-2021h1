@@ -428,6 +428,7 @@ public class Player : MonoBehaviour
                 hp++;
             gameCanvas.DisplayHpIncrease();
             gameCanvas.DisplayCombo();
+            col.gameObject.GetComponent<Heart>().HeartPop();
         }
         else if (col.gameObject.tag == "Hurdle Tile" || col.gameObject.tag == "Trap Tile")
         {
