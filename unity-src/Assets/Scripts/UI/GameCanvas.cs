@@ -26,6 +26,10 @@ public class GameCanvas : MonoBehaviour
     {
         
     }
+    public void DisplaySpeed()
+    {
+        SpeedText.text = (Mathf.Floor((Player.instance.speed / 1.6f) * 100) / 100).ToString() + "Km/h";
+    }
     // 남은 시간 출력(소수점 첫 번째까지)
     public void DisplayTime()
     {

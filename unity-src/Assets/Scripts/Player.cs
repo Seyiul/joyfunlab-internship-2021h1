@@ -188,6 +188,7 @@ public class Player : MonoBehaviour
             HandlePlayerAction();
             gameCanvas.DisplayTime();
             gameCanvas.DisplayHp();
+            gameCanvas.DisplaySpeed();
             // 타임이나 체력이 0 이하로 떨어지면
             if (time <= 0 || hp <= 0)
             {
@@ -452,6 +453,17 @@ public class Player : MonoBehaviour
                 gameCanvas.DisplayTimeIncrease();
                 gameCanvas.DisplayCombo();
             }
+            else
+            {
+                isStumbling = true;
+                combo = 0;
+                if (hp / 2 > 10)
+                    hp -= (int)hp / 4;
+                else
+                    hp -= 5;
+                gameCanvas.DisplayHpDecrease();
+                HandlePlayerStumbling();
+            }
         }
         else if (col.gameObject.tag == "Pass Tile")
         {
@@ -459,8 +471,7 @@ public class Player : MonoBehaviour
             gameCanvas.DisplayCombo();
         }
         else if (col.gameObject.tag == "Battle Tile")
-        {
-
+        {   
             PlayerPrefs.SetFloat("time", time);
             PlayerPrefs.SetFloat("playtime", playtime);
             PlayerPrefs.SetInt("hp", hp);
@@ -473,7 +484,6 @@ public class Player : MonoBehaviour
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
         }
-
     }
 
     // 점프 조건 (이전 프레임보다 양 발 모두 jumpHeight 이상 증가 + 발높이 차가 0.3 이하 + 양발의 x변화량이 5 미만)
@@ -495,12 +505,14 @@ public class Player : MonoBehaviour
         UnselectFloorTile();
         SelectFloorTile();
     }
+
     void UnselectFloorTile()
     {
         FloorTexture.setFloorTileTexture(leftFloorTile, FloorTexture.FloorTileUnSelected);
         FloorTexture.setFloorTileTexture(centerFloorTile, FloorTexture.FloorTileUnSelected);
         FloorTexture.setFloorTileTexture(rightFloorTile, FloorTexture.FloorTileUnSelected);
     }
+
     void SelectFloorTile()
     {
         if (GameManager.instance.GetKinectState())

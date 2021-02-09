@@ -104,20 +104,13 @@ public class Tile : MonoBehaviour
     {
         int randBonus = Random.Range(0, 8);
 
-        // 1/8 확률로 풍선 생성(패스존이 없음-펀치를 해야 콤보가 쌓임)
-        if (randBonus == 0)
-            MakeBalloon(emptyTile);
-
         // 하트와 빈 타일은 패스존이 존재(그냥 지나가기만 해도 콤보가 쌓임)
-        else
-        {
-            // 1/8 확률로 하트 생성
-            if (randBonus == 1)
-                MakeHeart(emptyTile);
+        // 1/8 확률로 하트 생성
+        if (randBonus == 1)
+            MakeHeart(emptyTile);
 
-            //패스존 생성, 두 번째 상수값은 패스존의 높이(점프해도, 하지 않아도 닿는 위치)
-            MakePassZone(emptyTile, 3);
-        }
+        //패스존 생성, 두 번째 상수값은 패스존의 높이(점프해도, 하지 않아도 닿는 위치)
+        MakePassZone(emptyTile, 3);
     }
 
     // 하트 생성
@@ -142,15 +135,18 @@ public class Tile : MonoBehaviour
     void MakeObstacle(int obstacleTile)
     {
         // 허들과 괴물 사이의 장애물중 임의의 하나를 뽑음
-        int obstacle = Random.Range(0,21);
+        int obstacle = Random.Range(0,81);
         // 허들을 만듦
-        if (obstacle >= 0 && obstacle < 10)
+        if (obstacle >= 0 && obstacle < 35)
             MakeHurdle(obstacleTile);
         // 곰덫을 만듦
-        else if (obstacle >= 10 && obstacle < 20)
+        else if (obstacle >= 35 && obstacle < 70)
             MakeTrap(obstacleTile);
+        // 풍선을 만듦
+        else if (obstacle >= 70 && obstacle < 80)
+            MakeBalloon(obstacleTile);
         // 몬스터를 만듦
-        else if (obstacle == 20)
+        else if (obstacle == 80)
             MakeMonster(obstacleTile);
         // 패스존을 23만큼 위로 만듦(점프할 때만 닿는 위치)
         MakePassZone(obstacleTile, 23);
