@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using static UnityEngine.LowLevel.PlayerLoop;
 
 
-public enum GameState: int
+public enum GameState : int
 {
     Menu = 1,
     Setting = 2,
@@ -54,7 +54,7 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         // 게임 중에 esc 누르면
-        if (Input.GetKeyDown(KeyCode.Escape)||Floor.isPause && curGameState == GameState.Game)
+        if (Input.GetKeyDown(KeyCode.Escape) || Floor.isPause && curGameState == GameState.Game)
         {
             Floor.isPause = false;
             // 일시정지 상태로 변경
@@ -66,7 +66,7 @@ public class GameManager : MonoBehaviour
         {
             // 모든 변수 초기화 후 종료
             player.InitialAll();
-            Application.Quit();
+            Quit();
         }
         // 메뉴 핸들링
         ui.MenuHandle();
@@ -94,4 +94,14 @@ public class GameManager : MonoBehaviour
     // 게임상태가 이전과 비교해 변화했는지 판단하는 변수 Getter & Setter
     public bool GetStateChanged() { return stateChanged; }
     public void SetStateChanged(bool changed) { stateChanged = changed; }
+
+
+    public void Quit()
+    {
+#if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
 }
