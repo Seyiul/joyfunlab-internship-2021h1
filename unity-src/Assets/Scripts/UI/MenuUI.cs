@@ -20,6 +20,9 @@ public class MenuUI : MonoBehaviour
     menuBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
+    public AudioSource btnMove;
+
+
     // 초기엔 현재 선택된 버튼을 게임 시작 버튼(첫 번째)으로 설정
     void Start()
     {
@@ -69,6 +72,8 @@ public class MenuUI : MonoBehaviour
         // 윗방향키 입력시
         if (Input.GetKeyDown(KeyCode.UpArrow)||Floor.isUp)
         {
+            btnMove.Play();
+
             Floor.isUp = false;
             // 현재 버튼이 게임 시작이 아니면 위로 한칸씩
             if (curBtn > menuBtn.start)
@@ -84,6 +89,8 @@ public class MenuUI : MonoBehaviour
         // 아랫방향키 입력시
         else if (Input.GetKeyDown(KeyCode.DownArrow)||Floor.isDown)
         {
+            btnMove.Play();
+
             Floor.isDown = false;
             // 현재 버튼이 게임 종료가 아니면 아래로 한칸씩
             if (curBtn < menuBtn.quit)

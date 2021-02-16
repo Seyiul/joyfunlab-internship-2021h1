@@ -16,6 +16,9 @@ public class PauseUI : MonoBehaviour
     pmenuBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
+    public AudioSource btnMove;
+
+
     // 현재 버튼을 맨 위의 게임 재개로 설정
     void Start()
     {
@@ -60,6 +63,8 @@ public class PauseUI : MonoBehaviour
         // 윗방향키를 입력하면
         if (Input.GetKeyDown(KeyCode.UpArrow)||Floor.isUp)
         {
+            btnMove.Play();
+
             Floor.isUp = false;
             // 현재 버튼이 게임 재개 아래쪽이면
             if (curBtn > pmenuBtn.resume)
@@ -75,6 +80,8 @@ public class PauseUI : MonoBehaviour
         // 아랫방향키를 입력하면
         else if (Input.GetKeyDown(KeyCode.DownArrow)||Floor.isDown)
         {
+            btnMove.Play();
+
             Floor.isDown = false;
             // 현재 버튼이 게임 종료 위쪽이면
             if (curBtn < pmenuBtn.quit)

@@ -36,14 +36,16 @@ public class BackToGame : MonoBehaviour
         //change scene when user presses Space key
         if (HealthBarHandler.GetHealthBarValue() == 0)
         {
+            GameManager.instance.SetStateChanged(true);
+
             Nodes.SetActive(false);
             StartCoroutine(LoadSceneAFterTransition());
         }
         if (PlayerHealthbarHandler.GetHealthBarValue() == 0)
         {
+            GameManager.instance.SetStateChanged(true);
             Nodes.SetActive(false);
             GameManager.instance.SetGameState(GameState.Result);
-            GameManager.instance.SetStateChanged(true);
         }
     }
     private IEnumerator LoadSceneAFterTransition()

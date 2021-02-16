@@ -19,6 +19,7 @@ public class BattlePauseUI : MonoBehaviour
     pmenuBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
+    public AudioSource btnMove;
 
     // Start is called before the first frame update
     void Start()
@@ -57,6 +58,7 @@ public class BattlePauseUI : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.UpArrow) || Floor.isUp)
         {
+            btnMove.Play();
             Floor.isUp = false;
             if (curBtn > pmenuBtn.resume)
                 curBtn--;
@@ -66,6 +68,7 @@ public class BattlePauseUI : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.DownArrow) || Floor.isDown)
         {
+            btnMove.Play();
             Floor.isDown = false;
             if (curBtn < pmenuBtn.quit)
                 curBtn++;
@@ -79,13 +82,14 @@ public class BattlePauseUI : MonoBehaviour
 
             if (curBtn == pmenuBtn.resume)
             {
+                GameManager.instance.SetStateChanged(true);
                 Time.timeScale = 1;
                 GameManager.instance.SetGameState(GameState.Battle);
             }
                
             else
             {
-                GameManager.instance.SetStateChanged(true);
+                //GameManager.instance.SetStateChanged(true);
                 
                 if (curBtn == pmenuBtn.restart)
                 {

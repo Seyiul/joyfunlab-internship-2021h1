@@ -20,7 +20,7 @@ public class ScreenCanvas : MonoBehaviour
     {
         if (GameManager.instance.GetGameState() == GameState.Result)
         {
-            if (GameManager.instance.GetStateChanged())
+            //if (GameManager.instance.GetStateChanged())
                 result.SetActive(true);
             result.GetComponent<ResultUI>().ShowBattleResult();
 
@@ -28,7 +28,7 @@ public class ScreenCanvas : MonoBehaviour
         else if (GameManager.instance.GetGameState() == GameState.Pause)
         {
             // 퍼즈 상태로 방금 전환되었으면 퍼즈 UI를 켬
-            if (GameManager.instance.GetStateChanged())
+            //if (GameManager.instance.GetStateChanged())
                 pause.SetActive(true);
 
             // 퍼즈 UI의 입력에 대한 이벤트 핸들

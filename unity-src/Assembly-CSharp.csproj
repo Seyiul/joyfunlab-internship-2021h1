@@ -153,6 +153,7 @@
      <Compile Include="Assets\AzureKinectExamples\KinectScripts\UserMeshRendererGpu.cs" />
      <Compile Include="Assets\AzureKinectExamples\KinectScripts\UserSkeletonCollider.cs" />
      <Compile Include="Assets\Battle\Scripts\BackToGame.cs" />
+     <Compile Include="Assets\Battle\Scripts\BattleBGM.cs" />
      <Compile Include="Assets\Battle\Scripts\BattleHighlight.cs" />
      <Compile Include="Assets\Battle\Scripts\BattlePauseUI.cs" />
      <Compile Include="Assets\Battle\Scripts\DamageText.cs" />
@@ -220,6 +221,7 @@
      <Compile Include="Assets\Scripts\HighlightTiles.cs" />
      <Compile Include="Assets\Scripts\Player.cs" />
      <Compile Include="Assets\Scripts\Prefabs\Balloon.cs" />
+     <Compile Include="Assets\Scripts\Prefabs\Heart.cs" />
      <Compile Include="Assets\Scripts\Prefabs\Hurdle.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\TileGenerator.cs" />
@@ -230,6 +232,7 @@
      <Compile Include="Assets\Scripts\UI\ResultUI.cs" />
      <Compile Include="Assets\Scripts\UI\ScreenUICanvas.cs" />
      <Compile Include="Assets\Scripts\UI\SettingUI.cs" />
+     <Compile Include="Assets\SoundManager.cs" />
      <Compile Include="Assets\TextHandler.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01.cs" />
      <Compile Include="Assets\TextMesh Pro\Examples &amp; Extras\Scripts\Benchmark01_UGUI.cs" />
@@ -379,6 +382,7 @@
      <None Include="Assets\Resources\3DResources\PostProcessing\Resources\Shaders\Fog.shader" />
      <None Include="Assets\Resources\3DResources\PostProcessing\Editor Resources\Monitors\ParadeRender.shader" />
      <None Include="Assets\AzureKinectExamples\Resources\SceneMeshVShader.shader" />
+     <None Include="Assets\Resources\rankdb.txt" />
      <None Include="Assets\Resources\3DResources\PostProcessing\Resources\Shaders\MotionBlur.shader" />
      <None Include="Assets\Resources\3DResources\Character\TaichiCharacterPack\Shaders\Mobile - VR\Advanced Mobile\APOLLO_Refractive Mobile.shader" />
      <None Include="Assets\AzureKinectExamples\Resources\FloorDetectionOffsetEstShader.compute" />
