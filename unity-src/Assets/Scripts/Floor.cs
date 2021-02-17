@@ -16,6 +16,8 @@ public class Floor : MonoBehaviour
     public GameObject downButton;
     public GameObject centerButton;
     public GameObject pauseText;
+    public GameObject timerBox;
+    public GameObject barHpBox;
 
     private Vector3 handlePositionLeftFoot;
     private Vector3 handlePositionRightFoot;
@@ -95,6 +97,16 @@ public class Floor : MonoBehaviour
     //바닥에 표시되는 버튼을 상황에따라 다르게 출력
     void HandleMenu()
     {
+        if(GameManager.instance.GetGameState() == GameState.Battle)
+        {
+            timerBox.SetActive(false);
+            barHpBox.SetActive(false);
+        }
+        else if(GameManager.instance.GetGameState() == GameState.Game)
+        {
+            timerBox.SetActive(true);
+            barHpBox.SetActive(true);
+        }
         //메뉴일때 발판
         if (GameManager.instance.GetGameState() == GameState.Menu)
         {
