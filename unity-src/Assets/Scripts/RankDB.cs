@@ -3,6 +3,8 @@ using System.IO;
 using System.Collections.Generic;
 using UnityEngine;
 
+
+//rankpath = "Assets/resources/"
 public class RankDB {
     public static void RankWriter(string rankpath,int[] rankArray)
     {
@@ -16,13 +18,16 @@ public class RankDB {
     public static int[] RankReader(string rankpath)
     {
         int[] rankArray = new int[5];
+        string s;
         StreamReader sr = new StreamReader(rankpath);
-
-        for(int i = 0; i< 5; i++)
+        
+        for(int i= 0; i< 5; i++)
         {
-            rankArray[i] = sr.ReadLine();
+            s = sr.ReadLine();
+            rankArray[i] = int.Parse(s);
         }
         sr.Close();
         return rankArray;
+        
     }
 }

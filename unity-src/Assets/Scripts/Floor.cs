@@ -54,8 +54,10 @@ public class Floor : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-        timeTimer += Time.deltaTime;
+        if (press == false)
+        {
+            timeTimer += Time.deltaTime;
+        }
         //1초에 한번씩 press를 true로 변경
         if (timeTimer > 1.0)
         {
