@@ -3780,7 +3780,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9970ba703417360449e07df7019d0734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreBox: {fileID: 0}
+  scoreBox: {fileID: 1461476406}
+  myScore: {fileID: 613496835}
 --- !u!111 &458171591
 Animation:
   m_ObjectHideFlags: 0
