@@ -10,6 +10,7 @@ public class ResultUI : MonoBehaviour
     public Text playtimeText;
     public Text pointText;
     private float[] rankScore = new float[5];
+    private bool flag = true;
 
     // Start is called before the first frame update
     void Start()
@@ -23,13 +24,11 @@ public class ResultUI : MonoBehaviour
 
     }
     //결과점수 업데이트
-    public void writeRank(float finalScore)
+    public void writeRank(float score)
     {
         rankScore = RankDB.RankReader(GameManager.rankpath);
 
-        float score;
         float changeScore;
-        score = finalScore;
 
         for (int i = 0; i < 5; i++)
         {
@@ -54,7 +53,11 @@ public class ResultUI : MonoBehaviour
         // 콤보 계수 = 1 + 콤보/100(소수점 첫번째 까지만) 
         float comboPoint = 1 + (float)((int)Player.instance.maxCombo / 10) / 10;
         float runFinalScore = Mathf.Round(Player.instance.maxCombo * comboPoint + playtime);
-        writeRank(runFinalScore);
+        if (flag)
+        {
+            writeRank(runFinalScore);
+            flag = false;
+        }
 
         // 점수 = 최대 콤보 * 콤보 계수 + 플레이 시간
         pointText.text = (Mathf.Round(Player.instance.maxCombo * comboPoint + playtime)).ToString() + " 점";
@@ -78,8 +81,11 @@ public class ResultUI : MonoBehaviour
 
         float comboPoint = 1 + (float)((int)PlayerPrefs.GetInt("maxCombo") / 10) / 10;
         float battleFinalScore = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime);
-        writeRank(battleFinalScore);
-
+            if (flag)
+            {
+                writeRank(battleFinalScore);
+                flag = false;
+            }
         pointText.text = battleFinalScore.ToString() + " 점";
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
