@@ -194,6 +194,7 @@ public class Player : MonoBehaviour
             {
                 // 결과창으로 이동, 기존 정보 초기화
                 GameManager.instance.SetGameState(GameState.Result);
+                GameManager.instance.SetStateChanged(true);
                 PlayerPrefs.DeleteAll();
             }
             // 최대 콤보 갱신
