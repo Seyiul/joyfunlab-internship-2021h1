@@ -28,7 +28,7 @@ public class ScreenUICanvas : MonoBehaviour
         if (GameManager.instance.GetGameState() == GameState.Menu)
         {
             // 메뉴 상태로 방금 전환되었으면 메뉴 UI를 켬
-            if(GameManager.instance.GetStateChanged())
+            if (GameManager.instance.GetStateChanged())
                 ActivateUI(menu);
 
             // 메뉴 UI의 입력에 대한 이벤트 핸들
@@ -39,7 +39,7 @@ public class ScreenUICanvas : MonoBehaviour
         else if (GameManager.instance.GetGameState() == GameState.Rank)
         {
             // 랭크 상태로 방금 전환되었으면 랭크 UI를 켬
-            if(GameManager.instance.GetStateChanged())
+            if (GameManager.instance.GetStateChanged())
                 ActivateUI(rank);
 
             // 랭크 UI의 입력에 대한 이벤트 핸들
@@ -50,9 +50,12 @@ public class ScreenUICanvas : MonoBehaviour
         else if (GameManager.instance.GetGameState() == GameState.Result)
         {
             // 결과 상태로 방금 전환되었으면 결과 UI를 켬
-            if(GameManager.instance.GetStateChanged())
+            if (GameManager.instance.GetStateChanged())
+            {
+                ResultUI.flag = true;
                 ActivateUI(result);
-
+            }
+            
             // 결과 UI에 나타나는 정보 갱신
             result.GetComponent<ResultUI>().ShowResult();
         }

@@ -10,7 +10,7 @@ public class ResultUI : MonoBehaviour
     public Text playtimeText;
     public Text pointText;
     private float[] rankScore = new float[5];
-    private bool flag = true;
+    public static bool flag=false;
 
     // Start is called before the first frame update
     void Start()
@@ -24,7 +24,7 @@ public class ResultUI : MonoBehaviour
 
     }
     //결과점수 업데이트
-    public void writeRank(float score)
+    public void WriteRank(float score)
     {
         rankScore = RankDB.RankReader(GameManager.rankpath);
 
@@ -41,10 +41,10 @@ public class ResultUI : MonoBehaviour
         }
         RankDB.RankWriter(GameManager.rankpath, rankScore);
     }
+
     // 결과창 출력
     public void ShowResult()
     {
-        
         // 최대 콤보 출력
         maxComboText.text = Player.instance.maxCombo.ToString() + " 회";
         // 플레이 시간 출력 (= 총 시간 - 남은 시간)
@@ -55,8 +55,9 @@ public class ResultUI : MonoBehaviour
         float runFinalScore = Mathf.Round(Player.instance.maxCombo * comboPoint + playtime);
         if (flag)
         {
-            writeRank(runFinalScore);
+            WriteRank(runFinalScore);
             flag = false;
+            GameManager.instance.SetStateChanged(false);
         }
 
         // 점수 = 최대 콤보 * 콤보 계수 + 플레이 시간
@@ -83,8 +84,9 @@ public class ResultUI : MonoBehaviour
         float battleFinalScore = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime);
             if (flag)
             {
-                writeRank(battleFinalScore);
+                WriteRank(battleFinalScore);
                 flag = false;
+                GameManager.instance.SetStateChanged(false);
             }
         pointText.text = battleFinalScore.ToString() + " 점";
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
