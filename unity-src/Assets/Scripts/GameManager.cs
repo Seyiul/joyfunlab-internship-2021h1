@@ -24,6 +24,7 @@ public class GameManager : MonoBehaviour
     private GameState curGameState;
     private bool kinectState;
 
+    public static string rankpath = "Assets/Resources/rankdb.txt";
     Player player;
     ScreenUICanvas ui;
     bool stateChanged;

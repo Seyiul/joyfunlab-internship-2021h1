@@ -6,7 +6,7 @@ using UnityEngine;
 
 //rankpath = "Assets/resources/"
 public class RankDB {
-    public static void RankWriter(string rankpath,int[] rankArray)
+    public static void RankWriter(string rankpath,float[] rankArray)
     {
         StreamWriter sw = new StreamWriter(rankpath);
         for (int i = 0; i < 5; i++) {
@@ -15,16 +15,16 @@ public class RankDB {
         sw.Flush();
         sw.Close();
     }
-    public static int[] RankReader(string rankpath)
+    public static float[] RankReader(string rankpath)
     {
-        int[] rankArray = new int[5];
+        float[] rankArray = new float[5];
         string s;
         StreamReader sr = new StreamReader(rankpath);
         
         for(int i= 0; i< 5; i++)
         {
             s = sr.ReadLine();
-            rankArray[i] = int.Parse(s);
+            rankArray[i] = float.Parse(s);
         }
         sr.Close();
         return rankArray;

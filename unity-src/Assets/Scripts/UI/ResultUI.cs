@@ -9,6 +9,7 @@ public class ResultUI : MonoBehaviour
     public Text maxComboText;
     public Text playtimeText;
     public Text pointText;
+    public static float finalScore;
     // Start is called before the first frame update
     void Start()
     {
@@ -49,9 +50,9 @@ public class ResultUI : MonoBehaviour
         playtimeText.text = playedTime.ToString() + " 초";
 
         float comboPoint = 1 + (float)((int)PlayerPrefs.GetInt("maxCombo") / 10) / 10;
+        finalScore = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime);
 
-        pointText.text = (Mathf.Round(PlayerPrefs.GetInt("maxCombo") * comboPoint) + playedTime).ToString() + " 점";
-
+        pointText.text = finalScore.ToString() + " 점";
         if (Input.GetKeyDown(KeyCode.Return) || Floor.isRight== true )
         {
             GameManager.instance.SetGameState(GameState.Menu);

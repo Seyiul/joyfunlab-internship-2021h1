@@ -10201,18 +10201,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3187c833c6106e54facb6071b57475a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceStreamingMode: 0
-  deviceIndex: 0
-  recordingFile: 
-  minDistance: 0.5
-  maxDistance: 10
-  pointCloudResolution: 0
-  pointCloudVertexTexture: {fileID: 0}
-  pointCloudColorTexture: {fileID: 0}
-  pointCloudPlayerList: 
-  frameSourceFlags: 0
-  sensorRotValueY: 0
-  usersFaceBackwards: 0
 --- !u!1 &1582104002 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4103648658623734971, guid: 1313ba361a0fe914c8c94cae1d999732,
@@ -10526,6 +10514,8 @@ MonoBehaviour:
   downButton: {fileID: 1132061147}
   centerButton: {fileID: 1774467988}
   pauseText: {fileID: 747312552}
+  timerBox: {fileID: 1629079157}
+  barHpBox: {fileID: 749140882}
   timer: {fileID: 1495307106}
   hp: {fileID: 266067875}
   pauseMenu: {fileID: 1076643065}

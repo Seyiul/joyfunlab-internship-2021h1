@@ -97,16 +97,7 @@ public class Floor : MonoBehaviour
     //바닥에 표시되는 버튼을 상황에따라 다르게 출력
     void HandleMenu()
     {
-        if(GameManager.instance.GetGameState() == GameState.Battle)
-        {
-            timerBox.SetActive(false);
-            barHpBox.SetActive(false);
-        }
-        else if(GameManager.instance.GetGameState() == GameState.Game)
-        {
-            timerBox.SetActive(true);
-            barHpBox.SetActive(true);
-        }
+        
         //메뉴일때 발판
         if (GameManager.instance.GetGameState() == GameState.Menu)
         {
@@ -172,6 +163,17 @@ public class Floor : MonoBehaviour
             isGame = true;
             isCenter = false;
             pauseMenu.text = "일시정지";
+            if (GameManager.instance.GetGameState() == GameState.Battle)
+            {
+                timerBox.SetActive(false);
+                barHpBox.SetActive(false);
+            }
+            else if (GameManager.instance.GetGameState() == GameState.Game)
+            {
+                timerBox.SetActive(true);
+                barHpBox.SetActive(true);
+            }
+            
         }
         //결과화면 시 발판
         else if ((GameManager.instance.GetGameState() == GameState.Result))

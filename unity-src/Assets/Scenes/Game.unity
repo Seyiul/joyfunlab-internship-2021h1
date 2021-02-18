@@ -506,18 +506,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3187c833c6106e54facb6071b57475a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deviceStreamingMode: 0
-  deviceIndex: 0
-  recordingFile: 
-  minDistance: 0.5
-  maxDistance: 10
-  pointCloudResolution: 0
-  pointCloudVertexTexture: {fileID: 0}
-  pointCloudColorTexture: {fileID: 0}
-  pointCloudPlayerList: 
-  frameSourceFlags: 0
-  sensorRotValueY: 0
-  usersFaceBackwards: 0
 --- !u!1 &71078613
 GameObject:
   m_ObjectHideFlags: 0
@@ -2470,6 +2458,8 @@ MonoBehaviour:
   downButton: {fileID: 1487393619}
   centerButton: {fileID: 950117739}
   pauseText: {fileID: 465916444}
+  timerBox: {fileID: 514859720}
+  barHpBox: {fileID: 200474552}
   timer: {fileID: 634948703}
   hp: {fileID: 2113031566}
   pauseMenu: {fileID: 611443707}
@@ -3790,6 +3780,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9970ba703417360449e07df7019d0734, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreBox: {fileID: 0}
 --- !u!111 &458171591
 Animation:
   m_ObjectHideFlags: 0
