@@ -26,8 +26,12 @@ public class BattleBGM : MonoBehaviour
     {
         if (GameManager.instance.GetGameState() == GameState.Battle)
         {
-            bgm.Play();
-            subtitle.Stop();
+            if (!bgm.isPlaying)
+            {
+                bgm.Play();
+                subtitle.Stop();
+
+            }
         }
         else
         {
