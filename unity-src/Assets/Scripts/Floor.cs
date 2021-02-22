@@ -36,6 +36,7 @@ public class Floor : MonoBehaviour
     public static bool isPause;
     public static bool isEnter;
     public static bool isGame;
+    private bool leftPress, rightPress;
     // Start is called before the first frame update
     void Start()
     {
@@ -51,21 +52,14 @@ public class Floor : MonoBehaviour
 
         timeTimer = 0;
         press = false;
+
+        leftPress = false;
+        rightPress = false;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (press == false)
-        {
-            timeTimer += Time.deltaTime;
-        }
-        //1초에 한번씩 press를 true로 변경
-        if (timeTimer > 1.0)
-        {
-            press = true;
-            timeTimer = 0;
-        }
         HandleMenu();
         if (GameManager.instance.GetKinectState())
         {
@@ -84,15 +78,7 @@ public class Floor : MonoBehaviour
         //현재 체력을 floor canvas 에 보여줌
         hp.text = Player.instance.hp.ToString() + "/" + Player.instance.maxHp.ToString();
     }
-    //중앙 발판 버튼을 밟아야 다른 버튼을 누를 수 있음
-    void HandleCenter()
-    {
-        if ((Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 140) &&
-                (Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
-                new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 140))
-            isCenter = true;
-    }
+    
 
     //바닥에 표시되는 버튼을 상황에따라 다르게 출력
     void HandleMenu()
@@ -214,54 +200,85 @@ public class Floor : MonoBehaviour
         leftMarker.transform.localPosition = new Vector3(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z, 0);
         rightMarker.transform.localPosition = new Vector3(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z, 0);
     }
+    //중앙 발판 버튼을 밟아야 다른 버튼을 누를 수 있음
+    void HandleCenter()
+    {
+        if ((Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 140) &&
+                (Vector2.Distance(new Vector2(centerButton.transform.localPosition.x, centerButton.transform.localPosition.y),
+                new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 140))
+            isCenter = true;
+    }
+    //왼발 오른발 여부(바닥 버튼 터치용)
+    void HandleRightLeft()
+    {
+        if (Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight - 10 && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight - 10)
+            leftPress = true;
+        else if (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight - 10 && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight - 10)
+            rightPress = true;
+    }
     //바닥 타일 버튼 인식
     void HandleKinectClick()
     {
+        if(!leftPress&&!rightPress)
+            HandleRightLeft();
         //키보드 아래 화살표 키와 동일
-        if (((Vector2.Distance(new Vector2(downButton.transform.localPosition.x, downButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107) && press)
-            && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
+        if (((Vector2.Distance(new Vector2(downButton.transform.localPosition.x, downButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107) && rightPress)
+            && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle)
+            &&(Avatar.userPositionRightFoot.y < 72))
         {
             isDown = true;
-            press = false;
+            rightPress = false;
         }
         //키보드 위 화살표 키와 동일
-        else if (((Vector2.Distance(new Vector2(upButton.transform.localPosition.x, upButton.transform.localPosition.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107) && press)
-            && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
+        else if (((Vector2.Distance(new Vector2(upButton.transform.localPosition.x, upButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107) && leftPress)
+            && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle)
+            && (Avatar.userPositionLeftFoot.y < 72))
         {
             isUp = true;
-            press = false;
+            leftPress = false;
         }
         //키보드 오른쪽 화살표 키와 동일 
-        else if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y), new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && press)
-            && (GameManager.instance.GetGameState() == GameState.Setting||GameManager.instance.GetGameState() == GameState.Result))
+        else if ((Vector2.Distance(new Vector2(rightButton.transform.localPosition.x, rightButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 107 && rightPress)
+            && (GameManager.instance.GetGameState() == GameState.Setting||GameManager.instance.GetGameState() == GameState.Result)
+            && (Avatar.userPositionRightFoot.y < 72))
         {
             isRight = true;
-            press = false;
+            rightPress = false;
         }
         //키보드 왼쪽 화살표 키와 동일
-        else if ((Vector2.Distance(new Vector2(leftButton.transform.localPosition.x, leftButton.transform.localPosition.y), new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107 && press)
-            && GameManager.instance.GetGameState() == GameState.Setting)
+        else if ((Vector2.Distance(new Vector2(leftButton.transform.localPosition.x, leftButton.transform.localPosition.y),
+            new Vector2(Avatar.userPositionLeftFoot.x, Avatar.userPositionLeftFoot.z)) < 107 && leftPress)
+            && GameManager.instance.GetGameState() == GameState.Setting
+            && (Avatar.userPositionLeftFoot.y < 72))
         {
             isLeft = true;
-            press = false;
+            leftPress = false;
             
         }
         //키보드 엔터 키와 동일
         else if ((((Avatar.userPositionLeftFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionLeftFoot.x < enterButton.transform.localPosition.x + 158) &&
-            (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61))&&press ||
+            (Avatar.userPositionLeftFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionLeftFoot.z < enterButton.transform.localPosition.y + 61))&&leftPress
+            && (Avatar.userPositionLeftFoot.y < 72) ||
             ((Avatar.userPositionRightFoot.x > enterButton.transform.localPosition.x - 158 && Avatar.userPositionRightFoot.x < enterButton.transform.localPosition.x + 158) &&
-            (Avatar.userPositionRightFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.localPosition.y + 61)) && press)
+            (Avatar.userPositionRightFoot.z > enterButton.transform.localPosition.y - 61 && Avatar.userPositionRightFoot.z < enterButton.transform.localPosition.y + 61)) && rightPress
+            && (Avatar.userPositionRightFoot.y < 72))
             && (GameManager.instance.GetGameState() != GameState.Game) && (GameManager.instance.GetGameState() != GameState.Battle))
         {
             isEnter = true;
-            press = false;
+            leftPress = false;
+            rightPress = false;
         }
         //게임 상 일시정지 기능
         else if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press
+            && (Avatar.userPositionRightFoot.y < 72))
         {
             isPause = true;
-            press = false;
+            rightPress = false;
         }
     }
     //게임상 일시정지 기능과 동일한 함수
