@@ -37,6 +37,11 @@ public class SettingUI : MonoBehaviour
     void Update()
     {
     }
+    void OnEnable()
+    {
+        curBtn = settingBtn.monsterHp;
+        Selected();
+    }
     // 현재 버튼을 하이라이트
     void Selected()
     {
