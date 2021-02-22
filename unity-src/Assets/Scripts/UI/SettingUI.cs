@@ -23,6 +23,16 @@ public class SettingUI : MonoBehaviour
     public Text maxHpText;
     public Text startHpText;
     public Text timeText;
+
+    public GameObject monsterHpLeftArrow;
+    public GameObject monsterHpRightArrow;
+    public GameObject maxHpLeftArrow;
+    public GameObject maxHpRightArrow;
+    public GameObject startHpLeftArrow;
+    public GameObject startHpRightArrow;
+    public GameObject timeLeftArrow;
+    public GameObject timeRightArrow;
+
     settingBtn curBtn;
     public Sprite buttonSelected;
     public Sprite buttonUnselected;
@@ -194,6 +204,50 @@ public class SettingUI : MonoBehaviour
                 GameManager.instance.SetGameState(GameState.Menu);
                 GameManager.instance.SetStateChanged(true);
             }
+        }
+/*        if (ConstInfo.monsterHp == 50)
+            monsterHpLeftArrow.SetActive(false);
+        else if (ConstInfo.monsterHp == 150)
+            monsterHpRightArrow.SetActive(false);
+        else
+        {
+            monsterHpLeftArrow.SetActive(true);
+            monsterHpRightArrow.SetActive(true);
+        }
+*/
+        if(ConstInfo.maxHp == ConstInfo.startHp)
+        {
+            maxHpLeftArrow.SetActive(false);
+            startHpRightArrow.SetActive(false);
+        }
+        else
+        {
+            if (ConstInfo.maxHp == 50)
+                maxHpLeftArrow.SetActive(false);
+            else if (ConstInfo.maxHp == 150)
+                maxHpRightArrow.SetActive(false);
+            else
+            {
+                maxHpLeftArrow.SetActive(true);
+                maxHpRightArrow.SetActive(true);
+            }
+
+            if (ConstInfo.startHp == 10)
+                startHpLeftArrow.SetActive(false);
+            else if(ConstInfo.startHp == ConstInfo.maxHp - 10)
+                startHpRightArrow.SetActive(true);
+            else
+                startHpLeftArrow.SetActive(true);
+        }
+
+        if (ConstInfo.time == 10)
+            timeLeftArrow.SetActive(false);
+        else if (ConstInfo.time == 120)
+            timeRightArrow.SetActive(false);
+        else
+        {
+            timeLeftArrow.SetActive(true);
+            timeRightArrow.SetActive(true);
         }
     }
 }
