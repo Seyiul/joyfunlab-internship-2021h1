@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-//rankpath = "Assets/resources/"
+//rankpath = "Assets/resources/rankdb.txt"
 public class RankDB {
     public static void RankWriter(string rankpath,float[] rankArray)
     {
