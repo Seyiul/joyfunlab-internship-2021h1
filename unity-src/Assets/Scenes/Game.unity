@@ -10481,6 +10481,14 @@ MonoBehaviour:
   maxHpText: {fileID: 1829848612}
   startHpText: {fileID: 260851391}
   timeText: {fileID: 448672413}
+  monsterHpLeftArrow: {fileID: 78777053}
+  monsterHpRightArrow: {fileID: 787177865}
+  maxHpLeftArrow: {fileID: 1151635524}
+  maxHpRightArrow: {fileID: 1039643212}
+  startHpLeftArrow: {fileID: 179933343}
+  startHpRightArrow: {fileID: 1569306329}
+  timeLeftArrow: {fileID: 1339264994}
+  timeRightArrow: {fileID: 101110689}
   buttonSelected: {fileID: 21300000, guid: 49b5126b3ba993b4d8ea4988e5128c67, type: 3}
   buttonUnselected: {fileID: 21300000, guid: 861b70623dd03b5409faedc2464d25ad, type: 3}
 --- !u!114 &1439027358

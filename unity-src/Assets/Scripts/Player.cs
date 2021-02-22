@@ -237,6 +237,7 @@ public class Player : MonoBehaviour
             HandlePlayerLocation(PlayerLocation.Center);
         }
     }
+    
     // 결음 기록 조건 만족 시 함수 호출
     void HandleSteps()
     {
