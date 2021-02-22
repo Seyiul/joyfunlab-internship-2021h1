@@ -101,7 +101,7 @@ public class HandleDamage : MonoBehaviour
                 animator.SetTrigger("hit");
                 StartCoroutine(EffectHanlder());
                 playerBox.GetComponent<Animator>().SetTrigger("size");
-                PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - 0.1f);
+                PlayerHealthbarHandler.SetHealthBarValue(PlayerHealthbarHandler.GetHealthBarValue() - (0.1f * 100/ConstInfo.monsterHp));
                 StartCoroutine(HandleHitAnim());
             }
 
@@ -121,8 +121,8 @@ public class HandleDamage : MonoBehaviour
                         if (punchTime <= 210)
                         {
                             monsterBox.GetComponent<Animator>().SetTrigger("size");
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
                             anim.SetTrigger("damaged");
                             GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                             text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -132,7 +132,7 @@ public class HandleDamage : MonoBehaviour
                         else if (210 < punchTime && punchTime <= 250)
                         {
                             monsterBox.GetComponent<Animator>().SetTrigger("size");
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
                             anim.SetTrigger("damaged");
                             GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                             text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -142,7 +142,7 @@ public class HandleDamage : MonoBehaviour
                         else if (250 < punchTime && punchTime <= 350)
                         {
                             monsterBox.GetComponent<Animator>().SetTrigger("size");
-                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
+                            HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.05f * 100 / ConstInfo.monsterHp));
                             anim.SetTrigger("damaged");
                             GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                             text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -175,8 +175,8 @@ public class HandleDamage : MonoBehaviour
                             if (kickTime <= 210)
                             {
                                 monsterBox.GetComponent<Animator>().SetTrigger("size");
-                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
-                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
                                 anim.SetTrigger("damaged");
                                 GameObject text = Instantiate(perfectText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                                 text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -184,7 +184,7 @@ public class HandleDamage : MonoBehaviour
                             else if (210 < kickTime && kickTime <= 250)
                             {
                                 monsterBox.GetComponent<Animator>().SetTrigger("size");
-                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.1f);
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.1f * 100 / ConstInfo.monsterHp));
                                 anim.SetTrigger("damaged");
                                 GameObject text = Instantiate(greatText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                                 text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
@@ -193,7 +193,7 @@ public class HandleDamage : MonoBehaviour
                             else if (250 < kickTime && kickTime <= 350)
                             {
                                 monsterBox.GetComponent<Animator>().SetTrigger("size");
-                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - 0.05f);
+                                HealthBarHandler.SetHealthBarValue(HealthBarHandler.GetHealthBarValue() - (0.05f * 100 / ConstInfo.monsterHp));
                                 anim.SetTrigger("damaged");
                                 GameObject text = Instantiate(goodText, new Vector3(0, 0, 0), Quaternion.identity) as GameObject;
                                 text.transform.SetParent(GameObject.FindGameObjectWithTag("Canvas").transform, false);
