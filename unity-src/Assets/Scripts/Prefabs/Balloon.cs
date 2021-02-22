@@ -8,7 +8,7 @@ public class Balloon : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = transform.Find("balloon").gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -19,6 +19,10 @@ public class Balloon : MonoBehaviour
     // 펀치 당하면 날아가는 애니메이션
     public void GoAway()
     {
-        animator.SetBool("isPunched",true);
+        animator.SetTrigger("isPunched");
+    }
+    public void Boom()
+    {
+        animator.SetTrigger("boom");
     }
 }

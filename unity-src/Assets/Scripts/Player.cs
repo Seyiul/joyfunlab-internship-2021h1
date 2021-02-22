@@ -464,6 +464,7 @@ public class Player : MonoBehaviour
                 else
                     hp -= 5;
                 gameCanvas.DisplayHpDecrease();
+                col.gameObject.GetComponent<Balloon>().Boom();
                 HandlePlayerStumbling();
             }
         }

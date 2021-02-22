@@ -1,5 +1,24 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!95 &2066263047823947668
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 974400028842168003}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 28a58414e4f12f041829297a2f69ce2c, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &5471411465510363513
 GameObject:
   m_ObjectHideFlags: 0
@@ -13,7 +32,6 @@ GameObject:
   - component: {fileID: 6113303408479863876}
   - component: {fileID: 4170575869530833369}
   - component: {fileID: 8466127422131918536}
-  - component: {fileID: 3064669565281942509}
   m_Layer: 0
   m_Name: JoyRunBalloon
   m_TagString: Balloon Tile
@@ -108,25 +126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5dce6681eef3e0046bb9c501149c8bba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!95 &3064669565281942509
-Animator:
-  serializedVersion: 3
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5471411465510363513}
-  m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 00fa7b08c53120f42955875fa2291b71, type: 3}
-  m_Controller: {fileID: 9100000, guid: e53e3f3413c42d243bd67525d76be3bf, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1001 &9125470145153325002
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -219,8 +218,15 @@ PrefabInstance:
       propertyPath: m_Name
       value: balloon
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: -6057140222963153312, guid: 00fa7b08c53120f42955875fa2291b71, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 00fa7b08c53120f42955875fa2291b71, type: 3}
+--- !u!1 &974400028842168003 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -927199367670048503, guid: 00fa7b08c53120f42955875fa2291b71,
+    type: 3}
+  m_PrefabInstance: {fileID: 9125470145153325002}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4314055303387839696 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4216859302048453862, guid: 00fa7b08c53120f42955875fa2291b71,
