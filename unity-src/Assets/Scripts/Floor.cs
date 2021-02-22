@@ -212,9 +212,9 @@ public class Floor : MonoBehaviour
     //왼발 오른발 여부(바닥 버튼 터치용)
     void HandleRightLeft()
     {
-        if (Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight - 10 && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight - 10)
+        if (Avatar.userPositionLeftFoot.y > ConstInfo.stepHeight - 30 && Avatar.userPositionRightFoot.y < ConstInfo.stepHeight - 30)
             leftPress = true;
-        else if (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight - 10 && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight - 10)
+        else if (Avatar.userPositionRightFoot.y > ConstInfo.stepHeight - 30 && Avatar.userPositionLeftFoot.y < ConstInfo.stepHeight - 30)
             rightPress = true;
     }
     //바닥 타일 버튼 인식
