@@ -10201,6 +10201,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3187c833c6106e54facb6071b57475a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  deviceStreamingMode: 1
+  deviceIndex: 0
+  recordingFile: 
+  minDistance: 0.5
+  maxDistance: 10
+  pointCloudResolution: 0
+  pointCloudVertexTexture: {fileID: 0}
+  pointCloudColorTexture: {fileID: 0}
+  pointCloudPlayerList: 
+  frameSourceFlags: 0
+  sensorRotValueY: 0
+  usersFaceBackwards: 0
 --- !u!1 &1582104002 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4103648658623734971, guid: 1313ba361a0fe914c8c94cae1d999732,
@@ -10219,6 +10231,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 698e835736d87f74d877f41b1d8a3766, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  maxHpText: {fileID: 2074557636}
 --- !u!1 &1593454983
 GameObject:
   m_ObjectHideFlags: 0
@@ -12043,6 +12056,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2062314615}
   m_CullTransparentMesh: 0
+--- !u!114 &2074557636 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8901936731220978275, guid: 1313ba361a0fe914c8c94cae1d999732,
+    type: 3}
+  m_PrefabInstance: {fileID: 1891999991}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &2106978861
 PrefabInstance:
   m_ObjectHideFlags: 0

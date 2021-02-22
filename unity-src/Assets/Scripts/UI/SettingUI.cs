@@ -120,6 +120,18 @@ public class SettingUI : MonoBehaviour
             if (curBtn == settingBtn.monsterHp)
             {
                 //몬스터 체력 하향 코드,텍스트 변환 코드
+                monsterHpBtn.transform.GetChild(3).gameObject.SetActive(true);
+                //몬스터 체력 상향 코드,텍스트 변환 코드
+                if (ConstInfo.monsterHp > 100)
+                {
+                    ConstInfo.monsterHp -= 50;
+                    monsterHpText.text = ConstInfo.monsterHp.ToString();
+                }
+                if (ConstInfo.monsterHp == 100)
+                {
+                    monsterHpBtn.transform.GetChild(2).gameObject.SetActive(false);
+
+                }
             }
             else if (curBtn == settingBtn.maxHp)
             {
@@ -160,7 +172,17 @@ public class SettingUI : MonoBehaviour
             // ConstInfo에 있는 설정값들을 조정
             if (curBtn == settingBtn.monsterHp)
             {
+                monsterHpBtn.transform.GetChild(2).gameObject.SetActive(true);
                 //몬스터 체력 상향 코드,텍스트 변환 코드
+                if (ConstInfo.monsterHp < 500)
+                {
+                    ConstInfo.monsterHp += 50;
+                    monsterHpText.text = ConstInfo.monsterHp.ToString();
+                }
+                if(ConstInfo.monsterHp == 500)
+                {
+                    monsterHpBtn.transform.GetChild(3).gameObject.SetActive(false);
+                }
             }
             else if (curBtn == settingBtn.maxHp)
             {
@@ -205,16 +227,7 @@ public class SettingUI : MonoBehaviour
                 GameManager.instance.SetStateChanged(true);
             }
         }
-/*        if (ConstInfo.monsterHp == 50)
-            monsterHpLeftArrow.SetActive(false);
-        else if (ConstInfo.monsterHp == 150)
-            monsterHpRightArrow.SetActive(false);
-        else
-        {
-            monsterHpLeftArrow.SetActive(true);
-            monsterHpRightArrow.SetActive(true);
-        }
-*/
+
         if(ConstInfo.maxHp == ConstInfo.startHp)
         {
             maxHpLeftArrow.SetActive(false);

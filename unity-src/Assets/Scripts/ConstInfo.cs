@@ -47,4 +47,7 @@ public class ConstInfo : MonoBehaviour
     public static float time = 0;
     public static int startHp = 0;
     public static int maxHp = 0;
+
+    public static int monsterHp = 100;
+
 }

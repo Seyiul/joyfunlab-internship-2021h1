@@ -223,6 +223,7 @@
      <Compile Include="Assets\Scripts\Prefabs\Balloon.cs" />
      <Compile Include="Assets\Scripts\Prefabs\Heart.cs" />
      <Compile Include="Assets\Scripts\Prefabs\Hurdle.cs" />
+     <Compile Include="Assets\Scripts\RankDB.cs" />
      <Compile Include="Assets\Scripts\Tile.cs" />
      <Compile Include="Assets\Scripts\TileGenerator.cs" />
      <Compile Include="Assets\Scripts\UI\GameCanvas.cs" />
@@ -630,19 +631,19 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/Managed/UnityEditor.dll</HintPath>
  </Reference>
  <Reference Include="LZ4Sharp">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Assets/AzureKinectExamples/KinectScripts/LZ4Sharp/LZ4Sharp.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Assets/AzureKinectExamples/KinectScripts/LZ4Sharp/LZ4Sharp.dll</HintPath>
  </Reference>
  <Reference Include="Microsoft.Azure.Kinect.Sensor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/Kinect4AzureSDK/Plugins/Microsoft.Azure.Kinect.Sensor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/Kinect4AzureSDK/Plugins/Microsoft.Azure.Kinect.Sensor.dll</HintPath>
  </Reference>
  <Reference Include="System.Runtime.CompilerServices.Unsafe">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/Kinect4AzureSDK/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/Kinect4AzureSDK/Plugins/System.Runtime.CompilerServices.Unsafe.dll</HintPath>
  </Reference>
  <Reference Include="Kinect2UnityWrapper">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/KinectSDK2.0/Plugins/Kinect2UnityWrapper.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/KinectSDK2.0/Plugins/Kinect2UnityWrapper.dll</HintPath>
  </Reference>
  <Reference Include="Intel.RealSense">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/RealSenseSDK2.0/Plugins/Intel.RealSense.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Assets/AzureKinectExamples/SDK/RealSenseSDK2.0/Plugins/Intel.RealSense.dll</HintPath>
  </Reference>
  <Reference Include="mscorlib">
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/MonoBleedingEdge/lib/mono/4.7.1-api/mscorlib.dll</HintPath>
@@ -999,31 +1000,31 @@
  <HintPath>C:/Program Files/Unity/Hub/Editor/2019.4.12f1/Editor/Data/MonoBleedingEdge/lib/mono/unityscript/Boo.Lang.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline.Editor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.VSCode.Editor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.VSCode.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro.Editor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.TextMeshPro.Editor.dll</HintPath>
  </Reference>
  <Reference Include="UnityEngine.UI">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/UnityEngine.UI.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Timeline">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Timeline.dll</HintPath>
  </Reference>
  <Reference Include="Unity.CollabProxy.Editor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.CollabProxy.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.Rider.Editor">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.Rider.Editor.dll</HintPath>
  </Reference>
  <Reference Include="Unity.TextMeshPro">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/Unity.TextMeshPro.dll</HintPath>
  </Reference>
  <Reference Include="UnityEditor.UI">
- <HintPath>C:/Users/asdlt/Desktop/internship-2021h1/unity-src/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
+ <HintPath>C:/Users/asdlt/Desktop/JOYRUN/internship-2021h1/unity-src/Library/ScriptAssemblies/UnityEditor.UI.dll</HintPath>
  </Reference>
   </ItemGroup>
   <ItemGroup>
