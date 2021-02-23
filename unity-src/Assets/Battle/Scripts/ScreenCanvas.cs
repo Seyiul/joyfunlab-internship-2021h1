@@ -20,16 +20,15 @@ public class ScreenCanvas : MonoBehaviour
     {
         if (GameManager.instance.GetGameState() == GameState.Result)
         {
-            //if (GameManager.instance.GetStateChanged())
-                result.SetActive(true);
+            result.SetActive(true);
             result.GetComponent<ResultUI>().ShowBattleResult();
 
         }
         else if (GameManager.instance.GetGameState() == GameState.Pause)
         {
             // 퍼즈 상태로 방금 전환되었으면 퍼즈 UI를 켬
-            //if (GameManager.instance.GetStateChanged())
-                pause.SetActive(true);
+
+            pause.SetActive(true);
 
             // 퍼즈 UI의 입력에 대한 이벤트 핸들
             pause.GetComponent<BattlePauseUI>().MenuHandle();
@@ -39,5 +38,5 @@ public class ScreenCanvas : MonoBehaviour
             pause.SetActive(false);
         }
     }
-   
+
 }

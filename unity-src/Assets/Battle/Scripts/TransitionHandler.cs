@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 
-public class BackToGame : MonoBehaviour
+public class TransitionHandler : MonoBehaviour
 {
     //TODO: 전환될 화면 인덱스
     public int sceneIndex;
