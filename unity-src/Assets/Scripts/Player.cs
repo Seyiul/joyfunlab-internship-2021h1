@@ -488,6 +488,7 @@ public class Player : MonoBehaviour
             transition.GetComponent<Animator>().SetBool("animateIn", true);
             StartCoroutine(SceneLoad());
         }
+        col.gameObject.GetComponent<BoxCollider>().enabled = false;
     }
 
     // 점프 조건 (이전 프레임보다 양 발 모두 jumpHeight 이상 증가 + 발높이 차가 0.3 이하 + 양발의 x변화량이 5 미만)
