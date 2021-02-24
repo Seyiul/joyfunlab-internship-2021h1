@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
 
     // 인스턴스 변수 선언
     public static Player instance;
-
+     
     // 애니매이터 변수 선언
     Animator animator;
     // 걸음 관련 변수 선언
@@ -173,8 +173,11 @@ public class Player : MonoBehaviour
     // 걸음 시간 측정 (+ fixedDeltaTime)
     private void FixedUpdate()
     {
-        stepRecordTime += Time.fixedDeltaTime;
-        decreaseSpeedTimer += Time.fixedDeltaTime;
+        if (!isJumping)
+        {
+            stepRecordTime += Time.fixedDeltaTime;
+            decreaseSpeedTimer += Time.fixedDeltaTime;
+        }
     }
     void Update()
     {
