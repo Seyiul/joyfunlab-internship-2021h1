@@ -285,6 +285,8 @@ public class Floor : MonoBehaviour
     //Update() 에서 보기 편하게 하기 위해 만듬
     void HandleKinectPause()
     {
+        if (!rightPress)
+            HandleRightLeft();
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
             new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && rightPress)
         {
