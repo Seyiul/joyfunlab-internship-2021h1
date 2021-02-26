@@ -274,7 +274,7 @@ public class Floor : MonoBehaviour
         }
         //게임 상 일시정지 기능
         else if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && rightPress
             && (Avatar.userPositionRightFoot.y < 72))
         {
             isPause = true;
@@ -286,10 +286,10 @@ public class Floor : MonoBehaviour
     void HandleKinectPause()
     {
         if ((Vector2.Distance(new Vector2(pauseButton.transform.localPosition.x, pauseButton.transform.localPosition.y),
-            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && press)
+            new Vector2(Avatar.userPositionRightFoot.x, Avatar.userPositionRightFoot.z)) < 76) && rightPress)
         {
             isPause = true;
-            press = false;
+            rightPress = false;
         }
     }
 }
