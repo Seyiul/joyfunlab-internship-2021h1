@@ -2,7 +2,7 @@
 
 
 > ### JoyRun 미니게임 제작
-> ###### 가천대학교 동계 산학과제 
+> ###### Joyfun 단기현장실습 동계산학과제 
 
 <img src = "https://github.com/Seyiul/joyfunlab-internship-2021h1/blob/working/docs/img/slide%20(1).JPG?raw=true">
 
